@@ -1,0 +1,100 @@
+PODS:
+  - CocoaLumberjack (2.4.0):
+    - CocoaLumberjack/Default (= 2.4.0)
+    - CocoaLumberjack/Extensions (= 2.4.0)
+  - CocoaLumberjack/Core (2.4.0)
+  - CocoaLumberjack/Default (2.4.0):
+    - CocoaLumberjack/Core
+  - CocoaLumberjack/Extensions (2.4.0):
+    - CocoaLumberjack/Default
+  - FMDB/SQLCipher (2.7.2):
+    - SQLCipher
+  - PromiseKit (5.0.0):
+    - PromiseKit/CorePromise (= 5.0.0)
+  - PromiseKit/CorePromise (5.0.0)
+  - SalesforceAnalytics (6.0.0):
+    - SalesforceAnalytics/SalesforceAnalytics (= 6.0.0)
+  - SalesforceAnalytics/SalesforceAnalytics (6.0.0):
+    - CocoaLumberjack (~> 2.4.0)
+  - SalesforceSDKCore (6.0.0):
+    - SalesforceSDKCore/SalesforceSDKCore (= 6.0.0)
+  - SalesforceSDKCore/SalesforceSDKCore (6.0.0):
+    - SalesforceAnalytics
+    - SalesforceSDKCore/SalesforceSDKCore/arc (= 6.0.0)
+    - SalesforceSDKCore/SalesforceSDKCore/base (= 6.0.0)
+    - SalesforceSDKCore/SalesforceSDKCore/no-arc (= 6.0.0)
+  - SalesforceSDKCore/SalesforceSDKCore/arc (6.0.0):
+    - SalesforceAnalytics
+    - SalesforceSDKCore/SalesforceSDKCore/base
+    - SalesforceSDKCore/SalesforceSDKCore/no-arc
+  - SalesforceSDKCore/SalesforceSDKCore/base (6.0.0):
+    - SalesforceAnalytics
+  - SalesforceSDKCore/SalesforceSDKCore/no-arc (6.0.0):
+    - SalesforceAnalytics
+    - SalesforceSDKCore/SalesforceSDKCore/base
+  - SalesforceSwiftSDK (6.0.0):
+    - SalesforceSwiftSDK/SalesforceSwiftSDK (= 6.0.0)
+  - SalesforceSwiftSDK/SalesforceSwiftSDK (6.0.0):
+    - PromiseKit (~> 5.0)
+    - SmartSync
+  - SmartStore (6.0.0):
+    - SmartStore/SmartStore (= 6.0.0)
+  - SmartStore/SmartStore (6.0.0):
+    - FMDB/SQLCipher (~> 2.7.2)
+    - SalesforceSDKCore
+    - SQLCipher/fts (~> 3.4.1)
+  - SmartSync (6.0.0):
+    - SmartSync/SmartSync (= 6.0.0)
+  - SmartSync/SmartSync (6.0.0):
+    - SalesforceSDKCore
+    - SmartStore
+  - SQLCipher (3.4.2):
+    - SQLCipher/standard (= 3.4.2)
+  - SQLCipher/common (3.4.2)
+  - SQLCipher/fts (3.4.2):
+    - SQLCipher/common
+  - SQLCipher/standard (3.4.2):
+    - SQLCipher/common
+
+DEPENDENCIES:
+  - PromiseKit (from `https://github.com/mxcl/PromiseKit`, tag `5.0.3`)
+  - SalesforceAnalytics (from `mobile_sdk/SalesforceMobileSDK-iOS`)
+  - SalesforceSDKCore (from `mobile_sdk/SalesforceMobileSDK-iOS`)
+  - SalesforceSwiftSDK (from `mobile_sdk/SalesforceMobileSDK-iOS`)
+  - SmartStore (from `mobile_sdk/SalesforceMobileSDK-iOS`)
+  - SmartSync (from `mobile_sdk/SalesforceMobileSDK-iOS`)
+
+EXTERNAL SOURCES:
+  PromiseKit:
+    :git: https://github.com/mxcl/PromiseKit
+    :tag: 5.0.3
+  SalesforceAnalytics:
+    :path: mobile_sdk/SalesforceMobileSDK-iOS
+  SalesforceSDKCore:
+    :path: mobile_sdk/SalesforceMobileSDK-iOS
+  SalesforceSwiftSDK:
+    :path: mobile_sdk/SalesforceMobileSDK-iOS
+  SmartStore:
+    :path: mobile_sdk/SalesforceMobileSDK-iOS
+  SmartSync:
+    :path: mobile_sdk/SalesforceMobileSDK-iOS
+
+CHECKOUT OPTIONS:
+  PromiseKit:
+    :git: https://github.com/mxcl/PromiseKit
+    :tag: 5.0.3
+
+SPEC CHECKSUMS:
+  CocoaLumberjack: aa9dcab71bdf9eaf2a63bbd9ddc87863efe45457
+  FMDB: 6198a90e7b6900cfc046e6bc0ef6ebb7be9236aa
+  PromiseKit: 8297c4e85ac240748007c91ada1ccbccceaf1e66
+  SalesforceAnalytics: 0c5f8a02bfad0db57293fa760d477743d35d620a
+  SalesforceSDKCore: 642e246d11971146cc0e7a611cd5e3cbd716dcbb
+  SalesforceSwiftSDK: 1454a769a1f68a384cb2c2d5005c732ee5873b28
+  SmartStore: 1428321c34a9a3e8105b1837ca7c157a608d577c
+  SmartSync: 24a6856339c14726c4d6ebaf7a57c05306696312
+  SQLCipher: f9fcf29b2e59ced7defc2a2bdd0ebe79b40d4990
+
+PODFILE CHECKSUM: e028f8d5157dba6914a89826512aa7e21d30482f
+
+COCOAPODS: 1.2.0
