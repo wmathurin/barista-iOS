@@ -1,36 +1,21 @@
-/*
- Copyright (c) 2015-present, salesforce.com, inc. All rights reserved.
- 
- Redistribution and use of this software in source and binary forms, with or without modification,
- are permitted provided that the following conditions are met:
- * Redistributions of source code must retain the above copyright notice, this list of conditions
- and the following disclaimer.
- * Redistributions in binary form must reproduce the above copyright notice, this list of
- conditions and the following disclaimer in the documentation and/or other materials provided
- with the distribution.
- * Neither the name of salesforce.com, inc. nor the names of its contributors may be used to
- endorse or promote products derived from this software without specific prior written
- permission of salesforce.com, inc.
- 
- THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
- IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
- FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
- CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
- WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
+//
+//  AppDelegate.swift
+//  Consumer
+//
+//  Created by Nicholas McDonald on 1/25/18.
+//  Copyright © 2018 Salesforce. All rights reserved.
+//
 
-import Foundation
 import UIKit
+import Foundation
 import SalesforceSDKCore
 import SalesforceSwiftSDK
 
 // Fill these in when creating a new Connected Application on Force.com
 let RemoteAccessConsumerKey = "3MVG967gVD5fuTmLSNUBDnHQNf4_hA__QWsqvQ2d.uaT1z27F9vP1dOULQGoTHpB2LcejQyCEe4UVpjNxnVRf";
-let OAuthRedirectURI        = "barista:///mobilesdk/detect/oauth/done";
+let OAuthRedirectURI        = "com.salesforce.barista.Consumer://oauth2/success";
 
+@UIApplicationMain
 class AppDelegate : UIResponder, UIApplicationDelegate
 {
     var window: UIWindow?
@@ -41,36 +26,36 @@ class AppDelegate : UIResponder, UIApplicationDelegate
         super.init()
         
         SalesforceSwiftSDKManager.initSDK()
-        .Builder.configure { (appconfig: SFSDKAppConfig) -> Void in
-            appconfig.oauthScopes = ["web", "api"]
-            appconfig.remoteAccessConsumerKey = RemoteAccessConsumerKey
-            appconfig.oauthRedirectURI = OAuthRedirectURI
-        }.postInit {
-            //Uncomment the following line inorder to enable/force the use of advanced authentication flow.
-            // SFUserAccountManager.sharedInstance().advancedAuthConfiguration = SFOAuthAdvancedAuthConfiguration.require;
-            // OR
-            // To  retrieve advanced auth configuration from the org, to determine whether to initiate advanced authentication.
-            // SFUserAccountManager.sharedInstance().advancedAuthConfiguration = SFOAuthAdvancedAuthConfiguration.allow;
-            
-            // NOTE: If advanced authentication is configured or forced,  it will launch Safari to handle authentication
-            // instead of a webview. You must implement application:openURL:options  to handle the callback.
-        }
-        .postLaunch {  [unowned self] (launchActionList: SFSDKLaunchAction) in
-            let launchActionString = SalesforceSDKManager.launchActionsStringRepresentation(launchActionList)
-            SalesforceSwiftLogger.log(type(of:self), level:.info, message:"Post-launch: launch actions taken: \(launchActionString)")
+            .Builder.configure { (appconfig: SFSDKAppConfig) -> Void in
+                appconfig.oauthScopes = ["web", "api"]
+                appconfig.remoteAccessConsumerKey = RemoteAccessConsumerKey
+                appconfig.oauthRedirectURI = OAuthRedirectURI
+            }.postInit {
+                //Uncomment the following line inorder to enable/force the use of advanced authentication flow.
+                // SFUserAccountManager.sharedInstance().advancedAuthConfiguration = SFOAuthAdvancedAuthConfiguration.require;
+                // OR
+                // To  retrieve advanced auth configuration from the org, to determine whether to initiate advanced authentication.
+                // SFUserAccountManager.sharedInstance().advancedAuthConfiguration = SFOAuthAdvancedAuthConfiguration.allow;
+                
+                // NOTE: If advanced authentication is configured or forced,  it will launch Safari to handle authentication
+                // instead of a webview. You must implement application:openURL:options  to handle the callback.
+            }
+            .postLaunch {  [unowned self] (launchActionList: SFSDKLaunchAction) in
+                let launchActionString = SalesforceSDKManager.launchActionsStringRepresentation(launchActionList)
+                SalesforceSwiftLogger.log(type(of:self), level:.info, message:"Post-launch: launch actions taken: \(launchActionString)")
                 self.setupRootViewController()
-            
-        }.postLogout {  [unowned self] in
-            self.handleSdkManagerLogout()
-        }.switchUser{ [unowned self] (fromUser: SFUserAccount?, toUser: SFUserAccount?) -> () in
-            self.handleUserSwitch(fromUser, toUser: toUser)
-        }.launchError {  [unowned self] (error: Error, launchActionList: SFSDKLaunchAction) in
-            SFSDKLogger.log(type(of:self), level:.error, message:"Error during SDK launch: \(error.localizedDescription)")
-            self.initializeAppViewState()
-            SalesforceSDKManager.shared().launch()
-        }
-        .done()
-   
+                
+            }.postLogout {  [unowned self] in
+                self.handleSdkManagerLogout()
+            }.switchUser{ [unowned self] (fromUser: SFUserAccount?, toUser: SFUserAccount?) -> () in
+                self.handleUserSwitch(fromUser, toUser: toUser)
+            }.launchError {  [unowned self] (error: Error, launchActionList: SFSDKLaunchAction) in
+                SFSDKLogger.log(type(of:self), level:.error, message:"Error during SDK launch: \(error.localizedDescription)")
+                self.initializeAppViewState()
+                SalesforceSDKManager.shared().launch()
+            }
+            .done()
+        
     }
     
     // MARK: - App delegate lifecycle
@@ -113,24 +98,24 @@ class AppDelegate : UIResponder, UIApplicationDelegate
         //    SFPushNotificationManager.sharedInstance().registerForSalesforceNotifications()
         // }
     }
-
-
+    
+    
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error )
     {
         // Respond to any push notification registration errors here.
     }
-
+    
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-
+        
         // If you're using advanced authentication:
         // --Configure your app to handle incoming requests to your
         //   OAuth Redirect URI custom URL scheme.
         // --Uncomment the following line and delete the original return statement:
-
+        
         // return  SFUserAccountManager.sharedInstance().handleAdvancedAuthenticationResponse(url, options: options)
         return false;
     }
-
+    
     // MARK: - Private methods
     func initializeAppViewState()
     {
@@ -160,16 +145,16 @@ class AppDelegate : UIResponder, UIApplicationDelegate
                 return
             }
         }
-
+        
         postResetBlock()
     }
-
+    
     func handleSdkManagerLogout()
     {
         SFSDKLogger.log(type(of:self), level:.debug, message: "SFUserAccountManager logged out.  Resetting app.")
         self.resetViewState { () -> () in
             self.initializeAppViewState()
-
+            
             // Multi-user pattern:
             // - If there are two or more existing accounts after logout, let the user choose the account
             //   to switch to.
@@ -211,3 +196,4 @@ class AppDelegate : UIResponder, UIApplicationDelegate
         }
     }
 }
+
