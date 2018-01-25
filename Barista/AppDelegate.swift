@@ -28,8 +28,8 @@ import SalesforceSDKCore
 import SalesforceSwiftSDK
 
 // Fill these in when creating a new Connected Application on Force.com
-let RemoteAccessConsumerKey = "3MVG9Iu66FKeHhINkB1l7xt7kR8czFcCTUhgoA8Ol2Ltf1eYHOU4SqQRSEitYFDUpqRWcoQ2.dBv_a1Dyu5xa";
-let OAuthRedirectURI        = "testsfdc:///mobilesdk/detect/oauth/done";
+let RemoteAccessConsumerKey = "3MVG967gVD5fuTmLSNUBDnHQNf4_hA__QWsqvQ2d.uaT1z27F9vP1dOULQGoTHpB2LcejQyCEe4UVpjNxnVRf";
+let OAuthRedirectURI        = "barista:///mobilesdk/detect/oauth/done";
 
 class AppDelegate : UIResponder, UIApplicationDelegate
 {
