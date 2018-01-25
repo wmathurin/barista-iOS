@@ -63,26 +63,16 @@ DEPENDENCIES:
   - PromiseKit (from `https://github.com/mxcl/PromiseKit`, tag `5.0.3`)
   - RxCocoa (~> 4.1)
   - RxSwift (~> 4.1)
-  - SalesforceAnalytics (from `mobile_sdk/SalesforceMobileSDK-iOS`)
-  - SalesforceSDKCore (from `mobile_sdk/SalesforceMobileSDK-iOS`)
-  - SalesforceSwiftSDK (from `mobile_sdk/SalesforceMobileSDK-iOS`)
-  - SmartStore (from `mobile_sdk/SalesforceMobileSDK-iOS`)
-  - SmartSync (from `mobile_sdk/SalesforceMobileSDK-iOS`)
+  - SalesforceAnalytics
+  - SalesforceSDKCore
+  - SalesforceSwiftSDK
+  - SmartStore
+  - SmartSync
 
 EXTERNAL SOURCES:
   PromiseKit:
     :git: https://github.com/mxcl/PromiseKit
     :tag: 5.0.3
-  SalesforceAnalytics:
-    :path: mobile_sdk/SalesforceMobileSDK-iOS
-  SalesforceSDKCore:
-    :path: mobile_sdk/SalesforceMobileSDK-iOS
-  SalesforceSwiftSDK:
-    :path: mobile_sdk/SalesforceMobileSDK-iOS
-  SmartStore:
-    :path: mobile_sdk/SalesforceMobileSDK-iOS
-  SmartSync:
-    :path: mobile_sdk/SalesforceMobileSDK-iOS
 
 CHECKOUT OPTIONS:
   PromiseKit:
@@ -95,13 +85,13 @@ SPEC CHECKSUMS:
   PromiseKit: 8297c4e85ac240748007c91ada1ccbccceaf1e66
   RxCocoa: fd0862fd2df95fa55562ad28ffd2522c25eb4a85
   RxSwift: c6e3b1c7b325c7d121cd4327e9d98b7ed746b570
-  SalesforceAnalytics: 0c5f8a02bfad0db57293fa760d477743d35d620a
-  SalesforceSDKCore: 642e246d11971146cc0e7a611cd5e3cbd716dcbb
-  SalesforceSwiftSDK: 1454a769a1f68a384cb2c2d5005c732ee5873b28
-  SmartStore: 1428321c34a9a3e8105b1837ca7c157a608d577c
-  SmartSync: 24a6856339c14726c4d6ebaf7a57c05306696312
+  SalesforceAnalytics: fdfc2cca5c1b25897bf66e022b045b905bc5eb30
+  SalesforceSDKCore: ab5786e65f71249de2a34876de5cfc588efb8aa4
+  SalesforceSwiftSDK: 378260b939b117cd67d6754a8226518fe5070272
+  SmartStore: a3e5b58ddf5233854ba232d18c5dbe6f8382a6e7
+  SmartSync: 65409c3bf2b6f4ac9a97008e275798913d386543
   SQLCipher: f9fcf29b2e59ced7defc2a2bdd0ebe79b40d4990
 
-PODFILE CHECKSUM: 6027a6a22f28b8e98239713aa9c286b1443e62ee
+PODFILE CHECKSUM: 00cd275a9637fd84737349ecff1399029e0dbcb6
 
 COCOAPODS: 1.2.0
