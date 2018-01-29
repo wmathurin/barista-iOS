@@ -15,6 +15,8 @@ def barista_pods
   pod 'PromiseKit', :git => 'https://github.com/mxcl/PromiseKit', :tag => '5.0.3'
   pod 'RxSwift', '~> 4.1'
   pod 'RxCocoa', '~> 4.1'
+  pod 'Fabric'
+  pod 'Crashlytics'
 end
 
 target 'Consumer' do
