@@ -20,7 +20,7 @@ class RootViewController: UITableViewController {
     {
         super.loadView()
         self.title = "Mobile SDK Sample App"
-        let restApi = SFRestAPI.sharedInstance()
+//        let restApi = SFRestAPI.sharedInstance()
         
         
         CategoryStore.instance.syncDown { (syncState) in
