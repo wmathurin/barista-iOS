@@ -10,6 +10,8 @@ import UIKit
 import Foundation
 import SalesforceSDKCore
 import SalesforceSwiftSDK
+import Fabric
+import Crashlytics
 
 // Fill these in when creating a new Connected Application on Force.com
 let RemoteAccessConsumerKey = "3MVG967gVD5fuTmLSNUBDnHQNf4_hA__QWsqvQ2d.uaT1z27F9vP1dOULQGoTHpB2LcejQyCEe4UVpjNxnVRf";
@@ -83,6 +85,8 @@ class AppDelegate : UIResponder, UIApplicationDelegate
         //SFUserAccountManager.sharedInstance().loginViewControllerConfig = loginViewConfig
         
         SalesforceSwiftSDKManager.shared().launch()
+        
+        Fabric.with([Crashlytics.self])
         return true
     }
     
