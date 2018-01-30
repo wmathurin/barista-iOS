@@ -54,8 +54,8 @@
 		EEA6EC842020E5CC00E04FFD /* CategoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryStore.swift; sourceTree = "<group>"; };
 		EEA6EC862021119C00E04FFD /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		EEA6EC88202111A200E04FFD /* ProductStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductStore.swift; sourceTree = "<group>"; };
-		EEA6EC8D202112DC00E04FFD /* RootStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = RootStoryboard.storyboard; path = Consumer/Model/RootStoryboard.storyboard; sourceTree = SOURCE_ROOT; };
-		EEA6EC8F2021166C00E04FFD /* OrderMain.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = OrderMain.storyboard; path = Consumer/Model/OrderMain.storyboard; sourceTree = SOURCE_ROOT; };
+		EEA6EC8D202112DC00E04FFD /* RootStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = RootStoryboard.storyboard; path = Consumer/View/RootStoryboard.storyboard; sourceTree = SOURCE_ROOT; };
+		EEA6EC8F2021166C00E04FFD /* OrderMain.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = OrderMain.storyboard; path = Consumer/View/OrderMain.storyboard; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,12 +108,12 @@
 		A468710B201A514C00096408 /* Consumer */ = {
 			isa = PBXGroup;
 			children = (
-				A4687131201A549400096408 /* Resources */,
+				A4687131201A549400096408 /* Resource */,
 				EEA6EC8A202111D900E04FFD /* Base */,
 				EEA6EC8C202111EB00E04FFD /* Store */,
 				A4687130201A549000096408 /* Model */,
-				A468712F201A548C00096408 /* Views */,
-				A468712E201A548200096408 /* ViewControllers */,
+				EEA6EC9120211DF700E04FFD /* View */,
+				A468712E201A548200096408 /* ViewController */,
 				A468710C201A514C00096408 /* AppDelegate.swift */,
 				A4687118201A514C00096408 /* Info.plist */,
 			);
@@ -129,22 +129,13 @@
 			path = ConsumerTests;
 			sourceTree = "<group>";
 		};
-		A468712E201A548200096408 /* ViewControllers */ = {
+		A468712E201A548200096408 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
 				A468710E201A514C00096408 /* InitialViewController.swift */,
 				A4687132201A54B000096408 /* RootViewController.swift */,
 			);
-			path = ViewControllers;
-			sourceTree = "<group>";
-		};
-		A468712F201A548C00096408 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				EEA6EC8D202112DC00E04FFD /* RootStoryboard.storyboard */,
-				EEA6EC8F2021166C00E04FFD /* OrderMain.storyboard */,
-			);
-			path = Views;
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		A4687130201A549000096408 /* Model */ = {
@@ -156,13 +147,13 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		A4687131201A549400096408 /* Resources */ = {
+		A4687131201A549400096408 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
 				A4687113201A514C00096408 /* Assets.xcassets */,
 				A4687115201A514C00096408 /* LaunchScreen.storyboard */,
 			);
-			path = Resources;
+			path = Resource;
 			sourceTree = "<group>";
 		};
 		BD37112338E750331BCBA22C /* Pods */ = {
@@ -190,6 +181,15 @@
 				EEA6EC88202111A200E04FFD /* ProductStore.swift */,
 			);
 			path = Store;
+			sourceTree = "<group>";
+		};
+		EEA6EC9120211DF700E04FFD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EEA6EC8F2021166C00E04FFD /* OrderMain.storyboard */,
+				EEA6EC8D202112DC00E04FFD /* RootStoryboard.storyboard */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
