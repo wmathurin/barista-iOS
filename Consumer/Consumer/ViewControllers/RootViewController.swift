@@ -21,19 +21,30 @@ class RootViewController: UITableViewController {
         super.loadView()
         self.title = "Mobile SDK Sample App"
         let restApi = SFRestAPI.sharedInstance()
-        restApi.Promises
-            .query(soql: "SELECT Name FROM User LIMIT 10")
-            .then {  request  in
-                restApi.Promises.send(request: request)
-            }.done { [unowned self] response in
-                self.dataRows = response.asJsonDictionary()["records"] as! [NSDictionary]
-                SalesforceSwiftLogger.log(type(of:self), level:.debug, message:"request:didLoadResponse: #records: \(self.dataRows.count)")
-                DispatchQueue.main.async(execute: {
-                    self.tableView.reloadData()
-                })
-            }.catch { error in
-                SalesforceSwiftLogger.log(type(of:self), level:.debug, message:"Error: \(error)")
+        
+        
+        CategoryStore.instance.syncDown { (syncState) in
+            DispatchQueue.main.async(execute: {
+                self.tableView.reloadData()
+            })
         }
+
+        
+        
+        
+//        restApi.Promises
+//            .query(soql: "SELECT Name FROM User LIMIT 10")
+//            .then {  request  in
+//                restApi.Promises.send(request: request)
+//            }.done { [unowned self] response in
+//                self.dataRows = response.asJsonDictionary()["records"] as! [NSDictionary]
+//                SalesforceSwiftLogger.log(type(of:self), level:.debug, message:"request:didLoadResponse: #records: \(self.dataRows.count)")
+//                DispatchQueue.main.async(execute: {
+//                    self.tableView.reloadData()
+//                })
+//            }.catch { error in
+//                SalesforceSwiftLogger.log(type(of:self), level:.debug, message:"Error: \(error)")
+//        }
     }
     
     // MARK: - Table view data source
@@ -44,7 +55,7 @@ class RootViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView?, numberOfRowsInSection section: Int) -> Int
     {
-        return self.dataRows.count
+        return Int(CategoryStore.instance.count)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
@@ -63,8 +74,8 @@ class RootViewController: UITableViewController {
         cell!.imageView!.image = image
         
         // Configure the cell to show the data.
-        let obj = dataRows[indexPath.row]
-        cell!.textLabel!.text = obj["Name"] as? String
+        let record: Category = CategoryStore.instance.getRecord(index: indexPath.row)
+        cell!.textLabel!.text = record.name
         
         // This adds the arrow to the right hand side.
         cell?.accessoryType = UITableViewCellAccessoryType.disclosureIndicator

@@ -19,9 +19,9 @@ class Store<objectType: StoreProtocol> {
     private final let pageSize: UInt = 100
     
     init() {
-//        self.store.removeAllSoups()
-//                store.clearSoup(objectType.objectName)
-//                store.removeSoup(objectType.objectName)
+        self.store.removeAllSoups()
+        store.clearSoup(objectType.objectName)
+        store.removeSoup(objectType.objectName)
     }
 
     let sqlQueryString: String = SFRestAPI.soqlQuery(withFields: objectType.createFields, sObject: objectType.objectName, whereClause: nil, groupBy: nil, having: nil, orderBy: [objectType.orderPath], limit: 100)!
