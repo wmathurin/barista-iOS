@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreGraphics
 
 class OrderMainViewController: UIViewController {
     
@@ -36,6 +37,11 @@ class OrderMainViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = false
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        featuredItemImageView.mask(curveHeight: 50)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -47,7 +53,6 @@ class OrderMainViewController: UIViewController {
             destinationViewController.category = category
         }
     }
-
 }
 
 extension OrderMainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
