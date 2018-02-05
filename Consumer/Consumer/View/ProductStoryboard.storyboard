@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,29 +19,56 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EDg-nb-ni2">
-                                <rect key="frame" x="58" y="205" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EDg-nb-ni2">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProductCell" id="sCG-f4-cnX" customClass="ProductTableViewCell" customModule="Consumer" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sCG-f4-cnX" id="rEu-Vx-gN6">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rkc-ni-nS8">
+                                                    <rect key="frame" x="15" y="11" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="rkc-ni-nS8" firstAttribute="centerY" secondItem="rEu-Vx-gN6" secondAttribute="centerY" id="6c0-WK-oqB"/>
+                                                <constraint firstItem="rkc-ni-nS8" firstAttribute="leading" secondItem="rEu-Vx-gN6" secondAttribute="leadingMargin" id="YeC-5Y-QcF"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="productNameLabel" destination="rkc-ni-nS8" id="d1P-gK-6Yy"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="8pD-cC-aC4" id="eAl-Mt-X22"/>
+                                    <outlet property="delegate" destination="8pD-cC-aC4" id="aUh-eY-Z2M"/>
+                                </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Product" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Klj-mo-Kkv">
-                                <rect key="frame" x="157" y="323" width="61" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Klj-mo-Kkv" firstAttribute="centerY" secondItem="ljd-yU-dJe" secondAttribute="centerY" id="P5b-pI-xho"/>
-                            <constraint firstItem="Klj-mo-Kkv" firstAttribute="centerX" secondItem="ljd-yU-dJe" secondAttribute="centerX" id="Uyu-lr-2nX"/>
+                            <constraint firstItem="EDg-nb-ni2" firstAttribute="top" secondItem="vUP-ls-Kuw" secondAttribute="top" id="FSv-cn-Joq"/>
+                            <constraint firstItem="vUP-ls-Kuw" firstAttribute="bottom" secondItem="EDg-nb-ni2" secondAttribute="bottom" id="faN-tb-jjQ"/>
+                            <constraint firstItem="EDg-nb-ni2" firstAttribute="leading" secondItem="vUP-ls-Kuw" secondAttribute="leading" id="qkL-Ps-FcV"/>
+                            <constraint firstItem="vUP-ls-Kuw" firstAttribute="trailing" secondItem="EDg-nb-ni2" secondAttribute="trailing" id="ybo-5l-XJa"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vUP-ls-Kuw"/>
                     </view>
+                    <connections>
+                        <outlet property="productTableView" destination="EDg-nb-ni2" id="pea-qU-PKw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZAp-79-RYg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="222" y="155"/>
+            <point key="canvasLocation" x="221.59999999999999" y="154.27286356821591"/>
         </scene>
     </scenes>
 </document>

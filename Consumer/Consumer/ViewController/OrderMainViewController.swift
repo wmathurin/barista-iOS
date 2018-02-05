@@ -44,6 +44,14 @@ class OrderMainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        ProductStore.instance.syncDown { (syncState) in
+        }
+        
+        ProductCategoryAssociationStore.instance.syncDown { (syncState) in
+        }
+
     }
 
     // MARK: - Navigation
@@ -72,8 +80,6 @@ extension OrderMainViewController: UICollectionViewDelegate, UICollectionViewDat
         // Configure the cell to show the data.
         let record: Category = CategoryStore.instance.getRecord(index: indexPath.item)
         cell.categoryLabel.text = record.name
-        
-        // This adds the arrow to the right hand side.
         
         return cell
     }
