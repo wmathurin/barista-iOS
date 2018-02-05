@@ -14,7 +14,7 @@ import Fabric
 import Crashlytics
 
 // Fill these in when creating a new Connected Application on Force.com
-let RemoteAccessConsumerKey = "3MVG967gVD5fuTmLSNUBDnHQNf4_hA__QWsqvQ2d.uaT1z27F9vP1dOULQGoTHpB2LcejQyCEe4UVpjNxnVRf";
+let RemoteAccessConsumerKey = "3MVG9GiqKapCZBwEZT176nS34X_t4BefRDodjdlqSKs1UNqpdQDnCnajD6T5jTxqm0R6_4uEYz7q9TSrm5Ymn";
 let OAuthRedirectURI        = "com.salesforce.barista.Consumer://oauth2/success";
 
 @UIApplicationMain
