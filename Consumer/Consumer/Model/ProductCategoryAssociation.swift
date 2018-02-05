@@ -9,19 +9,28 @@
 import Foundation
 import SmartStore
 
-class Product: Record, StoreProtocol {
-    static let objectName: String = "Product2"
+class ProductCategoryAssociation: Record, StoreProtocol {
+    static let objectName: String = "ProductCategoryAssociation__c"
     
     enum Field: String {
         case name = "Name"
-        static let allFields = [name.rawValue]
-    }
+        case categoryId = "Category__c"
+        case productId = "Product__c"
 
+        static let allFields = [name.rawValue, categoryId.rawValue, productId.rawValue]
+    }
+    
+    
+    //    fileprivate(set) lazy var ownerId: String? = data[Field.ownerId.rawValue] as? String
     fileprivate(set) lazy var name: String? = data[Field.name.rawValue] as? String
+    fileprivate(set) lazy var catgoryId: String? = data[Field.categoryId.rawValue] as? String
+    fileprivate(set) lazy var productId: String? = data[Field.productId.rawValue] as? String
 
     override static var indexes: [[String : String]] {
         return super.indexes + [
             ["path" : Field.name.rawValue, "type" : kSoupIndexTypeString],
+            ["path" : Field.categoryId.rawValue, "type" : kSoupIndexTypeString],
+            ["path" : Field.productId.rawValue, "type" : kSoupIndexTypeString],
         ]
     }
     

@@ -14,9 +14,12 @@ import SmartSync
 class ProductStore: Store<Product> {
     static let instance = ProductStore()
     
+    //SELECT {ProductCategoryAssociation__c:Product__c} FROM {ProductCategoryAssociation__c WHERE {ProductCategoryAssociation__c:Category__c} ==
+    
+    
     func getRecords<T:Product>(forCategory category: Category? = nil) -> [T] {
         if let category = category, let categoryId = category.id {
-            let queryString: String = "SELECT \(Product.selectFieldsString()) FROM {\(Product.objectName)} WHERE {\(Product.objectName):\(Product.Field.locallyDeleted.rawValue)} != 1 AND {\(Product.objectName):\(Product.Field.categoryId.rawValue)} = '\(categoryId)' ORDER BY {\(Product.objectName):\(Product.orderPath)} ASC"
+            let queryString = "SELECT \(Product.selectFieldsString()) FROM {\(ProductCategoryAssociation.objectName)}, {\(Product.objectName)} WHERE {\(ProductCategoryAssociation.objectName):\(ProductCategoryAssociation.Field.categoryId.rawValue)} = '\(categoryId)' AND {\(Product.objectName):\(Product.Field.id.rawValue)} = {\(ProductCategoryAssociation.objectName):\(ProductCategoryAssociation.Field.productId.rawValue)} ORDER BY {\(Product.objectName):\(Product.Field.name.rawValue)} ASC"
             
             let query:SFQuerySpec = SFQuerySpec.newSmartQuerySpec(queryString, withPageSize: 100)!
             var error: NSError? = nil
