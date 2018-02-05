@@ -15,14 +15,15 @@ class Product: Record, StoreProtocol {
     enum Field: String {
         //        case ownerId = "OwnerId"
         case name = "Name"
-        
+        case categoryId = "categoryId"
         static let allFields = [name.rawValue]
     }
     
     
     //    fileprivate(set) lazy var ownerId: String? = data[Field.ownerId.rawValue] as? String
     fileprivate(set) lazy var name: String? = data[Field.name.rawValue] as? String
-    
+    fileprivate(set) lazy var catgoryId: String? = data[Field.categoryId.rawValue] as? String
+
     override static var indexes: [[String : String]] {
         return super.indexes + [
             //            ["path" : Field.id.rawValue, "type" : kSoupIndexTypeString],

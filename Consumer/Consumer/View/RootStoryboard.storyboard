@@ -19,7 +19,10 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="y4L-1E-YNx" kind="relationship" relationship="viewControllers" id="AmP-2Y-vHP"/>
+                        <segue destination="lNO-MS-cBW" kind="relationship" relationship="viewControllers" id="Dw4-8Q-kgy"/>
+                        <segue destination="Edo-9G-h8x" kind="relationship" relationship="viewControllers" id="Bsv-z7-TKh"/>
+                        <segue destination="4Hu-tQ-yMD" kind="relationship" relationship="viewControllers" id="Xw8-Qb-5Ub"/>
+                        <segue destination="Qtn-IO-QoY" kind="relationship" relationship="viewControllers" id="K4t-uR-hh6"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ImJ-bx-Bbb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -30,29 +33,48 @@
         <scene sceneID="arT-t8-dGz">
             <objects>
                 <viewControllerPlaceholder storyboardName="OrderMainStoryboard" id="lNO-MS-cBW" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Order" id="MFZ-WJ-Db0"/>
+                    <tabBarItem key="tabBarItem" title="Order" image="orderIcon" id="MFZ-WJ-Db0"/>
                     <navigationItem key="navigationItem" id="kkc-P2-fkh"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0vT-qu-2XP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1237" y="-264"/>
+            <point key="canvasLocation" x="331" y="-482"/>
         </scene>
-        <!--Order-->
-        <scene sceneID="2Yc-66-I91">
+        <!--FavoritesStoryboard-->
+        <scene sceneID="xEb-Gd-aOQ">
             <objects>
-                <navigationController title="Order" id="y4L-1E-YNx" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Order" id="IFM-H9-1RD"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="d2h-EV-giF">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="lNO-MS-cBW" kind="relationship" relationship="rootViewController" id="L7f-ZL-JS8"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ssJ-A4-KgM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="FavoritesStoryboard" id="Edo-9G-h8x" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Favorites" image="favoritesIcon" id="3eP-hN-gYV"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LKf-zE-WqA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="350" y="-263"/>
+            <point key="canvasLocation" x="413" y="-384"/>
+        </scene>
+        <!--FeaturedStoryboard-->
+        <scene sceneID="dDo-MI-lV8">
+            <objects>
+                <viewControllerPlaceholder storyboardName="FeaturedStoryboard" id="4Hu-tQ-yMD" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Featured" image="featuredIcon" id="oEx-Uv-RFL"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xjl-PY-gHD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="414" y="-310"/>
+        </scene>
+        <!--AccountStoryboard-->
+        <scene sceneID="uXJ-2x-mdI">
+            <objects>
+                <viewControllerPlaceholder storyboardName="AccountStoryboard" id="Qtn-IO-QoY" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="My Account" image="accountIcon" id="5Pw-Zh-mbS"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lhb-Dh-rGI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="409" y="-228"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="accountIcon" width="18" height="18"/>
+        <image name="favoritesIcon" width="15" height="14"/>
+        <image name="featuredIcon" width="18" height="17"/>
+        <image name="orderIcon" width="14" height="15"/>
+    </resources>
 </document>
