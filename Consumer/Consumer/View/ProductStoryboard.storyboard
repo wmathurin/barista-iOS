@@ -23,8 +23,18 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Product" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Klj-mo-Kkv">
+                                <rect key="frame" x="157" y="323" width="61" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Klj-mo-Kkv" firstAttribute="centerY" secondItem="ljd-yU-dJe" secondAttribute="centerY" id="P5b-pI-xho"/>
+                            <constraint firstItem="Klj-mo-Kkv" firstAttribute="centerX" secondItem="ljd-yU-dJe" secondAttribute="centerX" id="Uyu-lr-2nX"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="vUP-ls-Kuw"/>
                     </view>
                 </viewController>
