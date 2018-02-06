@@ -21,7 +21,7 @@ class ProductViewController: UIViewController {
     var category: Category? = nil {
         didSet {
             DispatchQueue.main.async(execute: {
-                self.products = ProductStore.instance.getRecords(forCategory: self.category)
+                self.products = ProductStore.instance.records(forCategory: self.category)
             })
         }
     }
@@ -75,8 +75,8 @@ extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
         
         // Configure the cell to show the data.
         let product: Product = products[indexPath.row]
-        cell.productNameLabel.text = product.name
-        
+        cell.product = product
+
         return cell
     }
     

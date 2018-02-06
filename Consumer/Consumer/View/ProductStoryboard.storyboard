@@ -6,7 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,30 +19,41 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EDg-nb-ni2">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EDg-nb-ni2">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProductCell" id="sCG-f4-cnX" customClass="ProductTableViewCell" customModule="Consumer" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sCG-f4-cnX" id="rEu-Vx-gN6">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rkc-ni-nS8">
-                                                    <rect key="frame" x="15" y="11" width="42" height="21"/>
+                                                    <rect key="frame" x="60" y="19.5" width="305" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="15a-YB-zet">
+                                                    <rect key="frame" x="10" y="9.5" width="40" height="40.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="15a-YB-zet" secondAttribute="height" multiplier="1:1" id="0wR-7W-BY0"/>
+                                                        <constraint firstAttribute="width" constant="40" id="g5E-y5-9Xj"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="rkc-ni-nS8" firstAttribute="centerY" secondItem="rEu-Vx-gN6" secondAttribute="centerY" id="6c0-WK-oqB"/>
-                                                <constraint firstItem="rkc-ni-nS8" firstAttribute="leading" secondItem="rEu-Vx-gN6" secondAttribute="leadingMargin" id="YeC-5Y-QcF"/>
+                                                <constraint firstItem="15a-YB-zet" firstAttribute="leading" secondItem="rEu-Vx-gN6" secondAttribute="leading" constant="10" id="NF9-hV-rQJ"/>
+                                                <constraint firstItem="rkc-ni-nS8" firstAttribute="leading" secondItem="15a-YB-zet" secondAttribute="trailing" constant="10" id="ToY-pn-nea"/>
+                                                <constraint firstItem="15a-YB-zet" firstAttribute="centerY" secondItem="rEu-Vx-gN6" secondAttribute="centerY" id="WPI-JL-QjB"/>
+                                                <constraint firstItem="15a-YB-zet" firstAttribute="centerY" secondItem="rkc-ni-nS8" secondAttribute="centerY" id="gHC-aq-P3S"/>
+                                                <constraint firstAttribute="trailing" secondItem="rkc-ni-nS8" secondAttribute="trailing" constant="10" id="xgB-L8-Y6P"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="productImageView" destination="15a-YB-zet" id="KR7-2r-Qzw"/>
                                             <outlet property="productNameLabel" destination="rkc-ni-nS8" id="d1P-gK-6Yy"/>
                                         </connections>
                                     </tableViewCell>
