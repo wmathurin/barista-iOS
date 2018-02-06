@@ -11,4 +11,10 @@ import UIKit
 class CategoryCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var categoryImageView: UIImageView!
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.categoryLabel.font = Theme.menuTextFont
+        self.categoryLabel.textColor = Theme.menuTextColor
+    }
 }
