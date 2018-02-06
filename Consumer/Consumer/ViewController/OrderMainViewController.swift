@@ -13,6 +13,8 @@ class OrderMainViewController: UIViewController {
     
     @IBOutlet weak var featuredItemImageView: UIImageView!
     @IBOutlet weak var categoryCollectionView: UICollectionView!
+    @IBOutlet weak var featuredItemLabel: UILabel!
+    @IBOutlet weak var featuredProductNameLabel: UILabel!
     
     let productSegue = "ProductSegue"
     
@@ -44,6 +46,26 @@ class OrderMainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        featuredItemLabel.textColor = UIColor.white
+        featuredItemLabel.text = ""
+
+        featuredProductNameLabel.textColor = UIColor.white
+        featuredProductNameLabel.text = ""
+
+        ProductStore.instance.syncDown { (syncState) in
+            let featuredProducts: [Product] = ProductStore.instance.featuredProducts()
+            if let featuredProduct: Product = featuredProducts.first, let firstFeaturedProdcutURL = featuredProduct.featuredImageURL {
+                DispatchQueue.main.async(execute: {
+                    self.featuredItemImageView.loadImageUsingCache(withUrl: firstFeaturedProdcutURL)
+                    self.featuredItemLabel.text = "FEATURED ITEM:"
+                    self.featuredProductNameLabel.text = featuredProduct.name
+                })
+            }
+        }
+        
+        ProductCategoryAssociationStore.instance.syncDown { (syncState) in
+        }
+        
     }
 
     // MARK: - Navigation
@@ -66,19 +88,13 @@ extension OrderMainViewController: UICollectionViewDelegate, UICollectionViewDat
         // Dequeue or create a cell of the appropriate type.
         let cell: CategoryCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! CategoryCollectionViewCell
         
-        let image = UIImage(named: "icon.png")
-        cell.categoryImageView.image = image
-        
         // Configure the cell to show the data.
-        let record: Category = CategoryStore.instance.getRecord(index: indexPath.item)
-        cell.categoryLabel.text = record.name
-        
-        // This adds the arrow to the right hand side.
+        cell.category = CategoryStore.instance.record(index: indexPath.item)
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        performSegue(withIdentifier: productSegue, sender: CategoryStore.instance.getRecord(index: indexPath.item))
+        performSegue(withIdentifier: productSegue, sender: CategoryStore.instance.record(index: indexPath.item))
     }
 }

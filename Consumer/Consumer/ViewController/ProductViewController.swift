@@ -10,21 +10,31 @@ import UIKit
 
 class ProductViewController: UIViewController {
 
-    var category: Category? = nil
+    @IBOutlet weak var productTableView: UITableView!
+    
+    var products: [Product] = [] {
+        didSet {
+            
+        }
+    }
+    
+    var category: Category? = nil {
+        didSet {
+            DispatchQueue.main.async(execute: {
+                self.products = ProductStore.instance.records(forCategory: self.category)
+            })
+        }
+    }
     
     override func loadView()
     {
         super.loadView()
-        
-        ProductStore.instance.syncDown { (syncState) in
-            DispatchQueue.main.async(execute: {
-//                self.categoryCollectionView.reloadData()
-            })
-        }
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.title = category?.name
+        title = category?.name
+        productTableView.tableFooterView = UIView()
     }
     
     override func viewDidLoad() {
@@ -47,4 +57,28 @@ class ProductViewController: UIViewController {
     }
     */
 
+}
+
+extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return products.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cellIdentifier = "ProductCell"
+        
+        // Dequeue or create a cell of the appropriate type.
+        let cell: ProductTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ProductTableViewCell
+        
+//        let image = UIImage(named: "icon.png")
+//        cell.categoryImageView.image = image
+        
+        // Configure the cell to show the data.
+        let product: Product = products[indexPath.row]
+        cell.product = product
+
+        return cell
+    }
+    
+    
 }

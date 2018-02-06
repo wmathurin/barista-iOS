@@ -1,5 +1,5 @@
 //
-//  Category.swift
+//  Product.swift
 //  Consumer
 //
 //  Created by David Vieser on 1/30/18.
@@ -9,23 +9,28 @@
 import Foundation
 import SmartStore
 
-class Category: Record, StoreProtocol {
-    static let objectName: String = "Category__c"
+class ProductCategoryAssociation: Record, StoreProtocol {
+    static let objectName: String = "ProductCategoryAssociation__c"
     
     enum Field: String {
         case name = "Name"
-        case iconURL = "IconImageURL__c"
+        case categoryId = "Category__c"
+        case productId = "Product__c"
 
-        static let allFields = [name.rawValue, iconURL.rawValue]
+        static let allFields = [name.rawValue, categoryId.rawValue, productId.rawValue]
     }
     
+    
+    //    fileprivate(set) lazy var ownerId: String? = data[Field.ownerId.rawValue] as? String
     fileprivate(set) lazy var name: String? = data[Field.name.rawValue] as? String
-    fileprivate(set) lazy var iconURL: String? = data[Field.iconURL.rawValue] as? String
+    fileprivate(set) lazy var catgoryId: String? = data[Field.categoryId.rawValue] as? String
+    fileprivate(set) lazy var productId: String? = data[Field.productId.rawValue] as? String
 
     override static var indexes: [[String : String]] {
         return super.indexes + [
             ["path" : Field.name.rawValue, "type" : kSoupIndexTypeString],
-            ["path" : Field.iconURL.rawValue, "type" : kSoupIndexTypeString],
+            ["path" : Field.categoryId.rawValue, "type" : kSoupIndexTypeString],
+            ["path" : Field.productId.rawValue, "type" : kSoupIndexTypeString],
         ]
     }
     

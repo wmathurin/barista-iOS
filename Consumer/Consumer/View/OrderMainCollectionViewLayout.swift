@@ -1,4 +1,4 @@
-//
+ //
 //  OrderMainCollectionViewLayout.swift
 //  Consumer
 //
@@ -11,6 +11,7 @@ import UIKit
 class OrderMainCollectionViewLayout: UICollectionViewLayout {
     var itemSpacing: CGFloat = 0.0
     var horizontalCellCount: Int = 3
+    fileprivate var verticalSize: CGFloat = 0.0
     fileprivate var attributes: [IndexPath: UICollectionViewLayoutAttributes] = [:]
     
     override func prepare() {
@@ -18,7 +19,7 @@ class OrderMainCollectionViewLayout: UICollectionViewLayout {
         for i in (0..<self.collectionView!.numberOfItems(inSection: 0)) {
             let indexPath = IndexPath(row: i, section: 0)
             let attribs = UICollectionViewLayoutAttributes(forCellWith: indexPath)
-            
+            attribs.frame = self.frameForItem(indexPath)
             self.attributes[indexPath] = attribs
         }
     }
@@ -52,6 +53,14 @@ class OrderMainCollectionViewLayout: UICollectionViewLayout {
         yPos = floor(ySize * CGFloat(atIndexPath.row / self.horizontalCellCount) + (self.itemSpacing * CGFloat(atIndexPath.row / self.horizontalCellCount))) + self.itemSpacing
         
         let rect = CGRect(x: xPos, y: yPos, width: xSize, height: ySize)
+        self.verticalSize = ySize
         return rect
+    }
+    
+    override var collectionViewContentSize: CGSize {
+        let itemCount = self.collectionView!.numberOfItems(inSection: 0)
+        let rowCount = ceil(CGFloat(itemCount) / CGFloat(self.horizontalCellCount))
+        let height = self.verticalSize * rowCount
+        return CGSize(width: self.collectionView!.frame.size.width, height: height)
     }
 }

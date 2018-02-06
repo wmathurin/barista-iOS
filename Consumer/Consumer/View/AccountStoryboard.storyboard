@@ -13,7 +13,7 @@
         <!--Account-->
         <scene sceneID="S9H-LJ-2Xf">
             <objects>
-                <viewController title="Account" id="b06-b3-aba" sceneMemberID="viewController">
+                <viewController title="Account" id="b06-b3-aba" customClass="AccountViewController" customModule="Consumer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jfF-vC-Jog">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -24,6 +24,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pdN-EP-HfY">
+                                <rect key="frame" x="104" y="101" width="167" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="SmartStore Debug"/>
+                                <connections>
+                                    <action selector="smartStoreDebugButtonPressed:" destination="b06-b3-aba" eventType="touchUpInside" id="YN0-65-A0X"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
