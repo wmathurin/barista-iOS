@@ -13,22 +13,19 @@ class Category: Record, StoreProtocol {
     static let objectName: String = "Category__c"
     
     enum Field: String {
-        //        case ownerId = "OwnerId"
         case name = "Name"
-        
-        static let allFields = [name.rawValue]
+        case iconURL = "IconImageURL__c"
+
+        static let allFields = [name.rawValue, iconURL.rawValue]
     }
     
-    
-    //    fileprivate(set) lazy var ownerId: String? = data[Field.ownerId.rawValue] as? String
     fileprivate(set) lazy var name: String? = data[Field.name.rawValue] as? String
-    
+    fileprivate(set) lazy var iconURL: String? = data[Field.iconURL.rawValue] as? String
+
     override static var indexes: [[String : String]] {
         return super.indexes + [
-            //            ["path" : Field.id.rawValue, "type" : kSoupIndexTypeString],
-            //            ["path" : Field.ownerId.rawValue, "type" : kSoupIndexTypeString],
             ["path" : Field.name.rawValue, "type" : kSoupIndexTypeString],
-            //            ["path" : Field.entryId.rawValue, "type" : kSoupIndexTypeString]
+            ["path" : Field.iconURL.rawValue, "type" : kSoupIndexTypeString],
         ]
     }
     

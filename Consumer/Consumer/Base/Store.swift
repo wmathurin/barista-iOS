@@ -19,9 +19,9 @@ class Store<objectType: StoreProtocol> {
     private final let pageSize: UInt = 100
     
     init() {
-//        self.store.removeAllSoups()
-//        store.clearSoup(objectType.objectName)
-//        store.removeSoup(objectType.objectName)
+        self.store.removeAllSoups()
+        store.clearSoup(objectType.objectName)
+        store.removeSoup(objectType.objectName)
     }
 
     let sqlQueryString: String = SFRestAPI.soqlQuery(withFields: objectType.createFields, sObject: objectType.objectName, whereClause: nil, groupBy: nil, having: nil, orderBy: [objectType.orderPath], limit: 100)!
@@ -139,7 +139,7 @@ class Store<objectType: StoreProtocol> {
         })
     }
  
-    func getRecord(index: Int) -> objectType {
+    func record(index: Int) -> objectType {
         let query:SFQuerySpec = SFQuerySpec.newSmartQuerySpec(queryString, withPageSize: 1)!
         var error: NSError? = nil
         let results: [Any] = store.query(with: query, pageIndex: UInt(index), error: &error)
@@ -150,7 +150,7 @@ class Store<objectType: StoreProtocol> {
         return objectType.from(results)
     }
     
-    func getRecords() -> [objectType] {
+    func records() -> [objectType] {
         let query:SFQuerySpec = SFQuerySpec.newSmartQuerySpec(queryString, withPageSize: pageSize)!
         var error: NSError? = nil
         let results: [Any] = store.query(with: query, pageIndex: 0, error: &error)

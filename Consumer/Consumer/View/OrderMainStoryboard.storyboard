@@ -54,7 +54,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="115" height="115"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jCw-xd-fjt">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jCw-xd-fjt">
                                                     <rect key="frame" x="18" y="84" width="79" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -90,19 +90,34 @@
                             </collectionView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="h4p-pb-Dmg">
                                 <rect key="frame" x="0.0" y="64" width="375" height="250"/>
-                                <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="250" id="jea-yz-ha9"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iQ3-9Z-eOd">
+                                <rect key="frame" x="25" y="144" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8o0-ch-ZZ3">
+                                <rect key="frame" x="25" y="185" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="rua-Z4-Zgn" firstAttribute="trailing" secondItem="h4p-pb-Dmg" secondAttribute="trailing" id="056-jx-OJ4"/>
+                            <constraint firstItem="iQ3-9Z-eOd" firstAttribute="leading" secondItem="h4p-pb-Dmg" secondAttribute="leading" constant="25" id="4nP-Ci-48z"/>
                             <constraint firstItem="5r1-Dc-8sh" firstAttribute="top" secondItem="h4p-pb-Dmg" secondAttribute="bottom" id="Aib-VV-TYW"/>
                             <constraint firstItem="h4p-pb-Dmg" firstAttribute="leading" secondItem="rua-Z4-Zgn" secondAttribute="leading" id="ERQ-ar-Cl4"/>
+                            <constraint firstItem="8o0-ch-ZZ3" firstAttribute="top" secondItem="iQ3-9Z-eOd" secondAttribute="bottom" constant="20" id="F4r-qi-j2r"/>
+                            <constraint firstItem="8o0-ch-ZZ3" firstAttribute="leading" secondItem="iQ3-9Z-eOd" secondAttribute="leading" id="FAb-wg-fli"/>
                             <constraint firstItem="5r1-Dc-8sh" firstAttribute="trailing" secondItem="rua-Z4-Zgn" secondAttribute="trailing" constant="-8" id="P5z-1a-sA8"/>
                             <constraint firstItem="5r1-Dc-8sh" firstAttribute="bottom" secondItem="rua-Z4-Zgn" secondAttribute="bottom" id="QIi-0x-nYZ"/>
+                            <constraint firstItem="iQ3-9Z-eOd" firstAttribute="top" secondItem="h4p-pb-Dmg" secondAttribute="top" constant="80" id="WUa-CO-K4B"/>
                             <constraint firstItem="h4p-pb-Dmg" firstAttribute="top" secondItem="rua-Z4-Zgn" secondAttribute="top" id="YL9-f2-yjO"/>
                             <constraint firstItem="5r1-Dc-8sh" firstAttribute="leading" secondItem="rua-Z4-Zgn" secondAttribute="leading" constant="8" id="gSQ-nO-kMg"/>
                         </constraints>
@@ -114,6 +129,8 @@
                     <connections>
                         <outlet property="categoryCollectionView" destination="5r1-Dc-8sh" id="nao-0E-2uH"/>
                         <outlet property="featuredItemImageView" destination="h4p-pb-Dmg" id="Obg-cv-Yil"/>
+                        <outlet property="featuredItemLabel" destination="iQ3-9Z-eOd" id="jRH-Iz-T06"/>
+                        <outlet property="featuredProductNameLabel" destination="8o0-ch-ZZ3" id="SCW-iA-1DW"/>
                         <segue destination="h6y-WX-6hS" kind="show" identifier="ProductSegue" id="3x4-0c-Ucc"/>
                     </connections>
                 </viewController>

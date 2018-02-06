@@ -14,14 +14,23 @@ class Product: Record, StoreProtocol {
     
     enum Field: String {
         case name = "Name"
-        static let allFields = [name.rawValue]
+        case featuredImageURL = "FeaturedImageURL__c"
+        case iconImageURL = "IconImageURL__c"
+        case isFeaturedItem = "FeaturedItem__c"
+        static let allFields = [name.rawValue, featuredImageURL.rawValue, iconImageURL.rawValue, isFeaturedItem.rawValue]
     }
 
     fileprivate(set) lazy var name: String? = data[Field.name.rawValue] as? String
+    fileprivate(set) lazy var featuredImageURL: String? = data[Field.featuredImageURL.rawValue] as? String
+    fileprivate(set) lazy var iconImageURL: String? = data[Field.iconImageURL.rawValue] as? String
+    fileprivate(set) lazy var isFeaturedItem: String? = data[Field.isFeaturedItem.rawValue] as? String
 
     override static var indexes: [[String : String]] {
         return super.indexes + [
             ["path" : Field.name.rawValue, "type" : kSoupIndexTypeString],
+            ["path" : Field.featuredImageURL.rawValue, "type" : kSoupIndexTypeString],
+            ["path" : Field.iconImageURL.rawValue, "type" : kSoupIndexTypeString],
+            ["path" : Field.isFeaturedItem.rawValue, "type" : kSoupIndexTypeString],
         ]
     }
     
