@@ -53,8 +53,8 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="productImageView" destination="15a-YB-zet" id="KR7-2r-Qzw"/>
-                                            <outlet property="productNameLabel" destination="rkc-ni-nS8" id="d1P-gK-6Yy"/>
+                                            <outlet property="iconImageView" destination="15a-YB-zet" id="Afd-Uu-KBu"/>
+                                            <outlet property="nameLabel" destination="rkc-ni-nS8" id="3hd-s6-JnH"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

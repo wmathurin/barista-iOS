@@ -71,8 +71,8 @@ extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
         
         // Configure the cell to show the data.
         if let product: Product = products[indexPath.row] {
-            cell.productName = product.name
-            cell.productImageURL = product.iconImageURL
+            cell.name = product.name
+            cell.imageURL = product.iconImageURL
         }
 
         return cell

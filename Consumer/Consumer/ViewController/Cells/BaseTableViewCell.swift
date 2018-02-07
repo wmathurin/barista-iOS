@@ -10,7 +10,7 @@ import UIKit
 
 class BaseTableViewCell: UITableViewCell {
 
-    @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet private weak var iconImageView: UIImageView!
     @IBOutlet private weak var nameLabel: UILabel!
     
     var name: String? {
@@ -21,7 +21,7 @@ class BaseTableViewCell: UITableViewCell {
     
     var imageURL: String? {
         didSet {
-            imageView.loadImageUsingCache(withUrl: imageURL)
+            iconImageView.loadImageUsingCache(withUrl: imageURL)
         }
     }
     
