@@ -14,23 +14,33 @@ class Product: Record, StoreProtocol {
     
     enum Field: String {
         case name = "Name"
-        case featuredImageURL = "FeaturedImageURL__c"
+        case featuredImageLeftURL = "FeaturedImageLeftURL__c"
+        case featuredImageRightURL = "FeaturedImageRightURL__c"
         case iconImageURL = "IconImageURL__c"
         case isFeaturedItem = "FeaturedItem__c"
-        static let allFields = [name.rawValue, featuredImageURL.rawValue, iconImageURL.rawValue, isFeaturedItem.rawValue]
+        case productDescription = "Description"
+        case featuredItemPriority = "FeaturedItemPriority__c"
+        
+        static let allFields = [name.rawValue, featuredImageLeftURL.rawValue, featuredImageRightURL.rawValue, iconImageURL.rawValue, isFeaturedItem.rawValue, productDescription.rawValue, featuredItemPriority.rawValue]
     }
 
     fileprivate(set) lazy var name: String? = data[Field.name.rawValue] as? String
-    fileprivate(set) lazy var featuredImageURL: String? = data[Field.featuredImageURL.rawValue] as? String
+    fileprivate(set) lazy var featuredImageLeftURL: String? = data[Field.featuredImageLeftURL.rawValue] as? String
+    fileprivate(set) lazy var featuredImageRightURL: String? = data[Field.featuredImageRightURL.rawValue] as? String
     fileprivate(set) lazy var iconImageURL: String? = data[Field.iconImageURL.rawValue] as? String
     fileprivate(set) lazy var isFeaturedItem: String? = data[Field.isFeaturedItem.rawValue] as? String
+    fileprivate(set) lazy var productDescription: String? = data[Field.productDescription.rawValue] as? String
+    fileprivate(set) lazy var featuredItemPriority: String? = data[Field.featuredItemPriority.rawValue] as? String
 
     override static var indexes: [[String : String]] {
         return super.indexes + [
             ["path" : Field.name.rawValue, "type" : kSoupIndexTypeString],
-            ["path" : Field.featuredImageURL.rawValue, "type" : kSoupIndexTypeString],
+            ["path" : Field.featuredImageLeftURL.rawValue, "type" : kSoupIndexTypeString],
+            ["path" : Field.featuredImageRightURL.rawValue, "type" : kSoupIndexTypeString],
             ["path" : Field.iconImageURL.rawValue, "type" : kSoupIndexTypeString],
             ["path" : Field.isFeaturedItem.rawValue, "type" : kSoupIndexTypeString],
+            ["path" : Field.featuredItemPriority.rawValue, "type" : kSoupIndexTypeString],
+            ["path" : Field.productDescription.rawValue, "type" : kSoupIndexTypeString],
         ]
     }
     

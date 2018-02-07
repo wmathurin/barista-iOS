@@ -12,7 +12,7 @@ class ProductViewController: UIViewController {
 
     @IBOutlet weak var productTableView: UITableView!
     
-    var products: [Product] = [] {
+    var products: [Product?] = [] {
         didSet {
             
         }
@@ -71,8 +71,10 @@ extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
         let cell: ProductTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ProductTableViewCell
         
         // Configure the cell to show the data.
-        let product: Product = products[indexPath.row]
-        cell.product = product
+        if let product: Product = products[indexPath.row] {
+            cell.productName = product.name
+            cell.productImageURL = product.featuredImageRightURL
+        }
 
         return cell
     }

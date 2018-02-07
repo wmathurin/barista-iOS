@@ -9,16 +9,18 @@
 import UIKit
 
 class CategoryCollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var categoryLabel: UILabel!
-    @IBOutlet weak var categoryImageView: UIImageView!
+    @IBOutlet private weak var categoryLabel: UILabel!
+    @IBOutlet private weak var categoryImageView: UIImageView!
     
-    var category: Category? = nil {
+    var categoryName: String? {
         didSet {
-            if let category = category {
-                categoryLabel.text = category.name
-                categoryImageView.loadImageUsingCache(withUrl: category.iconURL)
-//                categoryImageView.tintImage(withColor: UIColor.blue)
-            }
+            categoryLabel.text = categoryName
+        }
+    }
+    
+    var categoryImageURL: String? {
+        didSet {
+            categoryImageView.loadImageUsingCache(withUrl: categoryImageURL)
         }
     }
     

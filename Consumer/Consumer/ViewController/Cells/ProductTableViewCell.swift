@@ -10,18 +10,21 @@ import UIKit
 
 class ProductTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var productImageView: UIImageView!
-    @IBOutlet weak var productNameLabel: UILabel!
+    @IBOutlet private weak var productImageView: UIImageView!
+    @IBOutlet private weak var productNameLabel: UILabel!
     
-    var product: Product? = nil {
+    var productName: String? {
         didSet {
-            productNameLabel.text = product?.name
-            if let iconImageURL = product?.iconImageURL {
-                productImageView.loadImageUsingCache(withUrl: iconImageURL)
-            }
+            productNameLabel.text = productName
         }
     }
-    
+
+    var productImageURL: String? {
+        didSet {
+            productImageView.loadImageUsingCache(withUrl: productImageURL)
+        }
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
