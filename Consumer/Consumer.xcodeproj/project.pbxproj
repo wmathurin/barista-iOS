@@ -35,6 +35,8 @@
 		EEA6ECA72028DF3600E04FFD /* ProductCategoryAssociationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA6ECA62028DF3600E04FFD /* ProductCategoryAssociationStore.swift */; };
 		EEA6ECA92028E29D00E04FFD /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA6ECA82028E29D00E04FFD /* AccountViewController.swift */; };
 		EEA6ECAB2028F06F00E04FFD /* ProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA6ECAA2028F06F00E04FFD /* ProductTableViewCell.swift */; };
+		EEA6ECAF202A35A400E04FFD /* FeaturedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA6ECAE202A35A400E04FFD /* FeaturedViewController.swift */; };
+		EEA6ECB2202A373900E04FFD /* FeaturedProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA6ECB1202A373900E04FFD /* FeaturedProductTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +84,8 @@
 		EEA6ECA62028DF3600E04FFD /* ProductCategoryAssociationStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCategoryAssociationStore.swift; sourceTree = "<group>"; };
 		EEA6ECA82028E29D00E04FFD /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		EEA6ECAA2028F06F00E04FFD /* ProductTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTableViewCell.swift; sourceTree = "<group>"; };
+		EEA6ECAE202A35A400E04FFD /* FeaturedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedViewController.swift; sourceTree = "<group>"; };
+		EEA6ECB1202A373900E04FFD /* FeaturedProductTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedProductTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,12 +163,12 @@
 		A468712E201A548200096408 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				EEA6ECB0202A36EB00E04FFD /* Cells */,
 				A468710E201A514C00096408 /* InitialViewController.swift */,
 				EEA6EC9220221D7B00E04FFD /* OrderMainViewController.swift */,
-				EEA6EC9420221FD300E04FFD /* CategoryCollectionViewCell.swift */,
 				EEA6EC982022237F00E04FFD /* ProductViewController.swift */,
+				EEA6ECAE202A35A400E04FFD /* FeaturedViewController.swift */,
 				EEA6ECA82028E29D00E04FFD /* AccountViewController.swift */,
-				EEA6ECAA2028F06F00E04FFD /* ProductTableViewCell.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -237,6 +241,16 @@
 				EEA6EC9B202242E500E04FFD /* UIImageViewExtension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		EEA6ECB0202A36EB00E04FFD /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				EEA6EC9420221FD300E04FFD /* CategoryCollectionViewCell.swift */,
+				EEA6ECAA2028F06F00E04FFD /* ProductTableViewCell.swift */,
+				EEA6ECB1202A373900E04FFD /* FeaturedProductTableViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -402,6 +416,7 @@
 				EEA6EC852020E5CC00E04FFD /* CategoryStore.swift in Sources */,
 				EEA6EC9C202242E500E04FFD /* UIImageViewExtension.swift in Sources */,
 				EEA6ECA72028DF3600E04FFD /* ProductCategoryAssociationStore.swift in Sources */,
+				EEA6ECAF202A35A400E04FFD /* FeaturedViewController.swift in Sources */,
 				EEA6EC872021119C00E04FFD /* Product.swift in Sources */,
 				A4B8C43420290CC3004176A1 /* Theme.swift in Sources */,
 				EEA6EC992022237F00E04FFD /* ProductViewController.swift in Sources */,
@@ -410,6 +425,7 @@
 				A468710F201A514C00096408 /* InitialViewController.swift in Sources */,
 				EEA6ECAB2028F06F00E04FFD /* ProductTableViewCell.swift in Sources */,
 				A468710D201A514C00096408 /* AppDelegate.swift in Sources */,
+				EEA6ECB2202A373900E04FFD /* FeaturedProductTableViewCell.swift in Sources */,
 				EEA6EC80201F850100E04FFD /* Record.swift in Sources */,
 				A4B8C460202A1392004176A1 /* OrderMainCollectionViewLayout.swift in Sources */,
 				EEA6ECA92028E29D00E04FFD /* AccountViewController.swift in Sources */,

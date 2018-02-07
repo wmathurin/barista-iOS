@@ -70,15 +70,10 @@ extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
         // Dequeue or create a cell of the appropriate type.
         let cell: ProductTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ProductTableViewCell
         
-//        let image = UIImage(named: "icon.png")
-//        cell.categoryImageView.image = image
-        
         // Configure the cell to show the data.
         let product: Product = products[indexPath.row]
         cell.product = product
 
         return cell
     }
-    
-    
 }
