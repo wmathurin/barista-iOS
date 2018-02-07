@@ -13,17 +13,29 @@
         <!--Product Configure View Controller-->
         <scene sceneID="QsS-bC-Qx6">
             <objects>
-                <viewController id="Nat-rN-K89" customClass="ProductConfigureViewController" customModule="Consumer" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ZfT-kR-Hz9">
+                <viewController modalPresentationStyle="overCurrentContext" id="Nat-rN-K89" customClass="ProductConfigureViewController" customModule="Consumer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" opaque="NO" contentMode="scaleToFill" id="ZfT-kR-Hz9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HPm-SM-4pd">
+                                <rect key="frame" x="166" y="276" width="47" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="y19-Be-RBo"/>
                     </view>
+                    <connections>
+                        <outlet property="productNameLabel" destination="HPm-SM-4pd" id="wU1-mX-0A3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mIE-2y-lc3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="220" y="155"/>
+            <point key="canvasLocation" x="220" y="154.27286356821591"/>
         </scene>
     </scenes>
 </document>

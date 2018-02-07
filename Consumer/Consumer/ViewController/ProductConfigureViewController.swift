@@ -10,10 +10,14 @@ import UIKit
 
 class ProductConfigureViewController: UIViewController {
 
+    var product: Product? 
+    
+    @IBOutlet weak var productNameLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        productNameLabel?.text = product?.name
     }
 
     override func didReceiveMemoryWarning() {

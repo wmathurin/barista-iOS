@@ -75,11 +75,20 @@
                     </view>
                     <connections>
                         <outlet property="productTableView" destination="EDg-nb-ni2" id="pea-qU-PKw"/>
+                        <segue destination="4E9-dF-hE3" kind="presentation" identifier="ProductSelectedSegue" id="5Qp-j1-U73"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZAp-79-RYg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="221.59999999999999" y="154.27286356821591"/>
+            <point key="canvasLocation" x="127" y="184"/>
+        </scene>
+        <!--ProductConfigureStoryboard-->
+        <scene sceneID="flc-wE-iuJ">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ProductConfigureStoryboard" id="4E9-dF-hE3" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="piu-z6-Upy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1003" y="143"/>
         </scene>
     </scenes>
 </document>

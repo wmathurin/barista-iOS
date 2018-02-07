@@ -10,6 +10,8 @@ import UIKit
 
 class ProductViewController: UIViewController {
 
+    var productSelectedSegueName = "ProductSelectedSegue"
+    
     @IBOutlet weak var productTableView: UITableView!
     
     var products: [Product?] = [] {
@@ -47,16 +49,17 @@ class ProductViewController: UIViewController {
     }
     
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination: ProductConfigureViewController = segue.destination as? ProductConfigureViewController,
+            let product: Product = sender as? Product {
+            destination.product = product
+        }
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
-
 }
 
 extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
@@ -77,5 +80,9 @@ extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
         }
 
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: productSelectedSegueName, sender: products[indexPath.row])
     }
 }
