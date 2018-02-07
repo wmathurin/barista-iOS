@@ -28,12 +28,7 @@ class BaseTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-    
-//    override func draw(_ rect: CGRect) {
-//        super.draw(rect)
-//        imageView.round()
-//    }
-    
+        
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
