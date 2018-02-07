@@ -40,6 +40,7 @@
 		EEA6ECB6202A6F1E00E04FFD /* CategoryAttributeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA6ECB5202A6F1E00E04FFD /* CategoryAttributeStore.swift */; };
 		EEA6ECB8202B705100E04FFD /* ProductConfigureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA6ECB7202B705100E04FFD /* ProductConfigureViewController.swift */; };
 		EEA6ECBA202B706000E04FFD /* ProductConfigureStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEA6ECB9202B706000E04FFD /* ProductConfigureStoryboard.storyboard */; };
+		EEA6ECBC202B782C00E04FFD /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA6ECBB202B782C00E04FFD /* UIViewExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +93,7 @@
 		EEA6ECB5202A6F1E00E04FFD /* CategoryAttributeStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryAttributeStore.swift; sourceTree = "<group>"; };
 		EEA6ECB7202B705100E04FFD /* ProductConfigureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductConfigureViewController.swift; sourceTree = "<group>"; };
 		EEA6ECB9202B706000E04FFD /* ProductConfigureStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProductConfigureStoryboard.storyboard; sourceTree = "<group>"; };
+		EEA6ECBB202B782C00E04FFD /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -248,6 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				EEA6EC9B202242E500E04FFD /* UIImageViewExtension.swift */,
+				EEA6ECBB202B782C00E04FFD /* UIViewExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -441,6 +444,7 @@
 				EEA6ECB2202A373900E04FFD /* FeaturedProductTableViewCell.swift in Sources */,
 				EEA6EC80201F850100E04FFD /* Record.swift in Sources */,
 				EEA6ECA92028E29D00E04FFD /* AccountViewController.swift in Sources */,
+				EEA6ECBC202B782C00E04FFD /* UIViewExtension.swift in Sources */,
 				EEA6EC9520221FD300E04FFD /* CategoryCollectionViewCell.swift in Sources */,
 				EEA6EC9320221D7B00E04FFD /* OrderMainViewController.swift in Sources */,
 				EEA6EC832020E57E00E04FFD /* Category.swift in Sources */,

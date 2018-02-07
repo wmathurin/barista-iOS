@@ -41,7 +41,7 @@ class OrderMainViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        featuredItemImageView.mask(curveHeight: -50)
+        featuredItemImageView.mask(offset: 50, direction: .convex, side: .bottom)
     }
     
     override func viewDidLoad() {

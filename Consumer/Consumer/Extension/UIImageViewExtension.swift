@@ -13,21 +13,6 @@ import SalesforceSwiftSDK
 let imageCache = NSCache<NSString, AnyObject>()
 
 extension UIImageView {
-    public func mask(curveHeight: CGFloat) {
-        let maskPath: UIBezierPath = UIBezierPath()
-       
-        maskPath.move(to: CGPoint(x: bounds.minX, y: bounds.maxY + min(curveHeight,0)))
-        maskPath.addLine(to: CGPoint(x: bounds.minX, y: bounds.minY))
-        maskPath.addLine(to: CGPoint(x: frame.maxX, y: bounds.minY))
-        maskPath.addLine(to: CGPoint(x: bounds.maxX, y: bounds.maxY + min(curveHeight,0)))
-        
-        maskPath.addQuadCurve(to: CGPoint(x: bounds.minX, y: bounds.maxY + min(curveHeight,0)), controlPoint: CGPoint(x: bounds.midX, y: bounds.maxY - max(curveHeight, 0)))
-        
-        let maskLayer: CAShapeLayer = CAShapeLayer()
-        maskLayer.path = maskPath.cgPath
-        layer.mask = maskLayer
-    }
-    
     public func loadImageUsingCache(withUrl urlString : String?) {
         guard urlString != nil else {
             return

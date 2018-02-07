@@ -18,6 +18,7 @@ class ProductConfigureViewController: UIViewController {
         super.viewDidLoad()
 
         productNameLabel?.text = product?.name
+        view.mask(offset: 100, direction: .convex, side: .top)
     }
 
     override func didReceiveMemoryWarning() {
