@@ -32,7 +32,7 @@ class ProductTableViewCell: UITableViewCell {
 
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        productImageView.layer.cornerRadius = productImageView.bounds.size.width / 2
+        productImageView.round()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

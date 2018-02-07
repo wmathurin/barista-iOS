@@ -50,4 +50,8 @@ extension UIImageView {
             tintColor = color
         }
     }
+    
+    func round() {
+        layer.cornerRadius = bounds.size.width / 2
+    }
 }

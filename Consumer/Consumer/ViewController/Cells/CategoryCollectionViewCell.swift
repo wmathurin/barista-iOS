@@ -24,9 +24,13 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
+    override func awakeFromNib() {
+        super.awakeFromNib()
         self.categoryLabel.font = Theme.menuTextFont
         self.categoryLabel.textColor = Theme.menuTextColor
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
     }
 }

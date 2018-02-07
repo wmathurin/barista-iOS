@@ -41,6 +41,8 @@
 		EEA6ECB8202B705100E04FFD /* ProductConfigureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA6ECB7202B705100E04FFD /* ProductConfigureViewController.swift */; };
 		EEA6ECBA202B706000E04FFD /* ProductConfigureStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEA6ECB9202B706000E04FFD /* ProductConfigureStoryboard.storyboard */; };
 		EEA6ECBC202B782C00E04FFD /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA6ECBB202B782C00E04FFD /* UIViewExtension.swift */; };
+		EEA6ECBE202BA13B00E04FFD /* SizeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA6ECBD202BA13B00E04FFD /* SizeTableViewCell.swift */; };
+		EEA6ECC0202BA36100E04FFD /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA6ECBF202BA36100E04FFD /* BaseTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +96,8 @@
 		EEA6ECB7202B705100E04FFD /* ProductConfigureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductConfigureViewController.swift; sourceTree = "<group>"; };
 		EEA6ECB9202B706000E04FFD /* ProductConfigureStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProductConfigureStoryboard.storyboard; sourceTree = "<group>"; };
 		EEA6ECBB202B782C00E04FFD /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		EEA6ECBD202BA13B00E04FFD /* SizeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizeTableViewCell.swift; sourceTree = "<group>"; };
+		EEA6ECBF202BA36100E04FFD /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -259,8 +263,10 @@
 			isa = PBXGroup;
 			children = (
 				EEA6EC9420221FD300E04FFD /* CategoryCollectionViewCell.swift */,
+				EEA6ECBD202BA13B00E04FFD /* SizeTableViewCell.swift */,
 				EEA6ECAA2028F06F00E04FFD /* ProductTableViewCell.swift */,
 				EEA6ECB1202A373900E04FFD /* FeaturedProductTableViewCell.swift */,
+				EEA6ECBF202BA36100E04FFD /* BaseTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -428,11 +434,13 @@
 				EEA6ECB4202A6C6600E04FFD /* CategoryAttribute.swift in Sources */,
 				EEA6EC89202111A200E04FFD /* ProductStore.swift in Sources */,
 				EEA6EC852020E5CC00E04FFD /* CategoryStore.swift in Sources */,
+				EEA6ECC0202BA36100E04FFD /* BaseTableViewCell.swift in Sources */,
 				EEA6ECB8202B705100E04FFD /* ProductConfigureViewController.swift in Sources */,
 				EEA6EC9C202242E500E04FFD /* UIImageViewExtension.swift in Sources */,
 				EEA6ECB6202A6F1E00E04FFD /* CategoryAttributeStore.swift in Sources */,
 				EEA6ECA72028DF3600E04FFD /* ProductCategoryAssociationStore.swift in Sources */,
 				EEA6ECAF202A35A400E04FFD /* FeaturedViewController.swift in Sources */,
+				EEA6ECBE202BA13B00E04FFD /* SizeTableViewCell.swift in Sources */,
 				EEA6EC872021119C00E04FFD /* Product.swift in Sources */,
 				A4B8C43420290CC3004176A1 /* Theme.swift in Sources */,
 				EEA6EC992022237F00E04FFD /* ProductViewController.swift in Sources */,

@@ -50,15 +50,11 @@ class ProductViewController: UIViewController {
     
 
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destination: ProductConfigureViewController = segue.destination as? ProductConfigureViewController,
-            let product: Product = sender as? Product {
+        if let destination: ProductConfigureViewController = segue.destination as? ProductConfigureViewController, let product: Product = sender as? Product {
             destination.product = product
+            destination.category = category
         }
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
     }
 }
 
@@ -76,7 +72,7 @@ extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
         // Configure the cell to show the data.
         if let product: Product = products[indexPath.row] {
             cell.productName = product.name
-            cell.productImageURL = product.featuredImageRightURL
+            cell.productImageURL = product.iconImageURL
         }
 
         return cell

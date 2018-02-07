@@ -62,4 +62,3 @@ extension FeaturedViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
 }
-
