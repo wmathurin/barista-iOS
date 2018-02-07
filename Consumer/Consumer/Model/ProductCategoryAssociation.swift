@@ -20,8 +20,6 @@ class ProductCategoryAssociation: Record, StoreProtocol {
         static let allFields = [name.rawValue, categoryId.rawValue, productId.rawValue]
     }
     
-    
-    //    fileprivate(set) lazy var ownerId: String? = data[Field.ownerId.rawValue] as? String
     fileprivate(set) lazy var name: String? = data[Field.name.rawValue] as? String
     fileprivate(set) lazy var catgoryId: String? = data[Field.categoryId.rawValue] as? String
     fileprivate(set) lazy var productId: String? = data[Field.productId.rawValue] as? String

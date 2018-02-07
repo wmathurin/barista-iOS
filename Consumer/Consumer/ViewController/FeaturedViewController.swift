@@ -54,9 +54,11 @@ extension FeaturedViewController: UITableViewDataSource, UITableViewDelegate {
         let cell: FeaturedProductTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! FeaturedProductTableViewCell
         
         // Configure the cell to show the data.
-        cell.product = featuredProducts[indexPath.row]
+        if let product: Product = featuredProducts[indexPath.row] {
+            cell.productName = product.name
+            cell.productImageURL = indexPath.row % 2 == 0 ? product.featuredImageRightURL : product.featuredImageLeftURL
+        }
         
         return cell
     }
 }
-

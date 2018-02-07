@@ -9,22 +9,28 @@
 import UIKit
 
 class CategoryCollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var categoryLabel: UILabel!
-    @IBOutlet weak var categoryImageView: UIImageView!
+    @IBOutlet private weak var categoryLabel: UILabel!
+    @IBOutlet private weak var categoryImageView: UIImageView!
     
-    var category: Category? = nil {
+    var categoryName: String? {
         didSet {
-            if let category = category {
-                categoryLabel.text = category.name
-                categoryImageView.loadImageUsingCache(withUrl: category.iconURL)
-//                categoryImageView.tintImage(withColor: UIColor.blue)
-            }
+            categoryLabel.text = categoryName
         }
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
+    var categoryImageURL: String? {
+        didSet {
+            categoryImageView.loadImageUsingCache(withUrl: categoryImageURL)
+        }
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
         self.categoryLabel.font = Theme.menuTextFont
         self.categoryLabel.textColor = Theme.menuTextColor
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
     }
 }

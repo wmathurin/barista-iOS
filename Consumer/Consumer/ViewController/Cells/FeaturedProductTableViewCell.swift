@@ -10,17 +10,20 @@ import UIKit
 
 class FeaturedProductTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var productImageView: UIImageView!
-    @IBOutlet weak var productNameLabel: UILabel!
+    @IBOutlet private weak var productImageView: UIImageView!
+    @IBOutlet private weak var productNameLabel: UILabel!
     
-    var product: Product? = nil {
+    var productName: String? = nil {
         didSet {
-            DispatchQueue.main.async(execute: {
-                self.productNameLabel.text = self.product?.name
-                if let featuredImageURL = self.product?.featuredImageURL {
-                    self.productImageView.loadImageUsingCache(withUrl: featuredImageURL)
-                }
-            })
+            self.productNameLabel.text = self.productName
+        }
+    }
+    
+    var productImageURL: String? {
+        didSet {
+            if let productImageURL = productImageURL {
+                self.productImageView.loadImageUsingCache(withUrl: productImageURL)
+            }
         }
     }
 
