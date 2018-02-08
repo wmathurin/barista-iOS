@@ -41,7 +41,7 @@ class OrderMainViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        featuredItemImageView.mask(curveHeight: -50)
+        featuredItemImageView.mask(offset: 50, direction: .convex, side: .bottom)
     }
     
     override func viewDidLoad() {
@@ -54,7 +54,7 @@ class OrderMainViewController: UIViewController {
 
         ProductStore.instance.syncDown { (syncState) in
             let featuredProducts: [Product] = ProductStore.instance.featuredProducts()
-            if let featuredProduct: Product = featuredProducts.first, let firstFeaturedProdcutURL = featuredProduct.featuredImageURL {
+            if let featuredProduct: Product = featuredProducts.first, let firstFeaturedProdcutURL = featuredProduct.featuredImageRightURL {
                 DispatchQueue.main.async(execute: {
                     self.featuredItemImageView.loadImageUsingCache(withUrl: firstFeaturedProdcutURL)
                     self.featuredItemLabel.text = "FEATURED ITEM:"
@@ -66,6 +66,20 @@ class OrderMainViewController: UIViewController {
         ProductCategoryAssociationStore.instance.syncDown { (syncState) in
         }
         
+        CategoryAttributeStore.instance.syncDown{ (syncState) in
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            OrderStore.instance.syncDown(completion: { (syncState) in
+                let records = OrderStore.instance.records()
+                if let current = records.first {
+                    if current.orderStatus() == .pending {
+                        // show cart highlighted.
+                    }
+                }
+                print("records")
+            })
+        }
     }
 
     // MARK: - Navigation
@@ -89,7 +103,9 @@ extension OrderMainViewController: UICollectionViewDelegate, UICollectionViewDat
         let cell: CategoryCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! CategoryCollectionViewCell
         
         // Configure the cell to show the data.
-        cell.category = CategoryStore.instance.record(index: indexPath.item)
+        let category = CategoryStore.instance.record(index: indexPath.item)
+        cell.categoryName = category.name
+        cell.categoryImageURL = category.iconImageURL
         
         return cell
     }

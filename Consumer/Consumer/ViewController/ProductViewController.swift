@@ -10,9 +10,11 @@ import UIKit
 
 class ProductViewController: UIViewController {
 
+    var productSelectedSegueName = "ProductSelectedSegue"
+    
     @IBOutlet weak var productTableView: UITableView!
     
-    var products: [Product] = [] {
+    var products: [Product?] = [] {
         didSet {
             
         }
@@ -47,16 +49,13 @@ class ProductViewController: UIViewController {
     }
     
 
-    /*
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if let destination: ProductConfigureViewController = segue.destination as? ProductConfigureViewController, let product: Product = sender as? Product {
+            destination.product = product
+            destination.category = category
+        }
     }
-    */
-
 }
 
 extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
@@ -70,15 +69,16 @@ extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
         // Dequeue or create a cell of the appropriate type.
         let cell: ProductTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ProductTableViewCell
         
-//        let image = UIImage(named: "icon.png")
-//        cell.categoryImageView.image = image
-        
         // Configure the cell to show the data.
-        let product: Product = products[indexPath.row]
-        cell.product = product
+        if let product: Product = products[indexPath.row] {
+            cell.name = product.name
+            cell.imageURL = product.iconImageURL
+        }
 
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: productSelectedSegueName, sender: products[indexPath.row])
+    }
 }

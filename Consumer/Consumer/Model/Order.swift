@@ -20,7 +20,14 @@ class Order: Record, StoreProtocol {
         case orderOwner = "OwnerId"
         case status = "Status"
         
-        static let allFields = [accountId.rawValue, accountNumber.rawValue, orderAmount.rawValue, orderName.rawValue, orderNumber.rawValue, orderOwner.rawValue, status.rawValue]
+        static let allFields = [accountId.rawValue, orderName.rawValue, orderNumber.rawValue, orderOwner.rawValue, status.rawValue]
+    }
+    
+    enum OrderStatus {
+        case unknown
+        case pending
+        case submitted
+        case complete
     }
     
     fileprivate(set) lazy var accountId: String? = data[Field.accountId.rawValue] as? String
@@ -31,6 +38,15 @@ class Order: Record, StoreProtocol {
     fileprivate(set) lazy var owner: String? = data[Field.orderOwner.rawValue] as? String
     fileprivate(set) lazy var status: String? = data[Field.status.rawValue] as? String
     
+    func orderStatus() -> OrderStatus {
+        if let s = self.status {
+            if s == "Draft" { return OrderStatus.pending }
+            else if s == "Activated" { return OrderStatus.submitted }
+            else if s == "Completed" { return OrderStatus.complete }
+            else { return OrderStatus.unknown }
+        } else { return OrderStatus.unknown }
+    }
+    
     override static var indexes: [[String : String]] {
         return super.indexes + [
             ["path" : Field.accountId.rawValue, "type" : kSoupIndexTypeString],
@@ -40,12 +56,12 @@ class Order: Record, StoreProtocol {
         ]
     }
     
-    static var objectName: String = "String"
+    static var objectName: String = "Order"
     
     static var orderPath: String = Field.orderNumber.rawValue
     
     override static var readFields: [String] {
-        return super.readFields + Field.allFields
+        return super.readFields + Field.allFields + [Field.status.rawValue]
     }
     override static var createFields: [String] {
         return super.createFields + Field.allFields
@@ -55,6 +71,6 @@ class Order: Record, StoreProtocol {
     }
     
     static func selectFieldsString() -> String {
-        return readFields.map { return "{\(objectName):\($0)}" }.joined(separator: ", ")
+        return Field.allFields.map { return "{\(objectName):\($0)}" }.joined(separator: ", ")
     }
 }
