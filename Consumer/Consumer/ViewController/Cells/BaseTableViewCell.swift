@@ -25,10 +25,16 @@ class BaseTableViewCell: UITableViewCell {
         }
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        nameLabel.text = ""
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+        iconImageView.round()
     }
-        
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }

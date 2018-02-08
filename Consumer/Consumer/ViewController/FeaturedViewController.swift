@@ -55,8 +55,8 @@ extension FeaturedViewController: UITableViewDataSource, UITableViewDelegate {
         
         // Configure the cell to show the data.
         if let product: Product = featuredProducts[indexPath.row] {
-            cell.productName = product.name
-            cell.productImageURL = indexPath.row % 2 == 0 ? product.featuredImageRightURL : product.featuredImageLeftURL
+            cell.name = product.name
+            cell.imageURL = indexPath.row % 2 == 0 ? product.featuredImageRightURL : product.featuredImageLeftURL
         }
         
         return cell

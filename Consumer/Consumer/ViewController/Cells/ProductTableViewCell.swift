@@ -9,9 +9,4 @@
 import UIKit
 
 class ProductTableViewCell: BaseTableViewCell {
-
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-        imageView?.round()
-    }
 }
