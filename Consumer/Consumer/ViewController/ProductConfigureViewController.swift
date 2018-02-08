@@ -14,8 +14,8 @@ class ProductConfigureViewController: UIViewController {
     var category: Category?
     var categoryAttributes: [CategoryAttribute?] = []
     let sizeCellName = "SizeCell"
-    let SMLCellName = "SMLCell"
-    let listCell = "ListCell"
+    let integerCellName = "IntegerCell"
+    let listCellName = "ListCell"
     
     @IBOutlet weak var productConfigureContainerView: UIView!
     @IBOutlet weak var productNameLabel: UILabel!
@@ -25,6 +25,8 @@ class ProductConfigureViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var attributeTableView: UITableView!
     
+    @IBOutlet weak var addToCartButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -38,11 +40,6 @@ class ProductConfigureViewController: UIViewController {
         categoryAttributes = CategoryAttributeStore.instance.attributes(forCategory: category)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         productConfigureContainerView.mask(offset: 50, direction: .convex, side: .top)
@@ -50,6 +47,8 @@ class ProductConfigureViewController: UIViewController {
     
     @IBAction func closeButtonTouchUpInside(_ sender: Any) {
         dismiss(animated: true) {}
+    }
+    @IBAction func addToCartButtonTouchUpInside(_ sender: Any) {
     }
     
     /*
@@ -70,22 +69,25 @@ extension ProductConfigureViewController: UITableViewDataSource, UITableViewDele
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "temp")
         
-        if let attribute: CategoryAttribute = categoryAttributes[indexPath.row] {
-            cell.textLabel?.text = attribute.name
-//        let cellIdentifier = "FeaturedProductCell"
-//
-//        // Dequeue or create a cell of the appropriate type.
-//        let cell: FeaturedProductTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! FeaturedProductTableViewCell
-//
-//        // Configure the cell to show the data.
-//        if let product: Product = featuredProducts[indexPath.row] {
-//            cell.productName = product.name
-//            cell.productImageURL = indexPath.row % 2 == 0 ? product.featuredImageRightURL : product.featuredImageLeftURL
-//        }
-        
+        if let attribute: CategoryAttribute = categoryAttributes[indexPath.row], let attributeType = attribute.attributeType {
+            var cellName: String {
+                switch attributeType {
+                case .size:
+                    return sizeCellName
+                case .integer:
+                    return integerCellName
+                case .list:
+                    return listCellName
+                }
+            }
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellName, for: indexPath) as! BaseTableViewCell
+            cell.name = attribute.name
+            cell.imageURL = attribute.iconImageURL
+            cell.imageView?.image = UIImage()
+            return cell
         }
-        return cell
+        return UITableViewCell()
     }
 }

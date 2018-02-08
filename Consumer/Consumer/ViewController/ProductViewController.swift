@@ -43,12 +43,6 @@ class ProductViewController: UIViewController {
         super.viewDidLoad()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination: ProductConfigureViewController = segue.destination as? ProductConfigureViewController, let product: Product = sender as? Product {
