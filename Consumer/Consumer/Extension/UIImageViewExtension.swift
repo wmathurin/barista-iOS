@@ -17,7 +17,13 @@ extension UIImageView {
         guard urlString != nil else {
             return
         }
-        let url = URL(string: urlString!)
+        let imageScale = Int(UIScreen.main.scale)
+        var url = URL(string:  urlString!)
+        if imageScale > 1 {
+            let newFileName = url?.lastPathComponent.replacingOccurrences(of: ".", with: "@\(imageScale)x.") ?? ""
+            url?.deleteLastPathComponent()
+            url?.appendPathComponent(newFileName)
+        }
         self.image = nil
         
         // check cached image
