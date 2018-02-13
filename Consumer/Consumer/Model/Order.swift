@@ -19,6 +19,7 @@ class Order: Record, StoreProtocol {
         case orderNumber = "OrderNumber"
         case orderOwner = "OwnerId"
         case status = "Status"
+        case orderId = "Id"
         
         static let allFields = [accountId.rawValue, orderName.rawValue, orderNumber.rawValue, orderOwner.rawValue, status.rawValue]
     }
@@ -37,6 +38,7 @@ class Order: Record, StoreProtocol {
     fileprivate(set) lazy var number: Int? = data[Field.orderNumber.rawValue] as? Int
     fileprivate(set) lazy var owner: String? = data[Field.orderOwner.rawValue] as? String
     fileprivate(set) lazy var status: String? = data[Field.status.rawValue] as? String
+    fileprivate(set) lazy var orderId: String? = data[Field.orderId.rawValue] as? String
     
     func orderStatus() -> OrderStatus {
         if let s = self.status {
@@ -53,6 +55,7 @@ class Order: Record, StoreProtocol {
             ["path" : Field.orderName.rawValue, "type" : kSoupIndexTypeString],
             ["path" : Field.orderNumber.rawValue, "type" : kSoupIndexTypeString],
             ["path" : Field.orderOwner.rawValue, "type" : kSoupIndexTypeString],
+            ["path" : Field.status.rawValue, "type" : kSoupIndexTypeString]
         ]
     }
     

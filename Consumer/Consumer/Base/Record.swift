@@ -124,6 +124,8 @@ extension StoreProtocol {
         var resultsDictionary = Dictionary<String, Any>()
         if let results = records.first as? [Any] {
             zip(T.readFields, results).forEach { resultsDictionary[$0.0] = $0.1 }
+        } else if let results = records.first as? Dictionary<String, Any> {
+            return T.from(results)
         }
         return T(data: [resultsDictionary])
     }

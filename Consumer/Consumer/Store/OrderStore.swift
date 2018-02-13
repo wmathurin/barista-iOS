@@ -40,4 +40,17 @@ class OrderStore: Store<Order> {
         }
         return Order.from(results)
     }
+    
+    func pendingOrder() -> Order? {
+        let query: SFQuerySpec = SFQuerySpec.newAllQuerySpec(Order.objectName, withOrderPath: Order.orderPath, with: .descending, withPageSize: 100)
+        var error: NSError? = nil
+        let results: [Any] = store.query(with: query, pageIndex: 0, error: &error)
+        guard error == nil else {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message:"fetch \(Order.objectName) failed: \(error!.localizedDescription)")
+            return nil
+        }
+        let records:[Order] = Order.from(results)
+        let pending = records.filter({$0.orderStatus() == .pending})
+        return pending.last
+    }
 }
