@@ -42,14 +42,6 @@ class ProductViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
-    // MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destination: ProductConfigureViewController = segue.destination as? ProductConfigureViewController, let product: Product = sender as? Product {
-            destination.product = product
-            destination.category = category
-        }
-    }
 }
 
 extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
@@ -73,6 +65,10 @@ extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: productSelectedSegueName, sender: products[indexPath.row])
+        guard let product = self.products[indexPath.row], let category = self.category else {return}
+        let vc = ProductConfigureViewController(product: product, category: category)
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.modalTransitionStyle = .coverVertical
+        self.present(vc, animated: true, completion: nil)
     }
 }

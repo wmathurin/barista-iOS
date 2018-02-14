@@ -41,6 +41,42 @@ struct Theme {
         }
     }
     
+    static var productConfigDividerColor: UIColor {
+        get {
+            return UIColor(displayP3Red: 3.0/255.0, green: 201.0/255.0, blue: 244.0/255.0, alpha: 1.0)
+        }
+    }
+    
+    static var productConfigAddToCartColor: UIColor {
+        get {
+            return UIColor(displayP3Red: 3.0/255.0, green: 201.0/255.0, blue: 244.0/255.0, alpha: 1.0)
+        }
+    }
+    
+    static var productConfigCancelAddToCartColor: UIColor {
+        get {
+            return UIColor(displayP3Red: 0.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 0.0)
+        }
+    }
+    
+    static var productConfigTopBgGradColor: UIColor {
+        get {
+            return UIColor(displayP3Red: 46.0/255.0, green: 25.0/255.0, blue: 18.0/255.0, alpha: 1.0)
+        }
+    }
+    
+    static var productConfigBottomBgGradColor: UIColor {
+        get {
+            return UIColor(displayP3Red: 28.0/255.0, green: 15.0/255.0, blue: 11.0/255.0, alpha: 1.0)
+        }
+    }
+    
+    static var productConfigTextColor: UIColor {
+        get {
+            return UIColor(displayP3Red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+        }
+    }
+    
     
     // Fonts
     
