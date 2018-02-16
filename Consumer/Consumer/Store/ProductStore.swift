@@ -50,5 +50,21 @@ class ProductStore: Store<Product> {
         }
         return Product.from(results)
     }
+    
+    func product(from productId:String) -> Product? {
+        let query = SFQuerySpec.newExactQuerySpec(Product.objectName,
+                                                  withPath: Product.Field.productId.rawValue,
+                                                  withMatchKey: productId,
+                                                  withOrderPath: Product.Field.productId.rawValue,
+                                                  with: .ascending,
+                                                  withPageSize: 1)
+        var error: NSError? = nil
+        let results: [Any] = store.query(with: query, pageIndex: 0, error: &error)
+        guard error == nil else {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message:"fetch Product by product id failed: \(error!.localizedDescription)")
+            return nil
+        }
+        return Product.from(results)
+    }
 
 }

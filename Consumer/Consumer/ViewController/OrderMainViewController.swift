@@ -16,6 +16,8 @@ class OrderMainViewController: UIViewController {
     @IBOutlet weak var featuredItemLabel: UILabel!
     @IBOutlet weak var featuredProductNameLabel: UILabel!
     
+    fileprivate var cartButton:UIButton!
+    
     let productSegue = "ProductSegue"
     let featuredItemSelectedSegue = "FeaturedItemSelectedSegue"
     var featuredProduct: Product?
@@ -34,11 +36,13 @@ class OrderMainViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
+        UIApplication.shared.statusBarStyle = .lightContent
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.isNavigationBarHidden = false
+        UIApplication.shared.statusBarStyle = .default
     }
     
     override func viewDidLayoutSubviews() {
@@ -53,6 +57,22 @@ class OrderMainViewController: UIViewController {
 
         featuredProductNameLabel.textColor = UIColor.white
         featuredProductNameLabel.text = ""
+        
+        let safe = self.view.safeAreaLayoutGuide
+        
+        let button = UIButton(type: .custom)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setBackgroundImage(UIImage(named: "cart_unselected"), for: .normal)
+        button.addTarget(self, action: #selector(didPressCartButton), for: .touchUpInside)
+        button.titleLabel?.font = Theme.cartButtonFont
+        button.setTitleColor(UIColor.black, for: .normal)
+        self.view.addSubview(button)
+        button.topAnchor.constraint(equalTo: safe.topAnchor).isActive = true
+        button.rightAnchor.constraint(equalTo: safe.rightAnchor, constant: -8).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 30.0).isActive = true
+        button.widthAnchor.constraint(equalTo: button.heightAnchor, multiplier: 1.0).isActive = true
+        button.alpha = 0.0
+        self.cartButton = button
 
         ProductStore.instance.syncDown { (syncState) in
             self.featuredProduct = ProductStore.instance.featuredProduct()
@@ -71,6 +91,39 @@ class OrderMainViewController: UIViewController {
         CategoryAttributeStore.instance.syncDown{ (syncState) in
         }
         
+        OrderStore.instance.syncDown(completion: { (orderSyncState) in
+            if let complete = orderSyncState?.isDone(), complete == true {
+                OrderItemStore.instance.syncDown(completion: { (itemSyncState) in
+                    if let itemComplete = itemSyncState?.isDone(), itemComplete == true {
+                        let records = OrderStore.instance.records()
+                        if let current = records.first {
+                            if current.orderStatus() == .pending {
+                                let items = OrderItemStore.instance.items(from: current)
+                                var count:Int = 0
+                                for item in items {
+                                    if let quantity = item.quantity {
+                                        count = count + quantity
+                                    }
+                                }
+                                DispatchQueue.main.async {
+                                    self.cartButton.alpha = 1.0
+                                    self.cartButton.setTitle("\(count)", for: .normal)
+                                }
+                                
+                            }
+                        }
+                    }
+                })
+            }
+        })
+        
+        
+    }
+    
+    @objc func didPressCartButton() {
+        guard let order = OrderStore.instance.pendingOrder() else {return}
+        let cart = CartViewController(order: order, orderStore: OrderStore.instance, itemStore:OrderItemStore.instance)
+        self.navigationController?.pushViewController(cart, animated: true)
     }
 
     // MARK: - Navigation

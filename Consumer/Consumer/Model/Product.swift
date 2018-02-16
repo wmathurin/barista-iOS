@@ -13,6 +13,7 @@ class Product: Record, StoreProtocol {
     static let objectName: String = "Product2"
     
     enum Field: String {
+        case productId = "Id"
         case name = "Name"
         case featuredImageLeftURL = "FeaturedImageLeftURL__c"
         case featuredImageRightURL = "FeaturedImageRightURL__c"
@@ -21,9 +22,10 @@ class Product: Record, StoreProtocol {
         case productDescription = "Description"
         case featuredItemPriority = "FeaturedItemPriority__c"
         
-        static let allFields = [name.rawValue, featuredImageLeftURL.rawValue, featuredImageRightURL.rawValue, iconImageURL.rawValue, isFeaturedItem.rawValue, productDescription.rawValue, featuredItemPriority.rawValue]
+        static let allFields = [productId.rawValue, name.rawValue, featuredImageLeftURL.rawValue, featuredImageRightURL.rawValue, iconImageURL.rawValue, isFeaturedItem.rawValue, productDescription.rawValue, featuredItemPriority.rawValue]
     }
 
+    fileprivate(set) lazy var productId: String? = data[Field.productId.rawValue] as? String
     fileprivate(set) lazy var name: String? = data[Field.name.rawValue] as? String
     fileprivate(set) lazy var featuredImageLeftURL: String? = data[Field.featuredImageLeftURL.rawValue] as? String
     fileprivate(set) lazy var featuredImageRightURL: String? = data[Field.featuredImageRightURL.rawValue] as? String
@@ -34,6 +36,7 @@ class Product: Record, StoreProtocol {
 
     override static var indexes: [[String : String]] {
         return super.indexes + [
+            ["path" : Field.productId.rawValue, "type" : kSoupIndexTypeString],
             ["path" : Field.name.rawValue, "type" : kSoupIndexTypeString],
             ["path" : Field.featuredImageLeftURL.rawValue, "type" : kSoupIndexTypeString],
             ["path" : Field.featuredImageRightURL.rawValue, "type" : kSoupIndexTypeString],
