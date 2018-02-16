@@ -46,6 +46,8 @@
 		EEA6ECBC202B782C00E04FFD /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA6ECBB202B782C00E04FFD /* UIViewExtension.swift */; };
 		EEA6ECBE202BA13B00E04FFD /* SizeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA6ECBD202BA13B00E04FFD /* SizeTableViewCell.swift */; };
 		EEA6ECC0202BA36100E04FFD /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA6ECBF202BA36100E04FFD /* BaseTableViewCell.swift */; };
+		EEB4A8B52037471200745515 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB4A8B42037471200745515 /* UIButtonExtension.swift */; };
+		EEB4A8B720374BCA00745515 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB4A8B620374BCA00745515 /* ImageCache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +106,8 @@
 		EEA6ECBB202B782C00E04FFD /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		EEA6ECBD202BA13B00E04FFD /* SizeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizeTableViewCell.swift; sourceTree = "<group>"; };
 		EEA6ECBF202BA36100E04FFD /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
+		EEB4A8B42037471200745515 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
+		EEB4A8B620374BCA00745515 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -262,6 +266,8 @@
 			children = (
 				EEA6EC9B202242E500E04FFD /* UIImageViewExtension.swift */,
 				EEA6ECBB202B782C00E04FFD /* UIViewExtension.swift */,
+				EEB4A8B42037471200745515 /* UIButtonExtension.swift */,
+				EEB4A8B620374BCA00745515 /* ImageCache.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -440,6 +446,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEB4A8B720374BCA00745515 /* ImageCache.swift in Sources */,
 				EEA6ECB4202A6C6600E04FFD /* CategoryAttribute.swift in Sources */,
 				EEA6EC89202111A200E04FFD /* ProductStore.swift in Sources */,
 				EEA6EC852020E5CC00E04FFD /* CategoryStore.swift in Sources */,
@@ -453,6 +460,7 @@
 				EEA6EC872021119C00E04FFD /* Product.swift in Sources */,
 				A4B8C43420290CC3004176A1 /* Theme.swift in Sources */,
 				EEA6EC992022237F00E04FFD /* ProductViewController.swift in Sources */,
+				EEB4A8B52037471200745515 /* UIButtonExtension.swift in Sources */,
 				EEA6EC81201F850100E04FFD /* Store.swift in Sources */,
 				EEA6ECA52028DD0D00E04FFD /* ProductCategoryAssociation.swift in Sources */,
 				A468710F201A514C00096408 /* InitialViewController.swift in Sources */,

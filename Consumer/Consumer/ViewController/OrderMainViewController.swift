@@ -11,12 +11,14 @@ import CoreGraphics
 
 class OrderMainViewController: UIViewController {
     
-    @IBOutlet weak var featuredItemImageView: UIImageView!
+    @IBOutlet weak var featuredItemButton: UIButton!
     @IBOutlet weak var categoryCollectionView: UICollectionView!
     @IBOutlet weak var featuredItemLabel: UILabel!
     @IBOutlet weak var featuredProductNameLabel: UILabel!
     
     let productSegue = "ProductSegue"
+    let featuredItemSelectedSegue = "FeaturedItemSelectedSegue"
+    var featuredProduct: Product?
     
     override func loadView()
     {
@@ -41,7 +43,7 @@ class OrderMainViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        featuredItemImageView.mask(offset: 50, direction: .convex, side: .bottom)
+        featuredItemButton.mask(offset: 50, direction: .convex, side: .bottom)
     }
     
     override func viewDidLoad() {
@@ -53,10 +55,10 @@ class OrderMainViewController: UIViewController {
         featuredProductNameLabel.text = ""
 
         ProductStore.instance.syncDown { (syncState) in
-            let featuredProducts: [Product] = ProductStore.instance.featuredProducts()
-            if let featuredProduct: Product = featuredProducts.first, let firstFeaturedProdcutURL = featuredProduct.featuredImageRightURL {
+            self.featuredProduct = ProductStore.instance.featuredProducts().first
+            if let featuredProduct = self.featuredProduct, let firstFeaturedProdcutURL = featuredProduct.featuredImageRightURL {
                 DispatchQueue.main.async(execute: {
-                    self.featuredItemImageView.loadImageUsingCache(withUrl: firstFeaturedProdcutURL)
+                    self.featuredItemButton.loadBackgroundImageUsingCache(withUrl: firstFeaturedProdcutURL, for: .normal)
                     self.featuredItemLabel.text = "FEATURED ITEM:"
                     self.featuredProductNameLabel.text = featuredProduct.name
                 })
@@ -76,8 +78,15 @@ class OrderMainViewController: UIViewController {
         if let destinationViewController: ProductViewController = segue.destination as? ProductViewController,
             let category: Category = sender as? Category {
             destinationViewController.category = category
+        } else if let destinationViewController: ProductConfigureViewController = segue.destination as? ProductConfigureViewController {
+            destinationViewController.product = featuredProduct
         }
     }
+
+    @IBAction func didTouchUpInsideFeaturedItemButton(_ sender: Any) {
+        performSegue(withIdentifier: featuredItemSelectedSegue, sender: featuredProduct)
+    }
+    
 }
 
 extension OrderMainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
