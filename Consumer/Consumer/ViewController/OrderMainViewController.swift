@@ -73,8 +73,7 @@ class OrderMainViewController: UIViewController {
         self.cartButton = button
 
         ProductStore.instance.syncDown { (syncState) in
-            let featuredProducts: [Product] = ProductStore.instance.featuredProducts()
-            if let featuredProduct: Product = featuredProducts.first, let firstFeaturedProdcutURL = featuredProduct.featuredImageRightURL {
+            if let featuredProduct: Product = ProductStore.instance.featuredProduct(), let firstFeaturedProdcutURL = featuredProduct.featuredImageRightURL {
                 DispatchQueue.main.async(execute: {
                     self.featuredItemImageView.loadImageUsingCache(withUrl: firstFeaturedProdcutURL)
                     self.featuredItemLabel.text = "FEATURED ITEM:"
