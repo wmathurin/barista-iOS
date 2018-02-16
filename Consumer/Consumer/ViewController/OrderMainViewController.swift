@@ -55,7 +55,7 @@ class OrderMainViewController: UIViewController {
         featuredProductNameLabel.text = ""
 
         ProductStore.instance.syncDown { (syncState) in
-            self.featuredProduct = ProductStore.instance.featuredProducts().first
+            self.featuredProduct = ProductStore.instance.featuredProduct()
             if let featuredProduct = self.featuredProduct, let firstFeaturedProdcutURL = featuredProduct.featuredImageRightURL {
                 DispatchQueue.main.async(execute: {
                     self.featuredItemButton.loadBackgroundImageUsingCache(withUrl: firstFeaturedProdcutURL, for: .normal)

@@ -30,10 +30,18 @@ class ProductStore: Store<Product> {
         return []
     }
 
+    func featuredProduct<T:Product>() -> T? {
+        return featuredProducts(pageSize: 1).first
+    }
+    
     func featuredProducts<T:Product>() -> [T] {
-        let queryString = "SELECT \(Product.selectFieldsString()) FROM {\(Product.objectName)} WHERE {\(Product.objectName):\(Product.Field.isFeaturedItem.rawValue)} = 1"
+        return featuredProducts(pageSize: 100)
+    }
+    
+    fileprivate func featuredProducts<T:Product>(pageSize: UInt) -> [T] {
+        let queryString = "SELECT \(Product.selectFieldsString()) FROM {\(Product.objectName)} WHERE {\(Product.objectName):\(Product.Field.isFeaturedItem.rawValue)} = 1 ORDER BY {\(Product.objectName):\(Product.Field.featuredItemPriority.rawValue)} ASC"
         
-        let query:SFQuerySpec = SFQuerySpec.newSmartQuerySpec(queryString, withPageSize: 100)!
+        let query:SFQuerySpec = SFQuerySpec.newSmartQuerySpec(queryString, withPageSize: pageSize)!
         var error: NSError? = nil
         let results: [Any] = store.query(with: query, pageIndex: 0, error: &error)
         guard error == nil else {
