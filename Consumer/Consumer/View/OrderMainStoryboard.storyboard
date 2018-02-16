@@ -9,7 +9,6 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="Unknown constraint types" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -38,29 +37,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zdr-Fc-erg">
-                                <rect key="frame" x="0.0" y="64" width="375" height="250"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="250" id="hdU-1z-wyi"/>
-                                </constraints>
-                                <connections>
-                                    <action selector="didTouchUpInsideFeaturedItemButton:" destination="FUx-8y-N8z" eventType="touchUpInside" id="ow7-hR-dcp"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iQ3-9Z-eOd">
-                                <rect key="frame" x="50" y="134" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8o0-ch-ZZ3">
-                                <rect key="frame" x="50" y="175" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="black" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5r1-Dc-8sh">
-                                <rect key="frame" x="8" y="334" width="359" height="284"/>
+                                <rect key="frame" x="8" y="250" width="359" height="368"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewLayout key="collectionViewLayout" id="4yT-53-7WC" customClass="OrderMainCollectionViewLayout" customModule="Consumer"/>
                                 <cells>
@@ -105,21 +83,42 @@
                                     <outlet property="delegate" destination="FUx-8y-N8z" id="hYT-gv-f0t"/>
                                 </connections>
                             </collectionView>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="h4p-pb-Dmg">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="jea-yz-ha9"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="uBh-4r-mPH" appends="YES" id="9Sj-lN-hlG"/>
+                                </connections>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iQ3-9Z-eOd">
+                                <rect key="frame" x="25" y="80" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8o0-ch-ZZ3">
+                                <rect key="frame" x="25" y="121" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="rua-Z4-Zgn" firstAttribute="trailing" secondItem="Zdr-Fc-erg" secondAttribute="trailing" id="96z-yG-5Ey"/>
-                            <constraint firstItem="iQ3-9Z-eOd" firstAttribute="leading" secondItem="Zdr-Fc-erg" secondAttribute="leading" constant="50" id="DAi-jR-Jwb"/>
-                            <constraint firstItem="Zdr-Fc-erg" firstAttribute="top" secondItem="rua-Z4-Zgn" secondAttribute="top" id="EXd-DP-ee7"/>
+                            <constraint firstItem="rua-Z4-Zgn" firstAttribute="trailing" secondItem="h4p-pb-Dmg" secondAttribute="trailing" id="056-jx-OJ4"/>
+                            <constraint firstItem="iQ3-9Z-eOd" firstAttribute="leading" secondItem="h4p-pb-Dmg" secondAttribute="leading" constant="25" id="4nP-Ci-48z"/>
+                            <constraint firstItem="5r1-Dc-8sh" firstAttribute="top" secondItem="h4p-pb-Dmg" secondAttribute="bottom" id="Aib-VV-TYW"/>
+                            <constraint firstItem="h4p-pb-Dmg" firstAttribute="leading" secondItem="rua-Z4-Zgn" secondAttribute="leading" id="ERQ-ar-Cl4"/>
                             <constraint firstItem="8o0-ch-ZZ3" firstAttribute="top" secondItem="iQ3-9Z-eOd" secondAttribute="bottom" constant="20" id="F4r-qi-j2r"/>
                             <constraint firstItem="8o0-ch-ZZ3" firstAttribute="leading" secondItem="iQ3-9Z-eOd" secondAttribute="leading" id="FAb-wg-fli"/>
                             <constraint firstItem="5r1-Dc-8sh" firstAttribute="trailing" secondItem="rua-Z4-Zgn" secondAttribute="trailing" constant="-8" id="P5z-1a-sA8"/>
                             <constraint firstItem="5r1-Dc-8sh" firstAttribute="bottom" secondItem="rua-Z4-Zgn" secondAttribute="bottom" id="QIi-0x-nYZ"/>
-                            <constraint firstAttribute="top" secondItem="ApC-Xn-7nR" secondAttribute="top" id="YL9-f2-yjO"/>
+                            <constraint firstItem="iQ3-9Z-eOd" firstAttribute="top" secondItem="h4p-pb-Dmg" secondAttribute="top" constant="80" id="WUa-CO-K4B"/>
+                            <constraint firstItem="h4p-pb-Dmg" firstAttribute="top" secondItem="ApC-Xn-7nR" secondAttribute="top" id="YL9-f2-yjO"/>
                             <constraint firstItem="5r1-Dc-8sh" firstAttribute="leading" secondItem="rua-Z4-Zgn" secondAttribute="leading" constant="8" id="gSQ-nO-kMg"/>
-                            <constraint firstItem="iQ3-9Z-eOd" firstAttribute="top" secondItem="Zdr-Fc-erg" secondAttribute="top" constant="70" id="kk7-Zu-dAL"/>
-                            <constraint firstItem="Zdr-Fc-erg" firstAttribute="leading" secondItem="rua-Z4-Zgn" secondAttribute="leading" id="rMZ-hr-YXs"/>
-                            <constraint firstItem="5r1-Dc-8sh" firstAttribute="top" secondItem="Zdr-Fc-erg" secondAttribute="bottom" constant="20" id="reR-Un-7jI"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rua-Z4-Zgn"/>
                     </view>
@@ -128,22 +127,20 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="categoryCollectionView" destination="5r1-Dc-8sh" id="nao-0E-2uH"/>
-                        <outlet property="featuredItemButton" destination="Zdr-Fc-erg" id="lqz-zn-x8p"/>
+                        <outlet property="featuredItemImageView" destination="h4p-pb-Dmg" id="Obg-cv-Yil"/>
                         <outlet property="featuredItemLabel" destination="iQ3-9Z-eOd" id="jRH-Iz-T06"/>
                         <outlet property="featuredProductNameLabel" destination="8o0-ch-ZZ3" id="SCW-iA-1DW"/>
                         <segue destination="h6y-WX-6hS" kind="show" identifier="ProductSegue" id="3x4-0c-Ucc"/>
-                        <segue destination="Ve3-mf-ey0" kind="presentation" identifier="FeaturedItemSelectedSegue" modalPresentationStyle="overFullScreen" id="GMF-vw-G9h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="suI-xF-REf" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="LbH-jB-KX3">
+                <tapGestureRecognizer id="uBh-4r-mPH">
                     <connections>
-                        <action selector="didTapFeaturedItem:" destination="FUx-8y-N8z" id="UZp-sv-Fzg"/>
-                        <outlet property="delegate" destination="FUx-8y-N8z" id="Yjv-qt-A2a"/>
+                        <segue destination="ogV-Mb-bDj" kind="presentation" modalPresentationStyle="overFullScreen" id="TVA-Mc-tOS"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="89" y="179"/>
+            <point key="canvasLocation" x="60" y="201"/>
         </scene>
         <!--ProductStoryboard-->
         <scene sceneID="vI4-wP-S8J">
@@ -154,12 +151,12 @@
             <point key="canvasLocation" x="674" y="50"/>
         </scene>
         <!--ProductConfigureStoryboard-->
-        <scene sceneID="Nc2-OZ-6xa">
+        <scene sceneID="Uk1-gd-jZk">
             <objects>
-                <viewControllerPlaceholder storyboardName="ProductConfigureStoryboard" id="Ve3-mf-ey0" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="08L-bH-2u1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="ProductConfigureStoryboard" id="ogV-Mb-bDj" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DS9-Nj-7FK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="885" y="189"/>
+            <point key="canvasLocation" x="776" y="346"/>
         </scene>
     </scenes>
     <resources>
