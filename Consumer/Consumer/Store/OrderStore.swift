@@ -17,7 +17,7 @@ class OrderStore: Store<Order> {
     // get products from order soql
     // SELECT Id,name,(select Id, OrderId, OrderItemNumber, PricebookEntry.Product2.Name, PricebookEntry.Product2.id, Quantity, UnitPrice FROM OrderItems ) from order where id=\(orderId)
     
-    func records<T:Order>(forUser user:String) -> [T] {
+    func records<T:Order>(for user:String) -> [T] {
         let queryString = "SELECT \(Order.selectFieldsString()) FROM {\(Order.objectName)} WHERE {\(Order.Field.orderOwner.rawValue):\(user)"
         
         let query = SFQuerySpec.newSmartQuerySpec(queryString, withPageSize: 100)!
@@ -27,7 +27,7 @@ class OrderStore: Store<Order> {
             SalesforceSwiftLogger.log(type(of:self), level:.error, message:"fetch Order list failed: \(error!.localizedDescription)")
             return []
         }
-        return Order.from(results)
+        return T.from(results)
     }
     
     override func records() -> [Order] {

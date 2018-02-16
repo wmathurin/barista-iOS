@@ -7,6 +7,9 @@
 //
 
 import UIKit
+protocol CellSelectedProtocol {
+    func selected(attribute: CategoryAttribute)
+}
 
 class BaseTableViewCell: UITableViewCell {
 

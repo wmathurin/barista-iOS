@@ -56,6 +56,8 @@
 		EEA6ECC0202BA36100E04FFD /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA6ECBF202BA36100E04FFD /* BaseTableViewCell.swift */; };
 		EEB4A8B52037471200745515 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB4A8B42037471200745515 /* UIButtonExtension.swift */; };
 		EEB4A8B720374BCA00745515 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB4A8B620374BCA00745515 /* ImageCache.swift */; };
+		EEB4A8B9203763E300745515 /* CategoryAttributeValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB4A8B8203763E300745515 /* CategoryAttributeValue.swift */; };
+		EEB4A8BB2037644400745515 /* CategoryAttributeValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB4A8BA2037644400745515 /* CategoryAttributeValueStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,6 +126,8 @@
 		EEA6ECBF202BA36100E04FFD /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		EEB4A8B42037471200745515 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
 		EEB4A8B620374BCA00745515 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		EEB4A8B8203763E300745515 /* CategoryAttributeValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryAttributeValue.swift; sourceTree = "<group>"; };
+		EEB4A8BA2037644400745515 /* CategoryAttributeValueStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryAttributeValueStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +222,7 @@
 			children = (
 				EEA6EC822020E57E00E04FFD /* Category.swift */,
 				EEA6ECA42028DD0D00E04FFD /* ProductCategoryAssociation.swift */,
+				EEB4A8B8203763E300745515 /* CategoryAttributeValue.swift */,
 				EEA6ECB3202A6C6600E04FFD /* CategoryAttribute.swift */,
 				EEA6EC862021119C00E04FFD /* Product.swift */,
 				A4B8C43320290CC3004176A1 /* Theme.swift */,
@@ -260,6 +265,7 @@
 				EEA6EC842020E5CC00E04FFD /* CategoryStore.swift */,
 				EEA6ECA62028DF3600E04FFD /* ProductCategoryAssociationStore.swift */,
 				EEA6ECB5202A6F1E00E04FFD /* CategoryAttributeStore.swift */,
+				EEB4A8BA2037644400745515 /* CategoryAttributeValueStore.swift */,
 				EEA6EC88202111A200E04FFD /* ProductStore.swift */,
 				A43F152A202B5B9A002F0022 /* OrderStore.swift */,
 				A43F155A202E588A002F0022 /* OrderItemStore.swift */,
@@ -470,6 +476,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEB4A8BB2037644400745515 /* CategoryAttributeValueStore.swift in Sources */,
 				EEB4A8B720374BCA00745515 /* ImageCache.swift in Sources */,
 				A43F1559202D81E2002F0022 /* OrderItem.swift in Sources */,
 				EEA6ECB4202A6C6600E04FFD /* CategoryAttribute.swift in Sources */,
@@ -494,6 +501,7 @@
 				EEA6EC81201F850100E04FFD /* Store.swift in Sources */,
 				EEA6ECA52028DD0D00E04FFD /* ProductCategoryAssociation.swift in Sources */,
 				A468710F201A514C00096408 /* InitialViewController.swift in Sources */,
+				EEB4A8B9203763E300745515 /* CategoryAttributeValue.swift in Sources */,
 				EEA6ECAB2028F06F00E04FFD /* ProductTableViewCell.swift in Sources */,
 				A468710D201A514C00096408 /* AppDelegate.swift in Sources */,
 				EEA6ECB2202A373900E04FFD /* FeaturedProductTableViewCell.swift in Sources */,

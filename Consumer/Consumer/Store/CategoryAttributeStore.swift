@@ -14,7 +14,7 @@ import SmartSync
 class CategoryAttributeStore: Store<CategoryAttribute> {
     static let instance = CategoryAttributeStore()
     
-    func attributes<T:CategoryAttribute>(forCategory category: Category?) -> [T] {
+    func attributes<T:CategoryAttribute>(for category: Category?) -> [T] {
         guard category?.id != nil else {
             return []
         }
@@ -28,7 +28,7 @@ class CategoryAttributeStore: Store<CategoryAttribute> {
             SalesforceSwiftLogger.log(type(of:self), level:.error, message:"fetch Attributes for Category failed: \(error!.localizedDescription)")
             return []
         }
-        return CategoryAttribute.from(results)
+        return T.from(results)
     }
 
 }

@@ -88,6 +88,9 @@ class OrderMainViewController: UIViewController {
         CategoryAttributeStore.instance.syncDown{ (syncState) in
         }
         
+        CategoryAttributeValueStore.instance.syncDown{ syncState in
+        }
+        
         OrderStore.instance.syncDown(completion: { (orderSyncState) in
             if let complete = orderSyncState?.isDone(), complete == true {
                 OrderItemStore.instance.syncDown(completion: { (itemSyncState) in

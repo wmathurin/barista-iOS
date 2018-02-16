@@ -37,7 +37,7 @@ class ProductConfigureViewController: UIViewController {
         productImageView.layer.borderColor = UIColor.white.cgColor
         productImageView.layer.borderWidth = 3
         
-        categoryAttributes = CategoryAttributeStore.instance.attributes(forCategory: category)
+        categoryAttributes = CategoryAttributeStore.instance.attributes(for: category)
     }
 
     override func viewDidLayoutSubviews() {
@@ -79,5 +79,12 @@ extension ProductConfigureViewController: UITableViewDataSource, UITableViewDele
             return cell
         }
         return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) as? CellSelectedProtocol,
+            let attribute = categoryAttributes[indexPath.row] {
+            cell.selected(attribute: attribute)
+        }
     }
 }

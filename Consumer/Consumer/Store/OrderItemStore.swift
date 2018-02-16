@@ -19,8 +19,8 @@ class OrderItemStore: Store<OrderItem> {
         return queryString
     }
     
-    fileprivate func orderItemsQueryString(forOrder:Order) -> String {
-        guard let orderId = forOrder.orderId else { return "" }
+    fileprivate func orderItemsQueryString(for order:Order) -> String {
+        guard let orderId = order.orderId else { return "" }
         let queryString = "SELECT \(OrderItem.selectFieldsString()) FROM {\(OrderItem.objectName)}"
         //WHERE {\(OrderItem.objectName):\(OrderItem.Field.orderId.rawValue)} = '\(orderId)'"
         return queryString
@@ -43,8 +43,8 @@ class OrderItemStore: Store<OrderItem> {
         return OrderItem.from(results)
     }
     
-    func syncDownItems(forOrder:Order, completion: SyncCompletion = nil) {
-        let queryString = self.orderItemsQueryString(forOrder: forOrder)
+    func syncDownItems(for order:Order, completion: SyncCompletion = nil) {
+        let queryString = self.orderItemsQueryString(for: order)
         let target = SFSoqlSyncDownTarget.newSyncTarget(queryString)
         let options = SFSyncOptions.newSyncOptions(forSyncDown: .leaveIfChanged)
         smartSync.syncDown(with: target, options: options, soupName: OrderItem.objectName, update: completion ?? { _ in return })
