@@ -69,6 +69,7 @@ extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
         let vc = ProductConfigureViewController(product: product, category: category)
         vc.modalPresentationStyle = .overCurrentContext
         vc.modalTransitionStyle = .coverVertical
-        self.present(vc, animated: true, completion: nil)
+        guard let tab = self.tabBarController else {return}
+        tab.present(vc, animated: true, completion: nil)
     }
 }

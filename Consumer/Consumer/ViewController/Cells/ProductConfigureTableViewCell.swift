@@ -8,19 +8,96 @@
 
 import UIKit
 
+enum ProductConfigureCellControlType {
+    case unknown
+    case slider
+    case increment
+    case expand
+}
+
 class ProductConfigureTableViewCell: UITableViewCell {
+    
+    var imageURL: String? {
+        didSet {
+            self.cellImageView.loadImageUsingCache(withUrl: imageURL)
+        }
+    }
+    var name: String? {
+        didSet {
+            self.cellTitleLabel.text = name
+        }
+    }
+    
+    var controlStyle:(ProductConfigureCellControlType, Int) = (.unknown, 0) {
+        didSet {
+            switch controlStyle.0 {
+            case .slider:
+                print("slider")
+                let control = SliderControl()
+                control.minTrackColor = Theme.productConfigSliderMinTrackColor
+                control.maxTrackColor = Theme.productConfigSliderMaxTrackColor
+                control.thumbColor = Theme.productConfigSliderThumbColor
+                control.maxValue = 3
+                control.thumbLabels = ["S", "M", "L"]
+                control.addTarget(self, action: #selector(handleControlEventChange), for: .valueChanged)
+                self.configureControl = control
+            case .increment:
+                print("")
+            case .expand:
+                return
+            case .unknown:
+                return
+            }
+        }
+    }
+    
+    fileprivate var cellImageView = UIImageView()
+    fileprivate var cellTitleLabel = UILabel()
+    fileprivate var configureControl:UIControl? {
+        didSet {
+            guard let control = configureControl else {return}
+            self.contentView.addSubview(control)
+            control.translatesAutoresizingMaskIntoConstraints = false
+            control.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant:-10).isActive = true
+            control.widthAnchor.constraint(equalToConstant: 100.0).isActive = true
+            control.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
+        }
+    }
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = UIColor.clear
+        self.selectionStyle = .none
+        
+        self.cellImageView.translatesAutoresizingMaskIntoConstraints = false
+        self.cellTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.contentView.addSubview(self.cellImageView)
+        self.contentView.addSubview(self.cellTitleLabel)
+        
+        self.cellTitleLabel.textColor = Theme.productConfigTextColor
+        self.cellTitleLabel.font = Theme.productConfigItemCellFont
+        
+        self.cellImageView.centerXAnchor.constraint(equalTo: self.contentView.leftAnchor, constant:30.0).isActive = true
+        self.cellImageView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
+        
+        self.cellTitleLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant:60.0).isActive = true
+        self.cellTitleLabel.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        guard let control = self.configureControl else {return}
+        control.removeFromSuperview()
+        self.configureControl = nil
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -29,4 +106,7 @@ class ProductConfigureTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    @objc func handleControlEventChange() {
+        
+    }
 }

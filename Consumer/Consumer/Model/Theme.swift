@@ -41,6 +41,18 @@ struct Theme {
         }
     }
     
+    static var cartAddButtonTextColor: UIColor {
+        get {
+            return UIColor(displayP3Red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+        }
+    }
+    
+    static var cartCancelButtonTextColor: UIColor {
+        get {
+            return UIColor(displayP3Red: 3.0/255.0, green: 201.0/255.0, blue: 244.0/255.0, alpha: 1.0)
+        }
+    }
+    
     static var productConfigDividerColor: UIColor {
         get {
             return UIColor(displayP3Red: 3.0/255.0, green: 201.0/255.0, blue: 244.0/255.0, alpha: 1.0)
@@ -77,6 +89,29 @@ struct Theme {
         }
     }
     
+    static var productConfigTableSeparatorColor: UIColor {
+        get {
+            return UIColor(displayP3Red: 151.0/255.0, green: 137.0/255.0, blue: 129.0/255.0, alpha: 1.0)
+        }
+    }
+    
+    static var productConfigSliderMinTrackColor: UIColor {
+        get {
+            return UIColor(displayP3Red: 3.0/255.0, green: 201.0/255.0, blue: 244.0/255.0, alpha: 1.0)
+        }
+    }
+    
+    static var productConfigSliderMaxTrackColor: UIColor {
+        get {
+            return UIColor(displayP3Red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 0.5)
+        }
+    }
+    
+    static var productConfigSliderThumbColor: UIColor {
+        get {
+            return UIColor(displayP3Red: 3.0/255.0, green: 201.0/255.0, blue: 244.0/255.0, alpha: 1.0)
+        }
+    }
     
     // Fonts
     
@@ -107,6 +142,36 @@ struct Theme {
     static var cartItemDescriptionFont: UIFont? {
         get {
             return UIFont(name: "AvenirNext-Medium", size: 13.0)
+        }
+    }
+    
+    static var productConfigButtonFont: UIFont? {
+        get {
+            return UIFont(name: "DrukText-Medium", size: 16.0)
+        }
+    }
+    
+    static var productConfigItemNameFont: UIFont? {
+        get {
+            return UIFont(name: "AvenirNext-DemiBold", size: 18.0)
+        }
+    }
+    
+    static var productConfigItemPriceFont: UIFont? {
+        get {
+            return UIFont(name: "AvenirNext-Medium", size: 14.0)
+        }
+    }
+    
+    static var productConfigItemDescriptionFont: UIFont? {
+        get {
+            return UIFont(name: "AvenirNext-Medium", size: 12.0)
+        }
+    }
+    
+    static var productConfigItemCellFont: UIFont? {
+        get {
+            return UIFont(name: "AvenirNext-DemiBold", size: 14.0)
         }
     }
 }
