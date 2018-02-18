@@ -11,5 +11,5 @@ import UIKit
 class ProductConfigControlBase: UIControl {
 
     var maxValue:Int = 0
-
+    var currentValue:Int = 0
 }

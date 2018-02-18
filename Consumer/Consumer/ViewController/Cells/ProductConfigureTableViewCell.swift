@@ -32,18 +32,25 @@ class ProductConfigureTableViewCell: UITableViewCell {
         didSet {
             switch controlStyle.0 {
             case .slider:
-                print("slider")
                 let control = SliderControl()
-                control.minTrackColor = Theme.productConfigSliderMinTrackColor
+                control.minTrackColor = Theme.appMainControlColor
                 control.maxTrackColor = Theme.productConfigSliderMaxTrackColor
-                control.thumbColor = Theme.productConfigSliderThumbColor
-                control.maxValue = 3
-                control.thumbLabels = ["S", "M", "L"]
+                control.thumbColor = Theme.appMainControlColor
+                control.textColor = Theme.appMainControlTextColor
+                control.maxValue = 3 // TODO - from data
+                control.thumbLabels = ["S", "M", "L"] // TODO - from data
                 control.addTarget(self, action: #selector(handleControlEventChange), for: .valueChanged)
                 self.configureControl = control
             case .increment:
-                print("")
+                let control = IncrementControl()
+                control.controlColor = Theme.appMainControlColor
+                control.plusImage = UIImage(named: "plus01")
+                control.minusImage = UIImage(named: "minus01")
+                control.textColor = Theme.appMainControlTextColor
+                control.maxValue = 3
+                self.configureControl = control
             case .expand:
+                self.rightImageView.image = UIImage(named: "expand")
                 return
             case .unknown:
                 return
@@ -59,10 +66,10 @@ class ProductConfigureTableViewCell: UITableViewCell {
             self.contentView.addSubview(control)
             control.translatesAutoresizingMaskIntoConstraints = false
             control.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant:-10).isActive = true
-            control.widthAnchor.constraint(equalToConstant: 100.0).isActive = true
             control.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
         }
     }
+    fileprivate var rightImageView = UIImageView()
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -70,9 +77,13 @@ class ProductConfigureTableViewCell: UITableViewCell {
         self.selectionStyle = .none
         
         self.cellImageView.translatesAutoresizingMaskIntoConstraints = false
-        self.cellTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.addSubview(self.cellImageView)
+        
+        self.cellTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.addSubview(self.cellTitleLabel)
+        
+        self.rightImageView.translatesAutoresizingMaskIntoConstraints = false
+        self.contentView.addSubview(self.rightImageView)
         
         self.cellTitleLabel.textColor = Theme.productConfigTextColor
         self.cellTitleLabel.font = Theme.productConfigItemCellFont
@@ -82,6 +93,9 @@ class ProductConfigureTableViewCell: UITableViewCell {
         
         self.cellTitleLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant:60.0).isActive = true
         self.cellTitleLabel.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
+        
+        self.rightImageView.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant:-16.0).isActive = true
+        self.rightImageView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {

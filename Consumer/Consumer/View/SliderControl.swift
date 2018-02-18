@@ -25,6 +25,16 @@ class SliderControl: ProductConfigControlBase {
             self.thumb.backgroundColor = thumbColor
         }
     }
+    var textColor: UIColor? {
+        didSet {
+            self.thumbLabel.textColor = textColor
+        }
+    }
+    var textFont: UIFont! {
+        didSet {
+            self.thumbLabel.font = textFont
+        }
+    }
     var thumbLabels: [String]? {
         didSet {
             if let first = thumbLabels?.first {
@@ -84,9 +94,10 @@ class SliderControl: ProductConfigControlBase {
         self.thumbLabel.centerXAnchor.constraint(equalTo: self.thumb.centerXAnchor).isActive = true
         self.thumbLabel.centerYAnchor.constraint(equalTo: self.thumb.centerYAnchor).isActive = true
         
-        self.thumbXConstraint = self.minTrack.rightAnchor.constraint(equalTo: self.leftAnchor, constant: 0.0)
+        self.thumbXConstraint = self.minTrack.rightAnchor.constraint(equalTo: self.leftAnchor, constant: SliderControl.thumbSize / 2.0)
         self.thumbXConstraint.isActive = true
         
+        self.widthAnchor.constraint(equalToConstant: 100.0).isActive = true
         self.heightAnchor.constraint(equalToConstant: SliderControl.thumbSize).isActive = true
     }
     
@@ -138,10 +149,20 @@ class SliderControl: ProductConfigControlBase {
         let windowSize:CGFloat = self.frame.size.width / CGFloat(self.maxValue)
         let inWindow = Int(endPosition / windowSize)
         let stickToWindowSize = self.frame.size.width / CGFloat(self.maxValue - 1)
-        let stickTo:CGFloat = stickToWindowSize * CGFloat(inWindow)
-        UIView.animate(withDuration: 0.2) {
+        var stickTo:CGFloat = stickToWindowSize * CGFloat(inWindow)
+        let min = SliderControl.thumbSize / 2.0
+        let max = self.frame.size.width - (SliderControl.thumbSize / 2.0)
+        if stickTo < min {
+            stickTo = min
+        } else if stickTo > max {
+            stickTo = max
+        }
+        self.currentValue = inWindow
+        UIView.animate(withDuration: 0.2, animations: {
             self.thumbXConstraint.constant = stickTo
             self.layoutIfNeeded()
+        }) { (completed) in
+            self.sendActions(for: .valueChanged)
         }
     }
     
