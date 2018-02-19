@@ -10,6 +10,7 @@ import UIKit
 
 class ProductConfigureViewController: UIViewController {
 
+    var orderItem: OrderItem?
     var product: Product
     var category: Category
     var categoryAttributes: [CategoryAttribute?] = []
@@ -33,34 +34,42 @@ class ProductConfigureViewController: UIViewController {
     
     fileprivate var expandedIndexPath:IndexPath?
     
-    init(product:Product, category:Category) {
+    init(orderItem:OrderItem?, product:Product, category:Category) {
+        self.orderItem = orderItem
         self.product = product
         self.category = category
         super.init(nibName: nil, bundle: nil)
+    }
+    
+    convenience init(product:Product, category:Category) {
+        self.init(orderItem: nil, product: product, category: category)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(white: 0.0, alpha: 0.6)
-        
-        self.favoriteButton.translatesAutoresizingMaskIntoConstraints = false
-        self.productConfigureContainerView.addSubview(self.favoriteButton)
-        
-        self.closeButton.translatesAutoresizingMaskIntoConstraints = false
-        self.productConfigureContainerView.addSubview(self.closeButton)
-        
-        self.productConfigureContainerView.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(self.productConfigureContainerView)
         
         self.gradientView.translatesAutoresizingMaskIntoConstraints = false
         let gradientLayer = self.gradientView.layer as! CAGradientLayer
         gradientLayer.colors = [Theme.productConfigTopBgGradColor.cgColor, Theme.productConfigBottomBgGradColor.cgColor]
         self.productConfigureContainerView.addSubview(self.gradientView)
+        
+        self.favoriteButton.translatesAutoresizingMaskIntoConstraints = false
+        self.favoriteButton.setImage(UIImage(named:"fav01"), for: .normal)
+        self.favoriteButton.addTarget(self, action: #selector(didPressFavoriteButton), for: .touchUpInside)
+        self.productConfigureContainerView.addSubview(self.favoriteButton)
+        
+        self.closeButton.translatesAutoresizingMaskIntoConstraints = false
+        self.closeButton.setImage(UIImage(named:"close01"), for: .normal)
+        self.closeButton.addTarget(self, action: #selector(didPressCloseButton), for: .touchUpInside)
+        self.productConfigureContainerView.addSubview(self.closeButton)
+        
+        self.productConfigureContainerView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(self.productConfigureContainerView)
         
         self.productNameLabel.translatesAutoresizingMaskIntoConstraints = false
         self.productNameLabel.font = Theme.productConfigItemNameFont
@@ -135,7 +144,7 @@ class ProductConfigureViewController: UIViewController {
         self.productImageView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.22).isActive = true
         self.productImageView.heightAnchor.constraint(equalTo: self.productImageView.widthAnchor, multiplier: 1.0).isActive = true
         self.favoriteButton.leftAnchor.constraint(equalTo: self.productConfigureContainerView.leftAnchor, constant: 16.0).isActive = true
-        self.favoriteButton.topAnchor.constraint(equalTo: self.productConfigureContainerView.topAnchor, constant:50.0).isActive = true
+        self.favoriteButton.topAnchor.constraint(equalTo: self.productConfigureContainerView.topAnchor, constant:60.0).isActive = true
         self.closeButton.rightAnchor.constraint(equalTo: self.productConfigureContainerView.rightAnchor, constant: -16.0).isActive = true
         self.closeButton.centerYAnchor.constraint(equalTo: self.favoriteButton.centerYAnchor).isActive = true
         
@@ -172,7 +181,6 @@ class ProductConfigureViewController: UIViewController {
         self.productPriceLabel.text = "Free" // TODO pull from pricebook
         self.productDescriptionLabel.text = "Description lorem ipsum dolor sit amet, consectur adispicing elit. Aliquam convallis tortor vel risus tincidunt, nec commodo." // TODO pull from product description
         
-        
         categoryAttributes = CategoryAttributeStore.instance.attributes(forCategory: category)
     }
 
@@ -186,6 +194,11 @@ class ProductConfigureViewController: UIViewController {
     }
     
     @objc func didPressAddToCartButton() {
+        //todo
+    }
+    
+    @objc func didPressFavoriteButton() {
+        //todo
     }
 
 }
@@ -193,13 +206,6 @@ class ProductConfigureViewController: UIViewController {
 extension ProductConfigureViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.categoryAttributes.count
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if let selected = self.expandedIndexPath, selected.row == indexPath.row {
-            return 100.0
-        }
-        return 68.0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -213,11 +219,7 @@ extension ProductConfigureViewController: UITableViewDataSource, UITableViewDele
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let current = self.expandedIndexPath, current.row == indexPath.row {
-            self.expandedIndexPath = nil
-        } else {
-            self.expandedIndexPath = indexPath
-        }
+        print("didSelect")
         tableView.beginUpdates()
         tableView.endUpdates()
     }
@@ -225,32 +227,30 @@ extension ProductConfigureViewController: UITableViewDataSource, UITableViewDele
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var controlStyle: ProductConfigureCellControlType = .unknown
         var maxValue: Int = 0
-        if let attribute: CategoryAttribute = categoryAttributes[indexPath.row], let attributeType = attribute.attributeType {
-            switch attributeType {
-            case .size:
-                controlStyle = .slider
-                maxValue = 3
-            case .integer:
-                controlStyle = .increment
-            case .list:
-                controlStyle = .expand
-            }
-            var cellName: String {
-                switch attributeType {
-                case .size:
-                    return sizeCellName
-                case .integer:
-                    return integerCellName
-                case .list:
-                    return listCellName
-                }
-            }
+        if let attribute: CategoryAttribute = self.categoryAttributes[indexPath.row], let attributeType = attribute.attributeType {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as! ProductConfigureTableViewCell
             cell.name = attribute.name
             cell.imageURL = attribute.iconImageURL
+            
+            switch attributeType {
+            case .size:
+                controlStyle = .slider
+                maxValue = 2
+            case .integer:
+                controlStyle = .increment
+                maxValue = 3
+            case .list:
+                controlStyle = .list
+                cell.listItems = ["Item 1", "Item 2", "Item 3"]
+            }
+            
+            
             cell.controlStyle = (controlStyle, maxValue)
-//            cell.imageView?.image = UIImage()
+            cell.controlClosure = { (value) in
+                print("updated value to: \(value)")
+                // todo update value on order item
+            }
             return cell
         }
         return UITableViewCell()

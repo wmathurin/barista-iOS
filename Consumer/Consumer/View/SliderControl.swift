@@ -107,7 +107,7 @@ class SliderControl: ProductConfigControlBase {
     
     override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         if let labels = self.thumbLabels {
-            precondition(labels.count == self.maxValue, "you must have the same number of labels as possible values if labels provided")
+            precondition(labels.count == self.maxValue + 1, "you must have the same number of labels as possible values if labels provided")
         }
         let touchPoint = touch.location(in: self)
         self.initialTouchPoint = touchPoint
@@ -133,7 +133,7 @@ class SliderControl: ProductConfigControlBase {
         self.layoutIfNeeded()
         self.initialTouchPoint = touchPoint
         if let labels = self.thumbLabels {
-            let windowSize:CGFloat = (self.frame.size.width / CGFloat(self.maxValue))
+            let windowSize:CGFloat = (self.frame.size.width / CGFloat(self.maxValue + 1))
             let currentWindow = Int(total / windowSize)
             if currentWindow + 1 <= labels.count {
                 let label = labels[currentWindow]
@@ -146,9 +146,9 @@ class SliderControl: ProductConfigControlBase {
     
     override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
         let endPosition = self.thumbXConstraint.constant
-        let windowSize:CGFloat = self.frame.size.width / CGFloat(self.maxValue)
+        let windowSize:CGFloat = self.frame.size.width / CGFloat(self.maxValue + 1)
         let inWindow = Int(endPosition / windowSize)
-        let stickToWindowSize = self.frame.size.width / CGFloat(self.maxValue - 1)
+        let stickToWindowSize = self.frame.size.width / CGFloat(self.maxValue)
         var stickTo:CGFloat = stickToWindowSize * CGFloat(inWindow)
         let min = SliderControl.thumbSize / 2.0
         let max = self.frame.size.width - (SliderControl.thumbSize / 2.0)
