@@ -10,8 +10,9 @@ import Foundation
 import SmartStore
 
 enum CategoryAttributeType: String {
-    case size = "Small-Medium-Large"
-    case list = "List"
+    case slider = "Slider"
+    case picklist = "Picklist"
+    case multiselect = "Multiselect"
     case integer = "Integer"
 }
 
@@ -23,14 +24,16 @@ class CategoryAttribute: Record, StoreProtocol {
         case categoryId = "Category__c"
         case iconImageURL = "IconImageURL__c"
         case attributeType = "AttributeType__c"
-    
-        static let allFields = [name.rawValue, categoryId.rawValue, iconImageURL.rawValue, attributeType.rawValue]
+        case sortOrder = "SortOrder__c"
+
+        static let allFields = [name.rawValue, categoryId.rawValue, iconImageURL.rawValue, attributeType.rawValue, sortOrder.rawValue]
     }
     
     fileprivate(set) lazy var name: String? = data[Field.name.rawValue] as? String
     fileprivate(set) lazy var catgoryId: String? = data[Field.categoryId.rawValue] as? String
     fileprivate(set) lazy var iconImageURL: String? = data[Field.iconImageURL.rawValue] as? String
     fileprivate(set) lazy var attributeType: CategoryAttributeType? = CategoryAttributeType(rawValue: data[Field.attributeType.rawValue] as! String)
+    fileprivate(set) lazy var sortOrder: String? = data[Field.sortOrder.rawValue] as? String
 
     override static var indexes: [[String : String]] {
         return super.indexes + [
@@ -38,6 +41,7 @@ class CategoryAttribute: Record, StoreProtocol {
             ["path" : Field.categoryId.rawValue, "type" : kSoupIndexTypeString],
             ["path" : Field.iconImageURL.rawValue, "type" : kSoupIndexTypeString],
             ["path" : Field.attributeType.rawValue, "type" : kSoupIndexTypeString],
+            ["path" : Field.sortOrder.rawValue, "type" : kSoupIndexTypeString],
         ]
     }
     

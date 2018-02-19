@@ -19,7 +19,7 @@ class CategoryAttributeValueStore: Store<CategoryAttributeValue> {
             return []
         }
         
-        let queryString = "SELECT \(CategoryAttributeValue.selectFieldsString()) FROM {\(CategoryAttributeValue.objectName)} WHERE {\(CategoryAttributeValue.objectName):\(CategoryAttributeValue.Field.categoryId.rawValue)} = '\(attribute!.id!)'"
+        let queryString = "SELECT \(CategoryAttributeValue.selectFieldsString()) FROM {\(CategoryAttributeValue.objectName)} WHERE {\(CategoryAttributeValue.objectName):\(CategoryAttributeValue.Field.categoryId.rawValue)} = '\(attribute!.id!)' ORDER BY {\(CategoryAttributeValue.objectName):\(CategoryAttributeValue.Field.sortOrder.rawValue)} ASC"
         
         let query:SFQuerySpec = SFQuerySpec.newSmartQuerySpec(queryString, withPageSize: 100)!
         var error: NSError? = nil

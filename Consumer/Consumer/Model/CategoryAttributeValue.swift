@@ -15,17 +15,20 @@ class CategoryAttributeValue: Record, StoreProtocol {
     enum Field: String {
         case name = "Name"
         case categoryId = "CategoryAttribute__c"
+        case sortOrder = "SortOrder__c"
 
-        static let allFields = [name.rawValue, categoryId.rawValue]
+        static let allFields = [name.rawValue, categoryId.rawValue, sortOrder.rawValue]
     }
     
     fileprivate(set) lazy var name: String? = data[Field.name.rawValue] as? String
     fileprivate(set) lazy var catgoryId: String? = data[Field.categoryId.rawValue] as? String
+    fileprivate(set) lazy var sortOrder: String? = data[Field.sortOrder.rawValue] as? String
 
     override static var indexes: [[String : String]] {
         return super.indexes + [
             ["path" : Field.name.rawValue, "type" : kSoupIndexTypeString],
             ["path" : Field.categoryId.rawValue, "type" : kSoupIndexTypeString],
+            ["path" : Field.sortOrder.rawValue, "type" : kSoupIndexTypeString],
         ]
     }
     

@@ -52,7 +52,7 @@
 		EEA6ECB8202B705100E04FFD /* ProductConfigureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA6ECB7202B705100E04FFD /* ProductConfigureViewController.swift */; };
 		EEA6ECBA202B706000E04FFD /* ProductConfigureStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEA6ECB9202B706000E04FFD /* ProductConfigureStoryboard.storyboard */; };
 		EEA6ECBC202B782C00E04FFD /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA6ECBB202B782C00E04FFD /* UIViewExtension.swift */; };
-		EEA6ECBE202BA13B00E04FFD /* SizeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA6ECBD202BA13B00E04FFD /* SizeTableViewCell.swift */; };
+		EEA6ECBE202BA13B00E04FFD /* SliderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA6ECBD202BA13B00E04FFD /* SliderTableViewCell.swift */; };
 		EEA6ECC0202BA36100E04FFD /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA6ECBF202BA36100E04FFD /* BaseTableViewCell.swift */; };
 		EEB4A8B52037471200745515 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB4A8B42037471200745515 /* UIButtonExtension.swift */; };
 		EEB4A8B720374BCA00745515 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB4A8B620374BCA00745515 /* ImageCache.swift */; };
@@ -122,7 +122,7 @@
 		EEA6ECB7202B705100E04FFD /* ProductConfigureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductConfigureViewController.swift; sourceTree = "<group>"; };
 		EEA6ECB9202B706000E04FFD /* ProductConfigureStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProductConfigureStoryboard.storyboard; sourceTree = "<group>"; };
 		EEA6ECBB202B782C00E04FFD /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
-		EEA6ECBD202BA13B00E04FFD /* SizeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizeTableViewCell.swift; sourceTree = "<group>"; };
+		EEA6ECBD202BA13B00E04FFD /* SliderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliderTableViewCell.swift; sourceTree = "<group>"; };
 		EEA6ECBF202BA36100E04FFD /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		EEB4A8B42037471200745515 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
 		EEB4A8B620374BCA00745515 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
@@ -303,7 +303,7 @@
 			isa = PBXGroup;
 			children = (
 				EEA6EC9420221FD300E04FFD /* CategoryCollectionViewCell.swift */,
-				EEA6ECBD202BA13B00E04FFD /* SizeTableViewCell.swift */,
+				EEA6ECBD202BA13B00E04FFD /* SliderTableViewCell.swift */,
 				EE11CD4C202CA46C0081BDEC /* ListTableViewCell.swift */,
 				EE11CD4E202CA47F0081BDEC /* IntegerTableViewCell.swift */,
 				EEA6ECAA2028F06F00E04FFD /* ProductTableViewCell.swift */,
@@ -493,7 +493,7 @@
 				EEA6ECB6202A6F1E00E04FFD /* CategoryAttributeStore.swift in Sources */,
 				EEA6ECA72028DF3600E04FFD /* ProductCategoryAssociationStore.swift in Sources */,
 				EEA6ECAF202A35A400E04FFD /* FeaturedViewController.swift in Sources */,
-				EEA6ECBE202BA13B00E04FFD /* SizeTableViewCell.swift in Sources */,
+				EEA6ECBE202BA13B00E04FFD /* SliderTableViewCell.swift in Sources */,
 				EEA6EC872021119C00E04FFD /* Product.swift in Sources */,
 				A4B8C43420290CC3004176A1 /* Theme.swift in Sources */,
 				EEA6EC992022237F00E04FFD /* ProductViewController.swift in Sources */,
