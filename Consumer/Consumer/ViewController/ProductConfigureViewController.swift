@@ -13,7 +13,7 @@ class ProductConfigureViewController: UIViewController {
     var product: Product? 
     var category: Category?
     var categoryAttributes: [CategoryAttribute?] = []
-    let sizeCellName = "SizeCell"
+    let sizeCellName = "SliderCell"
     let integerCellName = "IntegerCell"
     let listCellName = "ListCell"
     
@@ -61,6 +61,7 @@ extension ProductConfigureViewController: UITableViewDataSource, UITableViewDele
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let attribute: CategoryAttribute = categoryAttributes[indexPath.row], let attributeType = attribute.attributeType {
+            
             var cellName: String {
                 switch attributeType {
                 case .slider:
@@ -75,6 +76,7 @@ extension ProductConfigureViewController: UITableViewDataSource, UITableViewDele
             }
             
             let cell = tableView.dequeueReusableCell(withIdentifier: cellName, for: indexPath) as! BaseTableViewCell
+
             cell.name = attribute.name
             cell.imageURL = attribute.iconImageURL
             cell.imageView?.image = UIImage()

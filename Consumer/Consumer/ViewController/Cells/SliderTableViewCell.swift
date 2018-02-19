@@ -1,5 +1,5 @@
 //
-//  CategoryCollectionViewCell.swift
+//  SliderTableViewCell.swift
 //  Consumer
 //
 //  Created by David Vieser on 1/31/18.
@@ -8,5 +8,5 @@
 
 import UIKit
 
-class SizeTableViewCell: BaseTableViewCell {
+class SliderTableViewCell: BaseTableViewCell {
 }
