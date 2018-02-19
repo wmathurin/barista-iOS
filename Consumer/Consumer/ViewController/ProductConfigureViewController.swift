@@ -63,11 +63,13 @@ extension ProductConfigureViewController: UITableViewDataSource, UITableViewDele
         if let attribute: CategoryAttribute = categoryAttributes[indexPath.row], let attributeType = attribute.attributeType {
             var cellName: String {
                 switch attributeType {
-                case .size:
+                case .slider:
                     return sizeCellName
                 case .integer:
                     return integerCellName
-                case .list:
+                case .picklist:
+                    return listCellName
+                case .multiselect:
                     return listCellName
                 }
             }

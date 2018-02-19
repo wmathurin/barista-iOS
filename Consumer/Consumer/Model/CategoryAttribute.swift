@@ -10,8 +10,9 @@ import Foundation
 import SmartStore
 
 enum CategoryAttributeType: String {
-    case size = "Small-Medium-Large"
-    case list = "List"
+    case slider = "Slider"
+    case picklist = "Picklist"
+    case multiselect = "Multiselect"
     case integer = "Integer"
 }
 
