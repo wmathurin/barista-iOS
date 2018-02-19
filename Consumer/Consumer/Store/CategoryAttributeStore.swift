@@ -14,12 +14,12 @@ import SmartSync
 class CategoryAttributeStore: Store<CategoryAttribute> {
     static let instance = CategoryAttributeStore()
     
-    func attributes<T:CategoryAttribute>(forCategory category: Category?) -> [T] {
+    func attributes<T:CategoryAttribute>(for category: Category?) -> [T] {
         guard category?.id != nil else {
             return []
         }
         
-        let queryString = "SELECT \(CategoryAttribute.selectFieldsString()) FROM {\(CategoryAttribute.objectName)} WHERE {\(CategoryAttribute.objectName):\(CategoryAttribute.Field.categoryId.rawValue)} = '\(category!.id!)'"
+        let queryString = "SELECT \(CategoryAttribute.selectFieldsString()) FROM {\(CategoryAttribute.objectName)} WHERE {\(CategoryAttribute.objectName):\(CategoryAttribute.Field.categoryId.rawValue)} = '\(category!.id!)' ORDER BY {\(CategoryAttribute.objectName):\(CategoryAttribute.Field.sortOrder.rawValue)} ASC"
         
         let query:SFQuerySpec = SFQuerySpec.newSmartQuerySpec(queryString, withPageSize: 100)!
         var error: NSError? = nil
@@ -28,7 +28,7 @@ class CategoryAttributeStore: Store<CategoryAttribute> {
             SalesforceSwiftLogger.log(type(of:self), level:.error, message:"fetch Attributes for Category failed: \(error!.localizedDescription)")
             return []
         }
-        return CategoryAttribute.from(results)
+        return T.from(results)
     }
 
 }

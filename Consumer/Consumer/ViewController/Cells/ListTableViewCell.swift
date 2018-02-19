@@ -8,5 +8,11 @@
 
 import UIKit
 
-class ListTableViewCell: BaseTableViewCell {
+class ListTableViewCell: BaseTableViewCell, CellSelectedProtocol {
+    
+    func selected(attribute: CategoryAttribute) {
+        let attributeValues: [CategoryAttributeValue] = CategoryAttributeValueStore.instance.attributes(for: attribute)
+        attributeValues.forEach { print("\(String(describing: $0.name))") }
+    }
+    
 }

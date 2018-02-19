@@ -14,7 +14,7 @@ class ProductConfigureViewController: UIViewController {
     var product: Product
     var category: Category
     var categoryAttributes: [CategoryAttribute?] = []
-    let sizeCellName = "SizeCell"
+    let sizeCellName = "SliderCell"
     let integerCellName = "IntegerCell"
     let listCellName = "ListCell"
     
@@ -181,7 +181,7 @@ class ProductConfigureViewController: UIViewController {
         self.productPriceLabel.text = "Free" // TODO pull from pricebook
         self.productDescriptionLabel.text = "Description lorem ipsum dolor sit amet, consectur adispicing elit. Aliquam convallis tortor vel risus tincidunt, nec commodo." // TODO pull from product description
         
-        categoryAttributes = CategoryAttributeStore.instance.attributes(forCategory: category)
+        categoryAttributes = CategoryAttributeStore.instance.attributes(for: category)
     }
 
     override func viewDidLayoutSubviews() {
@@ -225,22 +225,46 @@ extension ProductConfigureViewController: UITableViewDataSource, UITableViewDele
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
         var controlStyle: ProductConfigureCellControlType = .unknown
         var maxValue: Int = 0
         if let attribute: CategoryAttribute = self.categoryAttributes[indexPath.row], let attributeType = attribute.attributeType {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as! ProductConfigureTableViewCell
+//=======
+//
+//        if let attribute: CategoryAttribute = categoryAttributes[indexPath.row], let attributeType = attribute.attributeType {
+//
+//            var cellName: String {
+//                switch attributeType {
+//                case .slider:
+//                    return sizeCellName
+//                case .integer:
+//                    return integerCellName
+//                case .picklist:
+//                    return listCellName
+//                case .multiselect:
+//                    return listCellName
+//                }
+//            }
+//
+//            let cell = tableView.dequeueReusableCell(withIdentifier: cellName, for: indexPath) as! BaseTableViewCell
+//
+//>>>>>>> dev
             cell.name = attribute.name
             cell.imageURL = attribute.iconImageURL
             
             switch attributeType {
-            case .size:
+            case .slider:
                 controlStyle = .slider
                 maxValue = 2
             case .integer:
                 controlStyle = .increment
                 maxValue = 3
-            case .list:
+            case .picklist:
+                controlStyle = .list
+                cell.listItems = ["Item 1", "Item 2", "Item 3"]
+            case .multiselect:
                 controlStyle = .list
                 cell.listItems = ["Item 1", "Item 2", "Item 3"]
             }
@@ -255,4 +279,11 @@ extension ProductConfigureViewController: UITableViewDataSource, UITableViewDele
         }
         return UITableViewCell()
     }
+    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        if let cell = tableView.cellForRow(at: indexPath) as? CellSelectedProtocol,
+//            let attribute = categoryAttributes[indexPath.row] {
+//            cell.selected(attribute: attribute)
+//        }
+//    }
 }

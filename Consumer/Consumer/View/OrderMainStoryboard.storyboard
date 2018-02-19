@@ -83,11 +83,15 @@
                                     <outlet property="delegate" destination="FUx-8y-N8z" id="hYT-gv-f0t"/>
                                 </connections>
                             </collectionView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="h4p-pb-Dmg">
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="h4p-pb-Dmg">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="250" id="jea-yz-ha9"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="uBh-4r-mPH" appends="YES" id="9Sj-lN-hlG"/>
+                                </connections>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iQ3-9Z-eOd">
                                 <rect key="frame" x="25" y="80" width="42" height="21"/>
@@ -130,6 +134,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="suI-xF-REf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="uBh-4r-mPH">
+                    <connections>
+                        <segue destination="ogV-Mb-bDj" kind="presentation" modalPresentationStyle="overFullScreen" id="TVA-Mc-tOS"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="60" y="201"/>
         </scene>
@@ -140,6 +149,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tv7-Gj-Kh7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="674" y="50"/>
+        </scene>
+        <!--ProductConfigureStoryboard-->
+        <scene sceneID="Uk1-gd-jZk">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ProductConfigureStoryboard" id="ogV-Mb-bDj" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DS9-Nj-7FK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="776" y="346"/>
         </scene>
     </scenes>
     <resources>
