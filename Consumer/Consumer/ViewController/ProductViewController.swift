@@ -23,7 +23,7 @@ class ProductViewController: UIViewController {
     var category: Category? = nil {
         didSet {
             DispatchQueue.main.async(execute: {
-                self.products = ProductStore.instance.records(forCategory: self.category)
+                self.products = ProductStore.instance.records(for: self.category)
             })
         }
     }
