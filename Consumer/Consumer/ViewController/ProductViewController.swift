@@ -74,11 +74,5 @@ extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: productSelectedSegueName, sender: products[indexPath.row])
-//        guard let product = self.products[indexPath.row], let category = self.category else {return}
-//        let vc = ProductConfigureViewController(product: product, category: category)
-//        vc.modalPresentationStyle = .overCurrentContext
-//        vc.modalTransitionStyle = .coverVertical
-//        guard let tab = self.tabBarController else {return}
-//        tab.present(vc, animated: true, completion: nil)
     }
 }

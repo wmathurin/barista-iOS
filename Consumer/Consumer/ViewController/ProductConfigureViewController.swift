@@ -32,7 +32,6 @@ class ProductConfigureViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(white: 0.0, alpha: 0.6)
         
-        self.gradientView.translatesAutoresizingMaskIntoConstraints = false
         let gradientLayer = self.gradientView.layer as! CAGradientLayer
         gradientLayer.colors = [Theme.productConfigTopBgGradColor.cgColor, Theme.productConfigBottomBgGradColor.cgColor]
         self.productConfigureContainerView.insertSubview(self.gradientView, at: 0)
