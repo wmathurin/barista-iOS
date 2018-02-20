@@ -23,6 +23,7 @@
 		A4B8C460202A1392004176A1 /* OrderMainCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B8C45F202A1392004176A1 /* OrderMainCollectionViewLayout.swift */; };
 		A4B9A1B6203AB534004D2519 /* ListItemControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B9A1B5203AB534004D2519 /* ListItemControl.swift */; };
 		A4B9A1B8203BC5BB004D2519 /* ProductConfigureStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4B9A1B7203BC5BB004D2519 /* ProductConfigureStoryboard.storyboard */; };
+		A4B9A1BA203CAF6B004D2519 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B9A1B9203CAF6B004D2519 /* BaseViewController.swift */; };
 		A4ED9C282035E56500E52F58 /* SliderControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4ED9C272035E56500E52F58 /* SliderControl.swift */; };
 		A4ED9C2A2035E57400E52F58 /* IncrementControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4ED9C292035E57400E52F58 /* IncrementControl.swift */; };
 		A4ED9C2C2035E7E600E52F58 /* ProductConfigControlBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4ED9C2B2035E7E600E52F58 /* ProductConfigControlBase.swift */; };
@@ -97,6 +98,7 @@
 		A4B8C45F202A1392004176A1 /* OrderMainCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderMainCollectionViewLayout.swift; sourceTree = "<group>"; };
 		A4B9A1B5203AB534004D2519 /* ListItemControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemControl.swift; sourceTree = "<group>"; };
 		A4B9A1B7203BC5BB004D2519 /* ProductConfigureStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProductConfigureStoryboard.storyboard; sourceTree = "<group>"; };
+		A4B9A1B9203CAF6B004D2519 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		A4ED9C272035E56500E52F58 /* SliderControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderControl.swift; sourceTree = "<group>"; };
 		A4ED9C292035E57400E52F58 /* IncrementControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncrementControl.swift; sourceTree = "<group>"; };
 		A4ED9C2B2035E7E600E52F58 /* ProductConfigControlBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductConfigControlBase.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				EEA6ECA82028E29D00E04FFD /* AccountViewController.swift */,
 				EEA6ECB7202B705100E04FFD /* ProductConfigureViewController.swift */,
 				A4FA2DC02031764E00DCCC72 /* CartViewController.swift */,
+				A4B9A1B9203CAF6B004D2519 /* BaseViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -493,6 +496,7 @@
 				EEB4A8B720374BCA00745515 /* ImageCache.swift in Sources */,
 				A43F1559202D81E2002F0022 /* OrderItem.swift in Sources */,
 				A4ED9C2C2035E7E600E52F58 /* ProductConfigControlBase.swift in Sources */,
+				A4B9A1BA203CAF6B004D2519 /* BaseViewController.swift in Sources */,
 				EEA6ECB4202A6C6600E04FFD /* CategoryAttribute.swift in Sources */,
 				A4B9A1B6203AB534004D2519 /* ListItemControl.swift in Sources */,
 				EEA6EC89202111A200E04FFD /* ProductStore.swift in Sources */,

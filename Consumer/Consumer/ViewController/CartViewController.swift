@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CartViewController: UIViewController {
+class CartViewController: BaseViewController {
     
     fileprivate var tableView = UITableView(frame: .zero, style: .plain)
     fileprivate var order:Order
@@ -35,7 +35,8 @@ class CartViewController: UIViewController {
         self.view.backgroundColor = UIColor.white
         
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
-        self.tableView.separatorColor = UIColor.clear
+        self.tableView.separatorColor = UIColor(white: 0.0, alpha: 0.3)
+        self.tableView.separatorInset = UIEdgeInsets.zero
         self.tableView.register(CartItemTableViewCell.self, forCellReuseIdentifier: "itemCell")
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -43,10 +44,23 @@ class CartViewController: UIViewController {
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.view.addSubview(self.tableView)
         
+        let payButton = UIButton(type: .custom)
+        payButton.translatesAutoresizingMaskIntoConstraints = false
+        payButton.setTitle("PAY", for: .normal)
+        payButton.titleLabel?.textColor = UIColor.white
+        payButton.titleLabel?.font = Theme.appBoldFont(15.0)
+        payButton.backgroundColor = Theme.appAccentColor01
+        self.view.addSubview(payButton)
+        
         self.tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         self.tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
         self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-        self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        self.tableView.bottomAnchor.constraint(equalTo: payButton.topAnchor).isActive = true
+        
+        payButton.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+        payButton.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        payButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        payButton.heightAnchor.constraint(equalToConstant: 48.0).isActive = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -56,25 +70,14 @@ class CartViewController: UIViewController {
 }
 
 extension CartViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 100.0
-    }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 100.0
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = CartHeaderView(frame: .zero)
-        view.location1 = "Corner of 1st & Main"
-        view.location2 = "123 Main St."
-        view.location3 = "Chicago, Il 60601"
-        return view
-    }
-    
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let view = CartFooterView(frame: .zero)
-        view.total = "Free"
+        view.total = "$0.00"
         return view
     }
     
@@ -96,7 +99,7 @@ extension CartViewController: UITableViewDataSource {
         cell.itemName = product?.name
         cell.description1 = "Description 1"
         cell.description2 = "Description 2"
-        cell.price = "Free"
+        cell.price = "FREE"
         return cell
     }
 }

@@ -42,13 +42,13 @@ class CartHeaderView: UIView {
         self.pickupLabel.text = "Pickup Location"
         self.backgroundColor = UIColor.lightGray
         
-        self.pickupLabel.font = Theme.cartItemDescriptionFont
+        self.pickupLabel.font = Theme.appBoldFont(14.0)
         self.pickupLabel.textColor = Theme.cartItemTextColor
-        self.locationLabel1.font = Theme.cartItemNameFont
+        self.locationLabel1.font = Theme.appMediumFont(12.0)
         self.locationLabel1.textColor = Theme.cartItemTextColor
-        self.locationLabel2.font = Theme.cartItemDescriptionFont
+        self.locationLabel2.font = Theme.appMediumFont(12.0)
         self.locationLabel2.textColor = Theme.cartItemTextColor
-        self.locationLabel3.font = Theme.cartItemDescriptionFont
+        self.locationLabel3.font = Theme.appMediumFont(12.0)
         self.locationLabel3.textColor = Theme.cartItemTextColor
         
         let labelContainer = UIView()

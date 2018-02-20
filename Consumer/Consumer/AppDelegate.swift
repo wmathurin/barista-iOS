@@ -67,6 +67,10 @@ class AppDelegate : UIResponder, UIApplicationDelegate
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.initializeAppViewState();
         
+        let navAppearance = UINavigationBar.appearance()
+        navAppearance.barTintColor = Theme.appNavBarTintColor
+        navAppearance.titleTextAttributes = [NSAttributedStringKey.foregroundColor: Theme.appNavBarTextColor, NSAttributedStringKey.font: Theme.appMediumFont(14.0)!]
+        
         // If you wish to register for push notifications, uncomment the line below.  Note that,
         // if you want to receive push notifications from Salesforce, you will also need to
         // implement the application:didRegisterForRemoteNotificationsWithDeviceToken: method (below).

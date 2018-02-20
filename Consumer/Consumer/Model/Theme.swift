@@ -119,10 +119,33 @@ struct Theme {
         }
     }
     
+    static var appNavBarTintColor: UIColor {
+        get {
+            return UIColor(displayP3Red: 247.0/255.0, green: 244.0/255.0, blue: 243.0/255.0, alpha: 1.0)
+        }
+    }
+    
+    static var appNavBarTextColor: UIColor {
+        get {
+            return UIColor(displayP3Red: 28.0/255.0, green: 15.0/255.0, blue: 11.0/255.0, alpha: 1.0)
+        }
+    }
+    
+    static var appAccentColor01: UIColor {
+        get {
+            return UIColor(displayP3Red: 3.0/255.0, green: 201.0/255.0, blue: 244.0/255.0, alpha: 1.0)
+        }
+    }
+    
+    
     // Fonts
     
     static func appBoldFont(_ size:CGFloat) -> UIFont? {
         return UIFont(name: "AvenirNext-DemiBold", size: size)
+    }
+    
+    static func appMediumFont(_ size:CGFloat) -> UIFont? {
+        return UIFont(name: "AvenirNext-Medium", size: size)
     }
     
     static var appBoldFont: UIFont? {
@@ -146,18 +169,6 @@ struct Theme {
     static var cartButtonFont: UIFont? {
         get {
             return UIFont(name: "AvenirNext-DemiBold", size: 12.0)
-        }
-    }
-    
-    static var cartItemNameFont: UIFont? {
-        get {
-            return UIFont(name: "AvenirNext-DemiBold", size: 13.0)
-        }
-    }
-    
-    static var cartItemDescriptionFont: UIFont? {
-        get {
-            return UIFont(name: "AvenirNext-Medium", size: 13.0)
         }
     }
     

@@ -20,8 +20,9 @@ class Order: Record, StoreProtocol {
         case orderOwner = "OwnerId"
         case status = "Status"
         case orderId = "Id"
+        case createdById = "CreatedById"
         
-        static let allFields = [accountId.rawValue, orderName.rawValue, orderNumber.rawValue, orderOwner.rawValue, status.rawValue]
+        static let allFields = [accountId.rawValue, orderName.rawValue, orderNumber.rawValue, orderOwner.rawValue, status.rawValue, createdById.rawValue]
     }
     
     enum OrderStatus {
@@ -39,6 +40,7 @@ class Order: Record, StoreProtocol {
     fileprivate(set) lazy var owner: String? = data[Field.orderOwner.rawValue] as? String
     fileprivate(set) lazy var status: String? = data[Field.status.rawValue] as? String
     fileprivate(set) lazy var orderId: String? = data[Field.orderId.rawValue] as? String
+    fileprivate(set) lazy var createdById: String? = data[Field.createdById.rawValue] as? String
     
     func orderStatus() -> OrderStatus {
         if let s = self.status {

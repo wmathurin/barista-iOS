@@ -65,15 +65,15 @@ class CartItemTableViewCell: UITableViewCell {
         self.descriptionLabel3.translatesAutoresizingMaskIntoConstraints = false
         self.priceLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        self.itemNameLabel.font = Theme.cartItemNameFont
+        self.itemNameLabel.font = Theme.appBoldFont(14.0)
         self.itemNameLabel.textColor = Theme.cartItemTextColor
-        self.descriptionLabel1.font = Theme.cartItemDescriptionFont
+        self.descriptionLabel1.font = Theme.appMediumFont(12.0)
         self.descriptionLabel1.textColor = Theme.cartItemTextColor
-        self.descriptionLabel2.font = Theme.cartItemDescriptionFont
+        self.descriptionLabel2.font = Theme.appMediumFont(12.0)
         self.descriptionLabel2.textColor = Theme.cartItemTextColor
-        self.descriptionLabel3.font = Theme.cartItemDescriptionFont
+        self.descriptionLabel3.font = Theme.appMediumFont(12.0)
         self.descriptionLabel3.textColor = Theme.cartItemTextColor
-        self.priceLabel.font = Theme.cartItemDescriptionFont
+        self.priceLabel.font = Theme.appMediumFont(12.0)
         self.priceLabel.textColor = Theme.cartItemTextColor
         
         self.itemNameLabel.leftAnchor.constraint(equalTo: container.leftAnchor, constant:20).isActive = true
@@ -81,17 +81,13 @@ class CartItemTableViewCell: UITableViewCell {
         self.descriptionLabel2.leftAnchor.constraint(equalTo: self.itemNameLabel.leftAnchor).isActive = true
         self.descriptionLabel3.leftAnchor.constraint(equalTo: self.itemNameLabel.leftAnchor).isActive = true
         self.priceLabel.rightAnchor.constraint(equalTo: container.rightAnchor, constant:-20).isActive = true
-//        self.itemNameLabel.rightAnchor.constraint(equalTo: self.priceLabel.leftAnchor, constant:-10).isActive = true
-//        self.descriptionLabel1.rightAnchor.constraint(equalTo: self.priceLabel.leftAnchor, constant:-10).isActive = true
-//        self.descriptionLabel2.rightAnchor.constraint(equalTo: self.priceLabel.leftAnchor, constant:-10).isActive = true
-//        self.descriptionLabel3.rightAnchor.constraint(equalTo: self.priceLabel.leftAnchor, constant:-10).isActive = true
         
-        self.itemNameLabel.topAnchor.constraint(equalTo: container.topAnchor, constant:10).isActive = true
+        self.itemNameLabel.topAnchor.constraint(equalTo: container.topAnchor, constant:20).isActive = true
         self.descriptionLabel1.topAnchor.constraint(equalTo: self.itemNameLabel.bottomAnchor).isActive = true
         self.descriptionLabel2.topAnchor.constraint(equalTo: self.descriptionLabel1.bottomAnchor).isActive = true
         self.descriptionLabel3.topAnchor.constraint(equalTo: self.descriptionLabel2.bottomAnchor).isActive = true
-        self.descriptionLabel3.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant:-10).isActive = true
-        self.priceLabel.centerYAnchor.constraint(equalTo: container.centerYAnchor).isActive = true
+        self.descriptionLabel3.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant:-20).isActive = true
+        self.priceLabel.firstBaselineAnchor.constraint(equalTo: self.itemNameLabel.firstBaselineAnchor).isActive = true
         
     }
     
