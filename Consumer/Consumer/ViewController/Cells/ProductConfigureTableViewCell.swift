@@ -18,6 +18,8 @@ enum ProductConfigureCellControlType {
 class ProductConfigureTableViewCell: UITableViewCell {
     
     var controlClosure:((Int) -> Void)?
+    var pickListClosure:((Int, String) -> Void)?
+    
     var imageURL: String? {
         didSet {
             self.cellImageView.loadImageUsingCache(withUrl: imageURL)
@@ -84,7 +86,6 @@ class ProductConfigureTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-//        self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = UIColor.clear
         self.selectionStyle = .none
         
@@ -102,20 +103,21 @@ class ProductConfigureTableViewCell: UITableViewCell {
         self.contentView.addSubview(self.listContentView)
         
         self.cellTitleLabel.textColor = Theme.productConfigTextColor
-        self.cellTitleLabel.font = Theme.productConfigItemCellFont
+        self.cellTitleLabel.font = Theme.appBoldFont(14.0)
         
         self.cellImageView.centerXAnchor.constraint(equalTo: self.contentView.leftAnchor, constant:30.0).isActive = true
         self.cellImageView.centerYAnchor.constraint(equalTo: self.contentView.topAnchor, constant:34.0).isActive = true
         
         self.cellTitleLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant:60.0).isActive = true
-        self.cellTitleLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant:0.0).isActive = true
+        self.cellTitleLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
         self.cellTitleLabel.heightAnchor.constraint(equalToConstant: 68.0).isActive = true
         
         self.listContentView.topAnchor.constraint(equalTo: self.cellTitleLabel.bottomAnchor).isActive = true
-        self.listContentView.leftAnchor.constraint(equalTo: self.cellTitleLabel.leftAnchor).isActive = true
+        self.listContentView.leftAnchor.constraint(equalTo: self.cellTitleLabel.leftAnchor, constant:10.0).isActive = true
 
         self.listContentView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
         self.listContentHeightConstraint = self.listContentView.heightAnchor.constraint(equalToConstant: 0.0)
+        self.listContentHeightConstraint.priority = .defaultHigh
         self.listContentHeightConstraint.isActive = true
         
         self.rightImageView.setContentHuggingPriority(.required, for: .horizontal)
@@ -143,21 +145,28 @@ class ProductConfigureTableViewCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+        var transform = CGAffineTransform.identity
         if self.listItems.count > 0 && self.listContentHeightConstraint.constant == 0.0 && selected == true {
-            self.listContentHeightConstraint.constant = CGFloat(self.listItems.count * 30)
+            self.listContentHeightConstraint.constant = CGFloat((self.listItems.count * 30) + 10)
+            transform = transform.rotated(by: .pi)
         } else {
             self.listContentHeightConstraint.constant = 0.0
+        }
+        UIView.animate(withDuration: 0.2) {
+            self.rightImageView.transform = transform
         }
     }
 
     fileprivate func addListItems(_ items:[String]) {
         var lastControl: UIView?
-        for item in items {
+        for (index, item) in items.enumerated() {
             let control = ListItemControl(frame: .zero)
             control.label = item
+            control.controlIndex = index
             control.textColor = Theme.appMainControlTextColor
+            control.labelFont = Theme.appBoldFont(13.0)
             control.controlColor = Theme.appMainControlColor
-            
+            control.addTarget(self, action: #selector(handleListControlPressed(control:)), for: .touchUpInside)
             self.listContentView.addSubview(control)
             if let last = lastControl {
                 control.topAnchor.constraint(equalTo: last.bottomAnchor, constant:10.0).isActive = true
@@ -169,10 +178,6 @@ class ProductConfigureTableViewCell: UITableViewCell {
                 control.rightAnchor.constraint(equalTo: self.listContentView.rightAnchor).isActive = true
             }
             
-            if item == items.last {
-//                control.bottomAnchor.constraint(equalTo: self.listContentView.bottomAnchor).isActive = true
-            }
-            
             lastControl = control
         }
     }
@@ -182,6 +187,13 @@ class ProductConfigureTableViewCell: UITableViewCell {
         let value = control.currentValue
         if let closure = self.controlClosure {
             closure(value)
+        }
+    }
+    
+    @objc func handleListControlPressed(control:ListItemControl) {
+        guard let name = control.label else {return}
+        if let closure = self.pickListClosure {
+            closure(control.controlIndex, name)
         }
     }
 }

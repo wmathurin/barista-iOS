@@ -45,11 +45,6 @@ extension UIView {
         func draw(side currentSide: Side, toX: CGFloat, toY: CGFloat) {
             side == currentSide ? maskPath.addQuadCurve(to: CGPoint(x: toX, y: toY), controlPoint: control) : maskPath.addLine(to: CGPoint(x: toX, y: toY))
         }
-        
-        print("top - \(top)")
-        print("left - \(left)")
-        print("right - \(right)")
-        print("control - \(control)")
 
         maskPath.move(to: CGPoint(x: left, y: top))
         draw(side: .top, toX: right, toY: top)
