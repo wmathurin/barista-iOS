@@ -8,8 +8,9 @@
 
 import UIKit
 import CoreGraphics
+import SalesforceSDKCore
 
-class OrderMainViewController: UIViewController {
+class OrderMainViewController: BaseViewController {
     
     @IBOutlet weak var featuredItemImageView: UIImageView!
     @IBOutlet weak var categoryCollectionView: UICollectionView!

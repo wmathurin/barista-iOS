@@ -18,9 +18,10 @@ class OrderStore: Store<Order> {
     // SELECT Id,name,(select Id, OrderId, OrderItemNumber, PricebookEntry.Product2.Name, PricebookEntry.Product2.id, Quantity, UnitPrice FROM OrderItems ) from order where id=\(orderId)
     
     func records<T:Order>(for user:String) -> [T] {
-        let queryString = "SELECT \(Order.selectFieldsString()) FROM {\(Order.objectName)} WHERE {\(Order.Field.orderOwner.rawValue):\(user)"
-        
-        let query = SFQuerySpec.newSmartQuerySpec(queryString, withPageSize: 100)!
+        let query = SFQuerySpec.newExactQuerySpec(Order.objectName, withPath: Order.Field.createdById.rawValue, withMatchKey: user, withOrderPath: Order.Field.orderId.rawValue, with: .descending, withPageSize: 100)
+//        let queryString = "SELECT \(Order.selectFieldsString()) FROM {\(Order.objectName)} WHERE {\(Order.Field.orderOwner.rawValue):\(user)"
+//
+//        let query = SFQuerySpec.newSmartQuerySpec(queryString, withPageSize: 100)!
         var error: NSError? = nil
         let results: [Any] = self.store.query(with: query, pageIndex: 0, error: &error)
         guard error == nil else {
