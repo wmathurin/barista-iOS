@@ -45,9 +45,9 @@ class ProductViewController: UIViewController {
 
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destination: ProductConfigureViewController = segue.destination as? ProductConfigureViewController, let product: Product = sender as? Product {
+        if let destination: ProductConfigureViewController = segue.destination as? ProductConfigureViewController, let product: Product = sender as? Product, let cat = self.category {
             destination.product = product
-            destination.category = category
+            destination.category = cat
         }
     }
 }
