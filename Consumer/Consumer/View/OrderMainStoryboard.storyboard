@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -93,32 +94,46 @@
                                     <outletCollection property="gestureRecognizers" destination="uBh-4r-mPH" appends="YES" id="9Sj-lN-hlG"/>
                                 </connections>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iQ3-9Z-eOd">
-                                <rect key="frame" x="25" y="80" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8o0-ch-ZZ3">
-                                <rect key="frame" x="25" y="121" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="92P-te-fEZ">
+                                <rect key="frame" x="32" y="72" width="135.5" height="46"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8o0-ch-ZZ3">
+                                        <rect key="frame" x="0.0" y="25" width="135.5" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iQ3-9Z-eOd">
+                                        <rect key="frame" x="0.0" y="0.0" width="135.5" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="iQ3-9Z-eOd" secondAttribute="trailing" id="2rT-Oz-Ber"/>
+                                    <constraint firstAttribute="bottom" secondItem="8o0-ch-ZZ3" secondAttribute="bottom" id="4IT-TI-hIi"/>
+                                    <constraint firstItem="iQ3-9Z-eOd" firstAttribute="top" secondItem="92P-te-fEZ" secondAttribute="top" id="5CF-vb-bmT"/>
+                                    <constraint firstItem="8o0-ch-ZZ3" firstAttribute="top" secondItem="iQ3-9Z-eOd" secondAttribute="bottom" constant="4" id="JuK-3Q-T9I"/>
+                                    <constraint firstAttribute="trailing" secondItem="8o0-ch-ZZ3" secondAttribute="trailing" id="Zrm-AU-qnE"/>
+                                    <constraint firstItem="8o0-ch-ZZ3" firstAttribute="leading" secondItem="92P-te-fEZ" secondAttribute="leading" id="mxs-Ac-LMW"/>
+                                    <constraint firstItem="iQ3-9Z-eOd" firstAttribute="leading" secondItem="92P-te-fEZ" secondAttribute="leading" id="yax-8E-e1v"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="rua-Z4-Zgn" firstAttribute="trailing" secondItem="h4p-pb-Dmg" secondAttribute="trailing" id="056-jx-OJ4"/>
-                            <constraint firstItem="iQ3-9Z-eOd" firstAttribute="leading" secondItem="h4p-pb-Dmg" secondAttribute="leading" constant="25" id="4nP-Ci-48z"/>
                             <constraint firstItem="5r1-Dc-8sh" firstAttribute="top" secondItem="h4p-pb-Dmg" secondAttribute="bottom" id="Aib-VV-TYW"/>
                             <constraint firstItem="h4p-pb-Dmg" firstAttribute="leading" secondItem="rua-Z4-Zgn" secondAttribute="leading" id="ERQ-ar-Cl4"/>
-                            <constraint firstItem="8o0-ch-ZZ3" firstAttribute="top" secondItem="iQ3-9Z-eOd" secondAttribute="bottom" constant="20" id="F4r-qi-j2r"/>
-                            <constraint firstItem="8o0-ch-ZZ3" firstAttribute="leading" secondItem="iQ3-9Z-eOd" secondAttribute="leading" id="FAb-wg-fli"/>
+                            <constraint firstItem="92P-te-fEZ" firstAttribute="centerY" secondItem="h4p-pb-Dmg" secondAttribute="centerY" constant="-30" id="HgT-Ia-bi6"/>
+                            <constraint firstItem="92P-te-fEZ" firstAttribute="leading" secondItem="h4p-pb-Dmg" secondAttribute="leading" constant="32" id="MmM-tw-V5r"/>
                             <constraint firstItem="5r1-Dc-8sh" firstAttribute="trailing" secondItem="rua-Z4-Zgn" secondAttribute="trailing" constant="-8" id="P5z-1a-sA8"/>
                             <constraint firstItem="5r1-Dc-8sh" firstAttribute="bottom" secondItem="rua-Z4-Zgn" secondAttribute="bottom" id="QIi-0x-nYZ"/>
-                            <constraint firstItem="iQ3-9Z-eOd" firstAttribute="top" secondItem="h4p-pb-Dmg" secondAttribute="top" constant="80" id="WUa-CO-K4B"/>
                             <constraint firstItem="h4p-pb-Dmg" firstAttribute="top" secondItem="ApC-Xn-7nR" secondAttribute="top" id="YL9-f2-yjO"/>
                             <constraint firstItem="5r1-Dc-8sh" firstAttribute="leading" secondItem="rua-Z4-Zgn" secondAttribute="leading" constant="8" id="gSQ-nO-kMg"/>
+                            <constraint firstItem="92P-te-fEZ" firstAttribute="trailing" secondItem="h4p-pb-Dmg" secondAttribute="centerX" constant="-20" id="qqL-u3-c8L"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rua-Z4-Zgn"/>
                     </view>
@@ -140,7 +155,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="60" y="201"/>
+            <point key="canvasLocation" x="60" y="200.14992503748127"/>
         </scene>
         <!--ProductStoryboard-->
         <scene sceneID="vI4-wP-S8J">

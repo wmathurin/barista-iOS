@@ -143,6 +143,11 @@ struct Theme {
         }
     }
     
+    static var featureItemTextColor: UIColor {
+        get {
+            return UIColor(displayP3Red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+        }
+    }
     
     // Fonts
     
@@ -152,6 +157,10 @@ struct Theme {
     
     static func appMediumFont(_ size:CGFloat) -> UIFont? {
         return UIFont(name: "AvenirNext-Medium", size: size)
+    }
+    
+    static func appRegularFont(_ size:CGFloat) -> UIFont? {
+        return UIFont(name: "AvenirNext-Regular", size: size)
     }
     
     static var appBoldFont: UIFont? {

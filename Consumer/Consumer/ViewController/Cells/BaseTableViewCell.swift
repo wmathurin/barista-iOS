@@ -13,8 +13,8 @@ protocol CellSelectedProtocol {
 
 class BaseTableViewCell: UITableViewCell {
 
-    @IBOutlet private weak var iconImageView: UIImageView!
-    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet weak var iconImageView: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
     
     var name: String? {
         didSet {
