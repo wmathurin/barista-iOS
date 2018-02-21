@@ -131,6 +131,12 @@ struct Theme {
         }
     }
     
+    static var categoryItemTextColor: UIColor {
+        get {
+            return UIColor(displayP3Red: 28.0/255.0, green: 15.0/255.0, blue: 11.0/255.0, alpha: 1.0)
+        }
+    }
+    
     static var appAccentColor01: UIColor {
         get {
             return UIColor(displayP3Red: 3.0/255.0, green: 201.0/255.0, blue: 244.0/255.0, alpha: 1.0)

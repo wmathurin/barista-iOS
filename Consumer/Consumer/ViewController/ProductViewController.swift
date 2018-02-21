@@ -36,7 +36,8 @@ class ProductViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         title = category?.name
-        productTableView.tableFooterView = UIView()
+        self.productTableView.tableFooterView = UIView()
+        self.productTableView.separatorInset = UIEdgeInsets.zero
     }
     
     override func viewDidLoad() {
@@ -66,6 +67,7 @@ extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
         // Configure the cell to show the data.
         if let product: Product = products[indexPath.row] {
             cell.name = product.name
+            cell.price = "FREE" // todo pull from product price
             cell.imageURL = product.iconImageURL
         }
 

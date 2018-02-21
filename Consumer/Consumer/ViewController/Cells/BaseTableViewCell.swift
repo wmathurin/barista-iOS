@@ -35,7 +35,9 @@ class BaseTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        iconImageView.round()
+        self.nameLabel.font = Theme.appBoldFont(14.0)
+        self.nameLabel.textColor = Theme.categoryItemTextColor
+        self.iconImageView.round()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
