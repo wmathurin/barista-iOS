@@ -56,4 +56,8 @@ extension UIView {
         maskLayer.path = maskPath.cgPath
         layer.mask = maskLayer
     }
+    
+    func round() {
+        layer.cornerRadius = bounds.size.width / 2
+    }
 }

@@ -26,7 +26,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.categoryLabel.font = Theme.menuTextFont
+        self.categoryLabel.font = Theme.appBoldFont(12.0)
         self.categoryLabel.textColor = Theme.menuTextColor
     }
 
