@@ -51,9 +51,11 @@ class OrderMainViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.featuredItemLabel.font = Theme.appBoldFont(14.0)
         featuredItemLabel.textColor = UIColor.white
         featuredItemLabel.text = ""
 
+        self.featuredProductNameLabel.font = Theme.appMediumFont(22.0)
         featuredProductNameLabel.textColor = UIColor.white
         featuredProductNameLabel.text = ""
         

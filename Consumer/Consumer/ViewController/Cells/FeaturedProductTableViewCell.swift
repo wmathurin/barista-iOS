@@ -9,4 +9,10 @@
 import UIKit
 
 class FeaturedProductTableViewCell: BaseTableViewCell {
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.nameLabel.font = Theme.appRegularFont(22.0)
+        self.nameLabel.textColor = Theme.featureItemTextColor
+    }
 }
