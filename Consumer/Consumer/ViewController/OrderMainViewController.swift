@@ -120,6 +120,12 @@ class OrderMainViewController: BaseViewController {
             }
         })
         
+//        QuoteStore.instance.syncDown { (quoteSyncState) in
+//            if let complete = quoteSyncState?.isDone(), complete == true {
+//                let records  = QuoteStore.instance.records()
+//                print("quote records: \(records)")
+//            }
+//        }
         
     }
     
