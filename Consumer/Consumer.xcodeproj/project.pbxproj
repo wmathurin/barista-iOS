@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		586B897C24BAAF7812576C33 /* Pods_Consumer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 404B08755157B08E53A42453 /* Pods_Consumer.framework */; };
+		A4103A63203F609100ADF19E /* QuoteLineItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4103A62203F609100ADF19E /* QuoteLineItemStore.swift */; };
+		A4103A65203F609B00ADF19E /* QuoteLineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4103A64203F609B00ADF19E /* QuoteLineItem.swift */; };
+		A4103A67203F780F00ADF19E /* QuoteLineGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4103A66203F780F00ADF19E /* QuoteLineGroup.swift */; };
+		A4103A69203F862400ADF19E /* QuoteLineGroupStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4103A68203F862400ADF19E /* QuoteLineGroupStore.swift */; };
+		A4103A6B203FAD9E00ADF19E /* Opportunity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4103A6A203FAD9E00ADF19E /* Opportunity.swift */; };
+		A4103A6D203FADA900ADF19E /* OpportunityStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4103A6C203FADA900ADF19E /* OpportunityStore.swift */; };
 		A411EE06203E848000D70F95 /* QuoteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A411EE05203E848000D70F95 /* QuoteStore.swift */; };
 		A411EE08203E849000D70F95 /* Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = A411EE07203E849000D70F95 /* Quote.swift */; };
 		A43F152B202B5B9A002F0022 /* OrderStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43F152A202B5B9A002F0022 /* OrderStore.swift */; };
@@ -81,6 +87,12 @@
 		2B0262060C853D6DF04654D7 /* Pods-Consumer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Consumer.release.xcconfig"; path = "../Pods/Target Support Files/Pods-Consumer/Pods-Consumer.release.xcconfig"; sourceTree = "<group>"; };
 		404B08755157B08E53A42453 /* Pods_Consumer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Consumer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BD3A2E44F8D6A6A1571065C /* Pods-Consumer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Consumer.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-Consumer/Pods-Consumer.debug.xcconfig"; sourceTree = "<group>"; };
+		A4103A62203F609100ADF19E /* QuoteLineItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteLineItemStore.swift; sourceTree = "<group>"; };
+		A4103A64203F609B00ADF19E /* QuoteLineItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteLineItem.swift; sourceTree = "<group>"; };
+		A4103A66203F780F00ADF19E /* QuoteLineGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteLineGroup.swift; sourceTree = "<group>"; };
+		A4103A68203F862400ADF19E /* QuoteLineGroupStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteLineGroupStore.swift; sourceTree = "<group>"; };
+		A4103A6A203FAD9E00ADF19E /* Opportunity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Opportunity.swift; sourceTree = "<group>"; };
+		A4103A6C203FADA900ADF19E /* OpportunityStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpportunityStore.swift; sourceTree = "<group>"; };
 		A411EE05203E848000D70F95 /* QuoteStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteStore.swift; sourceTree = "<group>"; };
 		A411EE07203E849000D70F95 /* Quote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quote.swift; sourceTree = "<group>"; };
 		A43F152A202B5B9A002F0022 /* OrderStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderStore.swift; sourceTree = "<group>"; };
@@ -244,6 +256,9 @@
 				A43F152C202B5BB8002F0022 /* Order.swift */,
 				A43F1558202D81E2002F0022 /* OrderItem.swift */,
 				A411EE07203E849000D70F95 /* Quote.swift */,
+				A4103A64203F609B00ADF19E /* QuoteLineItem.swift */,
+				A4103A66203F780F00ADF19E /* QuoteLineGroup.swift */,
+				A4103A6A203FAD9E00ADF19E /* Opportunity.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -286,6 +301,9 @@
 				A43F152A202B5B9A002F0022 /* OrderStore.swift */,
 				A43F155A202E588A002F0022 /* OrderItemStore.swift */,
 				A411EE05203E848000D70F95 /* QuoteStore.swift */,
+				A4103A62203F609100ADF19E /* QuoteLineItemStore.swift */,
+				A4103A68203F862400ADF19E /* QuoteLineGroupStore.swift */,
+				A4103A6C203FADA900ADF19E /* OpportunityStore.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -502,12 +520,14 @@
 				A411EE06203E848000D70F95 /* QuoteStore.swift in Sources */,
 				EEB4A8B720374BCA00745515 /* ImageCache.swift in Sources */,
 				A43F1559202D81E2002F0022 /* OrderItem.swift in Sources */,
+				A4103A63203F609100ADF19E /* QuoteLineItemStore.swift in Sources */,
 				A4ED9C2C2035E7E600E52F58 /* ProductConfigControlBase.swift in Sources */,
 				A4B9A1BA203CAF6B004D2519 /* BaseViewController.swift in Sources */,
 				EEA6ECB4202A6C6600E04FFD /* CategoryAttribute.swift in Sources */,
 				A4B9A1B6203AB534004D2519 /* ListItemControl.swift in Sources */,
 				EEA6EC89202111A200E04FFD /* ProductStore.swift in Sources */,
 				EEA6EC852020E5CC00E04FFD /* CategoryStore.swift in Sources */,
+				A4103A65203F609B00ADF19E /* QuoteLineItem.swift in Sources */,
 				A411EE08203E849000D70F95 /* Quote.swift in Sources */,
 				A4B5E0B52033EB1D00C62C69 /* ProductConfigureTableViewCell.swift in Sources */,
 				A43F152D202B5BB8002F0022 /* Order.swift in Sources */,
@@ -516,6 +536,7 @@
 				A4FA2DC520324A4300DCCC72 /* CartHeaderView.swift in Sources */,
 				A4FA2DC12031764E00DCCC72 /* CartViewController.swift in Sources */,
 				A43F155B202E588A002F0022 /* OrderItemStore.swift in Sources */,
+				A4103A6B203FAD9E00ADF19E /* Opportunity.swift in Sources */,
 				EEA6EC9C202242E500E04FFD /* UIImageViewExtension.swift in Sources */,
 				A4ED9C282035E56500E52F58 /* SliderControl.swift in Sources */,
 				A4FA2DF12033736500DCCC72 /* CartFooterView.swift in Sources */,
@@ -523,14 +544,17 @@
 				EEA6ECB6202A6F1E00E04FFD /* CategoryAttributeStore.swift in Sources */,
 				EEA6ECA72028DF3600E04FFD /* ProductCategoryAssociationStore.swift in Sources */,
 				EEA6ECAF202A35A400E04FFD /* FeaturedViewController.swift in Sources */,
+				A4103A69203F862400ADF19E /* QuoteLineGroupStore.swift in Sources */,
 				EEA6EC872021119C00E04FFD /* Product.swift in Sources */,
 				A4B8C43420290CC3004176A1 /* Theme.swift in Sources */,
+				A4103A67203F780F00ADF19E /* QuoteLineGroup.swift in Sources */,
 				EEA6EC992022237F00E04FFD /* ProductViewController.swift in Sources */,
 				EEB4A8B52037471200745515 /* UIButtonExtension.swift in Sources */,
 				EEA6EC81201F850100E04FFD /* Store.swift in Sources */,
 				EEA6ECA52028DD0D00E04FFD /* ProductCategoryAssociation.swift in Sources */,
 				A468710F201A514C00096408 /* InitialViewController.swift in Sources */,
 				EEB4A8B9203763E300745515 /* CategoryAttributeValue.swift in Sources */,
+				A4103A6D203FADA900ADF19E /* OpportunityStore.swift in Sources */,
 				EEA6ECAB2028F06F00E04FFD /* ProductTableViewCell.swift in Sources */,
 				A468710D201A514C00096408 /* AppDelegate.swift in Sources */,
 				EEA6ECB2202A373900E04FFD /* FeaturedProductTableViewCell.swift in Sources */,
