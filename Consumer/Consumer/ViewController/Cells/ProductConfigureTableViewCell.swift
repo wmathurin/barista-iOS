@@ -31,16 +31,40 @@ class ProductConfigureTableViewCell: UITableViewCell {
         }
     }
     
-    var controlStyle:(ProductConfigureCellControlType, Int) = (.unknown, 0) {
+    var minValue: Int? {
         didSet {
-            switch controlStyle.0 {
+            if let control = self.configureControl as? IncrementControl, let new = minValue {
+                control.minValue = new
+            }
+        }
+    }
+    
+    var maxValue: Int? {
+        didSet {
+            if let control = self.configureControl as? IncrementControl, let new = maxValue {
+                control.maxValue = new
+            }
+        }
+    }
+    
+    var currentValue: Int? {
+        didSet {
+            if let control = self.configureControl as? IncrementControl, let new = currentValue {
+                control.currentValue = new
+            }
+        }
+    }
+    
+    var controlStyle:(ProductConfigureCellControlType) = (.unknown) {
+        didSet {
+            switch controlStyle {
             case .slider:
                 let control = SliderControl()
                 control.minTrackColor = Theme.appMainControlColor
                 control.maxTrackColor = Theme.productConfigSliderMaxTrackColor
                 control.thumbColor = Theme.appMainControlColor
                 control.textColor = Theme.appMainControlTextColor
-                control.maxValue = controlStyle.1
+//                control.maxValue = controlStyle.1
                 control.thumbLabels = ["S", "M", "L"] // TODO - from data
                 control.addTarget(self, action: #selector(handleControlEventChange), for: .valueChanged)
                 self.configureControl = control
@@ -50,7 +74,7 @@ class ProductConfigureTableViewCell: UITableViewCell {
                 control.plusImage = UIImage(named: "plus01")
                 control.minusImage = UIImage(named: "minus01")
                 control.textColor = Theme.appMainControlTextColor
-                control.maxValue = controlStyle.1
+//                control.maxValue = controlStyle.1
                 control.addTarget(self, action: #selector(handleControlEventChange), for: .valueChanged)
                 self.configureControl = control
             case .list:

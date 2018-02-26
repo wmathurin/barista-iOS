@@ -14,17 +14,11 @@ class ProductViewController: UIViewController {
     
     @IBOutlet weak var productTableView: UITableView!
     
-    var products: [Product?] = [] {
-        didSet {
-            
-        }
-    }
+    var products: [Product?] = []
     
     var category: Category? = nil {
         didSet {
-            DispatchQueue.main.async(execute: {
-                self.products = ProductStore.instance.records(for: self.category)
-            })
+            self.products = ProductStore.instance.records(for: self.category)
         }
     }
     
@@ -46,16 +40,20 @@ class ProductViewController: UIViewController {
 
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destination: ProductConfigureViewController = segue.destination as? ProductConfigureViewController, let product: Product = sender as? Product, let cat = self.category {
+        if let destination: ProductConfigureViewController = segue.destination as?
+            ProductConfigureViewController, let product: Product = sender as? Product, let cat = self.category {
             destination.product = product
             destination.category = cat
+            if let options = ProductOptionStore.instance.options(product) {
+                destination.productOptions = options
+            }
         }
     }
 }
 
 extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return products.count
+        return self.products.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -65,7 +63,7 @@ extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
         let cell: ProductTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ProductTableViewCell
         
         // Configure the cell to show the data.
-        if let product: Product = products[indexPath.row] {
+        if let product: Product = self.products[indexPath.row] {
             cell.name = product.name
             cell.price = "FREE" // todo pull from product price
             cell.imageURL = product.iconImageURL

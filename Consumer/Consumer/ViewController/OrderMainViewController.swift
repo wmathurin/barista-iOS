@@ -25,11 +25,11 @@ class OrderMainViewController: BaseViewController {
     {
         super.loadView()
         
-        CategoryStore.instance.syncDown { (syncState) in
-            DispatchQueue.main.async(execute: {
-                self.categoryCollectionView.reloadData()
-            })
-        }
+//        CategoryStore.instance.syncDown { (syncState) in
+//            DispatchQueue.main.async(execute: {
+//                self.categoryCollectionView.reloadData()
+//            })
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,7 +75,7 @@ class OrderMainViewController: BaseViewController {
         button.alpha = 0.0
         self.cartButton = button
 
-        ProductStore.instance.syncDown { (syncState) in
+//        ProductStore.instance.syncDown { (syncState) in
             if let featuredProduct: Product = ProductStore.instance.featuredProduct(), let firstFeaturedProdcutURL = featuredProduct.featuredImageRightURL {
                 DispatchQueue.main.async(execute: {
                     self.featuredItemImageView.loadImageUsingCache(withUrl: firstFeaturedProdcutURL)
@@ -83,21 +83,21 @@ class OrderMainViewController: BaseViewController {
                     self.featuredProductNameLabel.text = featuredProduct.name
                 })
             }
-        }
+//        }
         
-        ProductCategoryAssociationStore.instance.syncDown { (syncState) in
-        }
+//        ProductCategoryAssociationStore.instance.syncDown { (syncState) in
+//        }
+//
+//        CategoryAttributeStore.instance.syncDown{ (syncState) in
+//        }
+//
+//        CategoryAttributeValueStore.instance.syncDown{ syncState in
+//        }
         
-        CategoryAttributeStore.instance.syncDown{ (syncState) in
-        }
-        
-        CategoryAttributeValueStore.instance.syncDown{ syncState in
-        }
-        
-        OrderStore.instance.syncDown(completion: { (orderSyncState) in
-            if let complete = orderSyncState?.isDone(), complete == true {
-                OrderItemStore.instance.syncDown(completion: { (itemSyncState) in
-                    if let itemComplete = itemSyncState?.isDone(), itemComplete == true {
+//        OrderStore.instance.syncDown(completion: { (orderSyncState) in
+//            if let complete = orderSyncState?.isDone(), complete == true {
+//                OrderItemStore.instance.syncDown(completion: { (itemSyncState) in
+//                    if let itemComplete = itemSyncState?.isDone(), itemComplete == true {
                         let records = OrderStore.instance.records()
                         if let current = records.first {
                             if current.orderStatus() == .pending {
@@ -115,11 +115,11 @@ class OrderMainViewController: BaseViewController {
                                 
                             }
                         }
-                    }
-                })
-            }
-        })
-        
+//                    }
+//                })
+//            }
+//        })
+    
 //        QuoteStore.instance.syncDown { (quoteSyncState) in
 //            if let complete = quoteSyncState?.isDone(), complete == true {
 //                let records  = QuoteStore.instance.records()

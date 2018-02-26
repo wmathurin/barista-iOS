@@ -16,6 +16,11 @@
 		A4103A6D203FADA900ADF19E /* OpportunityStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4103A6C203FADA900ADF19E /* OpportunityStore.swift */; };
 		A411EE06203E848000D70F95 /* QuoteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A411EE05203E848000D70F95 /* QuoteStore.swift */; };
 		A411EE08203E849000D70F95 /* Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = A411EE07203E849000D70F95 /* Quote.swift */; };
+		A43574252042534300F6C040 /* ProductOptionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43574242042534300F6C040 /* ProductOptionStore.swift */; };
+		A43574272042535100F6C040 /* ProductOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43574262042535100F6C040 /* ProductOption.swift */; };
+		A43574292042836400F6C040 /* SyncProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43574282042836400F6C040 /* SyncProgressViewController.swift */; };
+		A435742B2042847300F6C040 /* PercentLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A435742A2042847300F6C040 /* PercentLine.swift */; };
+		A435742E204291C700F6C040 /* AnimationHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A435742D204291C700F6C040 /* AnimationHelpers.swift */; };
 		A43F152B202B5B9A002F0022 /* OrderStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43F152A202B5B9A002F0022 /* OrderStore.swift */; };
 		A43F152D202B5BB8002F0022 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43F152C202B5BB8002F0022 /* Order.swift */; };
 		A43F1559202D81E2002F0022 /* OrderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43F1558202D81E2002F0022 /* OrderItem.swift */; };
@@ -95,6 +100,11 @@
 		A4103A6C203FADA900ADF19E /* OpportunityStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpportunityStore.swift; sourceTree = "<group>"; };
 		A411EE05203E848000D70F95 /* QuoteStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteStore.swift; sourceTree = "<group>"; };
 		A411EE07203E849000D70F95 /* Quote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quote.swift; sourceTree = "<group>"; };
+		A43574242042534300F6C040 /* ProductOptionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductOptionStore.swift; sourceTree = "<group>"; };
+		A43574262042535100F6C040 /* ProductOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductOption.swift; sourceTree = "<group>"; };
+		A43574282042836400F6C040 /* SyncProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncProgressViewController.swift; sourceTree = "<group>"; };
+		A435742A2042847300F6C040 /* PercentLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentLine.swift; sourceTree = "<group>"; };
+		A435742D204291C700F6C040 /* AnimationHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationHelpers.swift; sourceTree = "<group>"; };
 		A43F152A202B5B9A002F0022 /* OrderStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderStore.swift; sourceTree = "<group>"; };
 		A43F152C202B5BB8002F0022 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		A43F1558202D81E2002F0022 /* OrderItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderItem.swift; sourceTree = "<group>"; };
@@ -183,6 +193,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A435742C204291B000F6C040 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				A435742D204291C700F6C040 /* AnimationHelpers.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		A4687100201A514C00096408 = {
 			isa = PBXGroup;
 			children = (
@@ -206,6 +224,7 @@
 		A468710B201A514C00096408 /* Consumer */ = {
 			isa = PBXGroup;
 			children = (
+				A435742C204291B000F6C040 /* Helpers */,
 				EEA6EC9A202242BF00E04FFD /* Extension */,
 				A4687131201A549400096408 /* Resource */,
 				EEA6EC8A202111D900E04FFD /* Base */,
@@ -240,6 +259,7 @@
 				EEA6ECB7202B705100E04FFD /* ProductConfigureViewController.swift */,
 				A4FA2DC02031764E00DCCC72 /* CartViewController.swift */,
 				A4B9A1B9203CAF6B004D2519 /* BaseViewController.swift */,
+				A43574282042836400F6C040 /* SyncProgressViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -252,6 +272,7 @@
 				EEB4A8B8203763E300745515 /* CategoryAttributeValue.swift */,
 				EEA6ECB3202A6C6600E04FFD /* CategoryAttribute.swift */,
 				EEA6EC862021119C00E04FFD /* Product.swift */,
+				A43574262042535100F6C040 /* ProductOption.swift */,
 				A4B8C43320290CC3004176A1 /* Theme.swift */,
 				A43F152C202B5BB8002F0022 /* Order.swift */,
 				A43F1558202D81E2002F0022 /* OrderItem.swift */,
@@ -298,6 +319,7 @@
 				EEA6ECB5202A6F1E00E04FFD /* CategoryAttributeStore.swift */,
 				EEB4A8BA2037644400745515 /* CategoryAttributeValueStore.swift */,
 				EEA6EC88202111A200E04FFD /* ProductStore.swift */,
+				A43574242042534300F6C040 /* ProductOptionStore.swift */,
 				A43F152A202B5B9A002F0022 /* OrderStore.swift */,
 				A43F155A202E588A002F0022 /* OrderItemStore.swift */,
 				A411EE05203E848000D70F95 /* QuoteStore.swift */,
@@ -324,6 +346,7 @@
 				A4ED9C292035E57400E52F58 /* IncrementControl.swift */,
 				A4ED9C2B2035E7E600E52F58 /* ProductConfigControlBase.swift */,
 				A4B9A1B5203AB534004D2519 /* ListItemControl.swift */,
+				A435742A2042847300F6C040 /* PercentLine.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -515,6 +538,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A43574272042535100F6C040 /* ProductOption.swift in Sources */,
 				A4B5E0B720341B4200C62C69 /* GradientView.swift in Sources */,
 				EEB4A8BB2037644400745515 /* CategoryAttributeValueStore.swift in Sources */,
 				A411EE06203E848000D70F95 /* QuoteStore.swift in Sources */,
@@ -546,17 +570,21 @@
 				EEA6ECAF202A35A400E04FFD /* FeaturedViewController.swift in Sources */,
 				A4103A69203F862400ADF19E /* QuoteLineGroupStore.swift in Sources */,
 				EEA6EC872021119C00E04FFD /* Product.swift in Sources */,
+				A43574292042836400F6C040 /* SyncProgressViewController.swift in Sources */,
 				A4B8C43420290CC3004176A1 /* Theme.swift in Sources */,
 				A4103A67203F780F00ADF19E /* QuoteLineGroup.swift in Sources */,
 				EEA6EC992022237F00E04FFD /* ProductViewController.swift in Sources */,
 				EEB4A8B52037471200745515 /* UIButtonExtension.swift in Sources */,
+				A435742B2042847300F6C040 /* PercentLine.swift in Sources */,
 				EEA6EC81201F850100E04FFD /* Store.swift in Sources */,
+				A43574252042534300F6C040 /* ProductOptionStore.swift in Sources */,
 				EEA6ECA52028DD0D00E04FFD /* ProductCategoryAssociation.swift in Sources */,
 				A468710F201A514C00096408 /* InitialViewController.swift in Sources */,
 				EEB4A8B9203763E300745515 /* CategoryAttributeValue.swift in Sources */,
 				A4103A6D203FADA900ADF19E /* OpportunityStore.swift in Sources */,
 				EEA6ECAB2028F06F00E04FFD /* ProductTableViewCell.swift in Sources */,
 				A468710D201A514C00096408 /* AppDelegate.swift in Sources */,
+				A435742E204291C700F6C040 /* AnimationHelpers.swift in Sources */,
 				EEA6ECB2202A373900E04FFD /* FeaturedProductTableViewCell.swift in Sources */,
 				EEA6EC80201F850100E04FFD /* Record.swift in Sources */,
 				A4B8C460202A1392004176A1 /* OrderMainCollectionViewLayout.swift in Sources */,
