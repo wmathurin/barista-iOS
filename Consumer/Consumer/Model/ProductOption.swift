@@ -33,8 +33,9 @@ class ProductOption: Record, StoreProtocol {
         case type = "SBQQ__Type__c"
         case unitPrice = "SBQQ__UnitPrice__c"
         case optionType = "OptionType__c"
+        case orderNumber = "SBQQ__Number__c"
         
-        static let allFields = [configuredProduct.rawValue, maxQuantity.rawValue, minQuantity.rawValue, optionName.rawValue, productDescription.rawValue, productName.rawValue, productFamily.rawValue, defaultQuantity.rawValue, quantityEditable.rawValue, required.rawValue, type.rawValue, unitPrice.rawValue, optionType.rawValue]
+        static let allFields = [configuredProduct.rawValue, maxQuantity.rawValue, minQuantity.rawValue, optionName.rawValue, productDescription.rawValue, productName.rawValue, productFamily.rawValue, defaultQuantity.rawValue, quantityEditable.rawValue, required.rawValue, type.rawValue, unitPrice.rawValue, optionType.rawValue, orderNumber.rawValue]
     }
     fileprivate(set) lazy var configuredProduct: String? = data[Field.configuredProduct.rawValue] as? String
     fileprivate(set) lazy var maxQuantity: Int? = data[Field.maxQuantity.rawValue] as? Int
@@ -49,6 +50,7 @@ class ProductOption: Record, StoreProtocol {
     fileprivate(set) lazy var type: String? = data[Field.type.rawValue] as? String
     fileprivate(set) lazy var unitPrice: Float? = data[Field.unitPrice.rawValue] as? Float
     fileprivate(set) lazy var optionType: ProductionOptionType? = ProductionOptionType(rawValue: data[Field.optionType.rawValue] as! String)
+    fileprivate(set) lazy var orderNumber: Int? = data[Field.orderNumber.rawValue] as? Int
     
     override static var indexes: [[String : String]] {
         return super.indexes + [

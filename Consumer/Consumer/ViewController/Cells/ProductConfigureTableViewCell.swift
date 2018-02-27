@@ -64,8 +64,10 @@ class ProductConfigureTableViewCell: UITableViewCell {
                 control.maxTrackColor = Theme.productConfigSliderMaxTrackColor
                 control.thumbColor = Theme.appMainControlColor
                 control.textColor = Theme.appMainControlTextColor
-//                control.maxValue = controlStyle.1
-                control.thumbLabels = ["S", "M", "L"] // TODO - from data
+                if let max = self.maxValue {
+                    control.maxValue = max
+                }
+                control.thumbLabels = self.sliderLabels
                 control.addTarget(self, action: #selector(handleControlEventChange), for: .valueChanged)
                 self.configureControl = control
             case .increment:
@@ -89,6 +91,14 @@ class ProductConfigureTableViewCell: UITableViewCell {
     var listItems: [String] = [] {
         didSet {
             self.addListItems(listItems)
+        }
+    }
+    
+    var sliderLabels: [String] = [] {
+        didSet {
+            if let c = self.configureControl as? SliderControl {
+                c.thumbLabels = sliderLabels
+            }
         }
     }
     

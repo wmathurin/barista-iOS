@@ -21,6 +21,7 @@
 		A43574292042836400F6C040 /* SyncProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43574282042836400F6C040 /* SyncProgressViewController.swift */; };
 		A435742B2042847300F6C040 /* PercentLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A435742A2042847300F6C040 /* PercentLine.swift */; };
 		A435742E204291C700F6C040 /* AnimationHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A435742D204291C700F6C040 /* AnimationHelpers.swift */; };
+		A43574302044905300F6C040 /* ProductFamily.swift in Sources */ = {isa = PBXBuildFile; fileRef = A435742F2044905300F6C040 /* ProductFamily.swift */; };
 		A43F152B202B5B9A002F0022 /* OrderStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43F152A202B5B9A002F0022 /* OrderStore.swift */; };
 		A43F152D202B5BB8002F0022 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43F152C202B5BB8002F0022 /* Order.swift */; };
 		A43F1559202D81E2002F0022 /* OrderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43F1558202D81E2002F0022 /* OrderItem.swift */; };
@@ -105,6 +106,7 @@
 		A43574282042836400F6C040 /* SyncProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncProgressViewController.swift; sourceTree = "<group>"; };
 		A435742A2042847300F6C040 /* PercentLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentLine.swift; sourceTree = "<group>"; };
 		A435742D204291C700F6C040 /* AnimationHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationHelpers.swift; sourceTree = "<group>"; };
+		A435742F2044905300F6C040 /* ProductFamily.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductFamily.swift; sourceTree = "<group>"; };
 		A43F152A202B5B9A002F0022 /* OrderStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderStore.swift; sourceTree = "<group>"; };
 		A43F152C202B5BB8002F0022 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		A43F1558202D81E2002F0022 /* OrderItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderItem.swift; sourceTree = "<group>"; };
@@ -273,6 +275,7 @@
 				EEA6ECB3202A6C6600E04FFD /* CategoryAttribute.swift */,
 				EEA6EC862021119C00E04FFD /* Product.swift */,
 				A43574262042535100F6C040 /* ProductOption.swift */,
+				A435742F2044905300F6C040 /* ProductFamily.swift */,
 				A4B8C43320290CC3004176A1 /* Theme.swift */,
 				A43F152C202B5BB8002F0022 /* Order.swift */,
 				A43F1558202D81E2002F0022 /* OrderItem.swift */,
@@ -581,6 +584,7 @@
 				EEA6ECA52028DD0D00E04FFD /* ProductCategoryAssociation.swift in Sources */,
 				A468710F201A514C00096408 /* InitialViewController.swift in Sources */,
 				EEB4A8B9203763E300745515 /* CategoryAttributeValue.swift in Sources */,
+				A43574302044905300F6C040 /* ProductFamily.swift in Sources */,
 				A4103A6D203FADA900ADF19E /* OpportunityStore.swift in Sources */,
 				EEA6ECAB2028F06F00E04FFD /* ProductTableViewCell.swift in Sources */,
 				A468710D201A514C00096408 /* AppDelegate.swift in Sources */,

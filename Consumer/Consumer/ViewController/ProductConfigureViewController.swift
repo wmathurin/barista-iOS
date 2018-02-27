@@ -13,7 +13,7 @@ class ProductConfigureViewController: UIViewController {
     var orderItem: OrderItem?
     var product: Product?
     var category: Category?
-    var productOptions: [ProductOption] = []
+    var productFamilies: [ProductFamily] = []
     var categoryAttributes: [CategoryAttribute?] = []
     
     fileprivate static let curveMaskHeight:CGFloat = 50.0
@@ -113,7 +113,7 @@ class ProductConfigureViewController: UIViewController {
 
 extension ProductConfigureViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.productOptions.count
+        return self.productFamilies.count
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -136,50 +136,32 @@ extension ProductConfigureViewController: UITableViewDataSource, UITableViewDele
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as! ProductConfigureTableViewCell
         var controlStyle: ProductConfigureCellControlType = .unknown
         
-        var type: ProductionOptionType = .integer
-        let option = self.productOptions[indexPath.row]
-        cell.name = option.productName
-        cell.maxValue = option.maxQuantity
-        cell.minValue = option.minQuantity
-        cell.currentValue = option.defaultQuantity
+        let family = self.productFamilies[indexPath.row]
+        cell.name = family.familyName
         
-        if let t = option.optionType {
-            type = t
-        }
-        
-        switch type {
+        switch family.type {
         case .integer:
             controlStyle = .increment
         case .slider:
+            let labels:[String] = family.options.map({ return $0.productName ?? ""})
             controlStyle = .slider
+            cell.sliderLabels = labels
+            cell.maxValue = labels.count
         case .picklist, .multiselect:
+            let items:[String] = family.options.map({ return $0.productName ?? ""})
             controlStyle = .list
+            cell.listItems = items
         }
         cell.controlStyle = controlStyle
         
-//        if let attribute: CategoryAttribute = self.categoryAttributes[indexPath.row], let attributeType = attribute.attributeType {
-//
-//            cell.name = attribute.name
+//        let option = self.productOptions[indexPath.row]
+//        cell.name = option.productName
+//        cell.maxValue = option.maxQuantity
+//        cell.minValue = option.minQuantity
+//        cell.currentValue = option.defaultQuantity
+
 //            cell.imageURL = attribute.iconImageURL
-//
-//            switch attributeType {
-//            case .slider:
-//                controlStyle = .slider
-//                maxValue = 2
-//            case .integer:
-//                controlStyle = .increment
-//                maxValue = 3
-//            case .picklist, .multiselect:
-//                controlStyle = .list
-//                let values = CategoryAttributeValueStore.instance.attributes(for: attribute)
-//                let names = values.map({ return $0.name ?? "" })
-//                cell.listItems = names
-//            }
-//
-//
-//            cell.controlStyle = controlStyle
-//
-//        }
+
         cell.controlClosure = { (value) in
             print("updated value to: \(value)")
             // todo update value on order item
@@ -187,6 +169,7 @@ extension ProductConfigureViewController: UITableViewDataSource, UITableViewDele
         cell.pickListClosure = { (index, name) in
             print("selected list item: \(name) at index: \(index)")
             // todo update value on order item
+            // be sure to match index and name in case an item has a nil name
         }
         return cell
     }

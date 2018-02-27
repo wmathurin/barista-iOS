@@ -44,8 +44,11 @@ class ProductViewController: UIViewController {
             ProductConfigureViewController, let product: Product = sender as? Product, let cat = self.category {
             destination.product = product
             destination.category = cat
-            if let options = ProductOptionStore.instance.options(product) {
-                destination.productOptions = options
+            if let families = ProductOptionStore.instance.families(product) {
+                
+            }
+            if let families = ProductOptionStore.instance.families(product) {
+                destination.productFamilies = families
             }
         }
     }

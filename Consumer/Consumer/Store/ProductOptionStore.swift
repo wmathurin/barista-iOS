@@ -36,4 +36,26 @@ class ProductOptionStore: Store<ProductOption> {
         }
         return ProductOption.from(results)
     }
+    
+    func families(_ forProduct:Product) -> [ProductFamily]? {
+        guard let options = self.options(forProduct) else {return nil}
+        var familiesDict :[String:Array<ProductOption>] = [:]
+        for option in options {
+            guard let optionFamily = option.productFamily else { break }
+            if let _ = familiesDict[optionFamily] {
+                familiesDict[optionFamily]?.append(option)
+            } else {
+                familiesDict[optionFamily] = [option]
+            }
+        }
+        let families: [ProductFamily] = familiesDict.flatMap { (optionFamily, optionsArray) in
+            guard let first = optionsArray.first, let type = first.optionType else { return nil }
+            let sortedOptions = optionsArray.sorted(by: { (first, second) -> Bool in
+                guard let firstOrder = first.orderNumber, let secondOrder = second.orderNumber else { return false }
+                return firstOrder < secondOrder
+            })
+            return ProductFamily(familyName: optionFamily, type: type, options: sortedOptions)
+        }
+        return families
+    }
 }
