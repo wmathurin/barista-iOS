@@ -34,8 +34,9 @@ class ProductOption: Record, StoreProtocol {
         case unitPrice = "SBQQ__UnitPrice__c"
         case optionType = "OptionType__c"
         case orderNumber = "SBQQ__Number__c"
+        case selected = "SBQQ__Selected__c"
         
-        static let allFields = [configuredProduct.rawValue, maxQuantity.rawValue, minQuantity.rawValue, optionName.rawValue, productDescription.rawValue, productName.rawValue, productFamily.rawValue, defaultQuantity.rawValue, quantityEditable.rawValue, required.rawValue, type.rawValue, unitPrice.rawValue, optionType.rawValue, orderNumber.rawValue]
+        static let allFields = [configuredProduct.rawValue, maxQuantity.rawValue, minQuantity.rawValue, optionName.rawValue, productDescription.rawValue, productName.rawValue, productFamily.rawValue, defaultQuantity.rawValue, quantityEditable.rawValue, required.rawValue, type.rawValue, unitPrice.rawValue, optionType.rawValue, orderNumber.rawValue, selected.rawValue]
     }
     fileprivate(set) lazy var configuredProduct: String? = data[Field.configuredProduct.rawValue] as? String
     fileprivate(set) lazy var maxQuantity: Int? = data[Field.maxQuantity.rawValue] as? Int
@@ -51,6 +52,7 @@ class ProductOption: Record, StoreProtocol {
     fileprivate(set) lazy var unitPrice: Float? = data[Field.unitPrice.rawValue] as? Float
     fileprivate(set) lazy var optionType: ProductionOptionType? = ProductionOptionType(rawValue: data[Field.optionType.rawValue] as! String)
     fileprivate(set) lazy var orderNumber: Int? = data[Field.orderNumber.rawValue] as? Int
+    fileprivate(set) lazy var selected: Bool? = data[Field.selected.rawValue] as? Bool
     
     override static var indexes: [[String : String]] {
         return super.indexes + [

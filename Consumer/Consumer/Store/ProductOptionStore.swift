@@ -38,7 +38,9 @@ class ProductOptionStore: Store<ProductOption> {
     }
     
     func families(_ forProduct:Product) -> [ProductFamily]? {
-        guard let options = self.options(forProduct) else {return nil}
+        guard var options = self.options(forProduct) else {return nil}
+        options = self.sortByOrderNumber(options)
+
         var familiesDict :[String:Array<ProductOption>] = [:]
         for option in options {
             guard let optionFamily = option.productFamily else { break }
@@ -48,14 +50,28 @@ class ProductOptionStore: Store<ProductOption> {
                 familiesDict[optionFamily] = [option]
             }
         }
-        let families: [ProductFamily] = familiesDict.flatMap { (optionFamily, optionsArray) in
+        var families: [ProductFamily] = familiesDict.flatMap { (optionFamily, optionsArray) in
             guard let first = optionsArray.first, let type = first.optionType else { return nil }
-            let sortedOptions = optionsArray.sorted(by: { (first, second) -> Bool in
-                guard let firstOrder = first.orderNumber, let secondOrder = second.orderNumber else { return false }
-                return firstOrder < secondOrder
-            })
+            let sortedOptions = self.sortByOrderNumber(optionsArray)
             return ProductFamily(familyName: optionFamily, type: type, options: sortedOptions)
         }
+        families = self.sortByOrderNumber(families)
         return families
+    }
+    
+    fileprivate func sortByOrderNumber(_ options:[ProductOption]) -> [ProductOption] {
+        let sorted = options.sorted(by: { (first, second) -> Bool in
+            guard let firstOrder = first.orderNumber, let secondOrder = second.orderNumber else { return false }
+            return firstOrder < secondOrder
+        })
+        return sorted
+    }
+    
+    fileprivate func sortByOrderNumber(_ family:[ProductFamily]) -> [ProductFamily] {
+        let sorted = family.sorted { (firstFamily, secondFamily) -> Bool in
+            guard let first = firstFamily.options.first, let firstOrder = first.orderNumber, let second = secondFamily.options.first, let secondOrder = second.orderNumber else { return false}
+            return firstOrder < secondOrder
+        }
+        return sorted
     }
 }

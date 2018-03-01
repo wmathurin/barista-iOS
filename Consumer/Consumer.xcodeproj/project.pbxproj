@@ -22,6 +22,9 @@
 		A435742B2042847300F6C040 /* PercentLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A435742A2042847300F6C040 /* PercentLine.swift */; };
 		A435742E204291C700F6C040 /* AnimationHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A435742D204291C700F6C040 /* AnimationHelpers.swift */; };
 		A43574302044905300F6C040 /* ProductFamily.swift in Sources */ = {isa = PBXBuildFile; fileRef = A435742F2044905300F6C040 /* ProductFamily.swift */; };
+		A43574322045F31700F6C040 /* LocalCartStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43574312045F31700F6C040 /* LocalCartStore.swift */; };
+		A43574342045F49100F6C040 /* LocalCartItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43574332045F49100F6C040 /* LocalCartItem.swift */; };
+		A4357436204780D000F6C040 /* LocalCartOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4357435204780D000F6C040 /* LocalCartOption.swift */; };
 		A43F152B202B5B9A002F0022 /* OrderStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43F152A202B5B9A002F0022 /* OrderStore.swift */; };
 		A43F152D202B5BB8002F0022 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43F152C202B5BB8002F0022 /* Order.swift */; };
 		A43F1559202D81E2002F0022 /* OrderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43F1558202D81E2002F0022 /* OrderItem.swift */; };
@@ -107,6 +110,9 @@
 		A435742A2042847300F6C040 /* PercentLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentLine.swift; sourceTree = "<group>"; };
 		A435742D204291C700F6C040 /* AnimationHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationHelpers.swift; sourceTree = "<group>"; };
 		A435742F2044905300F6C040 /* ProductFamily.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductFamily.swift; sourceTree = "<group>"; };
+		A43574312045F31700F6C040 /* LocalCartStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalCartStore.swift; sourceTree = "<group>"; };
+		A43574332045F49100F6C040 /* LocalCartItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalCartItem.swift; sourceTree = "<group>"; };
+		A4357435204780D000F6C040 /* LocalCartOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalCartOption.swift; sourceTree = "<group>"; };
 		A43F152A202B5B9A002F0022 /* OrderStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderStore.swift; sourceTree = "<group>"; };
 		A43F152C202B5BB8002F0022 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		A43F1558202D81E2002F0022 /* OrderItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderItem.swift; sourceTree = "<group>"; };
@@ -283,6 +289,8 @@
 				A4103A64203F609B00ADF19E /* QuoteLineItem.swift */,
 				A4103A66203F780F00ADF19E /* QuoteLineGroup.swift */,
 				A4103A6A203FAD9E00ADF19E /* Opportunity.swift */,
+				A43574332045F49100F6C040 /* LocalCartItem.swift */,
+				A4357435204780D000F6C040 /* LocalCartOption.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -329,6 +337,7 @@
 				A4103A62203F609100ADF19E /* QuoteLineItemStore.swift */,
 				A4103A68203F862400ADF19E /* QuoteLineGroupStore.swift */,
 				A4103A6C203FADA900ADF19E /* OpportunityStore.swift */,
+				A43574312045F31700F6C040 /* LocalCartStore.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -562,6 +571,8 @@
 				EEA6ECB8202B705100E04FFD /* ProductConfigureViewController.swift in Sources */,
 				A4FA2DC520324A4300DCCC72 /* CartHeaderView.swift in Sources */,
 				A4FA2DC12031764E00DCCC72 /* CartViewController.swift in Sources */,
+				A43574322045F31700F6C040 /* LocalCartStore.swift in Sources */,
+				A4357436204780D000F6C040 /* LocalCartOption.swift in Sources */,
 				A43F155B202E588A002F0022 /* OrderItemStore.swift in Sources */,
 				A4103A6B203FAD9E00ADF19E /* Opportunity.swift in Sources */,
 				EEA6EC9C202242E500E04FFD /* UIImageViewExtension.swift in Sources */,
@@ -581,6 +592,7 @@
 				A435742B2042847300F6C040 /* PercentLine.swift in Sources */,
 				EEA6EC81201F850100E04FFD /* Store.swift in Sources */,
 				A43574252042534300F6C040 /* ProductOptionStore.swift in Sources */,
+				A43574342045F49100F6C040 /* LocalCartItem.swift in Sources */,
 				EEA6ECA52028DD0D00E04FFD /* ProductCategoryAssociation.swift in Sources */,
 				A468710F201A514C00096408 /* InitialViewController.swift in Sources */,
 				EEB4A8B9203763E300745515 /* CategoryAttributeValue.swift in Sources */,

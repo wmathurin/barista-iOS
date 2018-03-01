@@ -76,7 +76,15 @@ class ProductConfigureTableViewCell: UITableViewCell {
                 control.plusImage = UIImage(named: "plus01")
                 control.minusImage = UIImage(named: "minus01")
                 control.textColor = Theme.appMainControlTextColor
-//                control.maxValue = controlStyle.1
+                if let max = self.maxValue {
+                    control.maxValue = max
+                }
+                if let min = self.minValue {
+                    control.minValue = min
+                }
+                if let current = self.currentValue {
+                    control.currentValue = current
+                }
                 control.addTarget(self, action: #selector(handleControlEventChange), for: .valueChanged)
                 self.configureControl = control
             case .list:

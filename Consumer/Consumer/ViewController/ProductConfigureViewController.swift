@@ -11,10 +11,27 @@ import UIKit
 class ProductConfigureViewController: UIViewController {
 
     var orderItem: OrderItem?
-    var product: Product?
-    var category: Category?
-    var productFamilies: [ProductFamily] = []
-    var categoryAttributes: [CategoryAttribute?] = []
+    var product: Product? {
+        didSet {
+            guard let p = product else {return}
+            let item = LocalCartItem(product: p, options: [], quantity: 1)
+            LocalCartStore.instance.beginConfiguring(item)
+        }
+    }
+    var productFamilies: [ProductFamily] = [] {
+        didSet {
+            for family in productFamilies {
+                for option in family.options {
+                    if let selected = option.selected, selected == true, let quantity = option.defaultQuantity {
+                        let defaultOption = LocalCartOption(product: option, quantity: quantity)
+                        LocalCartStore.instance.updateInProgressItem(defaultOption)
+                    }
+                }
+            }
+        }
+    }
+//    fileprivate var selectedOptions: [ProductOption] = []
+//    fileprivate var selectedProducts: [LocalCartOption] = []
     
     fileprivate static let curveMaskHeight:CGFloat = 50.0
     fileprivate var gradientView = GradientView()
@@ -84,7 +101,6 @@ class ProductConfigureViewController: UIViewController {
         self.productPriceLabel.text = "Free" // TODO pull from pricebook
         self.productDescriptionLabel.text = "Description lorem ipsum dolor sit amet, consectur adispicing elit. Aliquam convallis tortor vel risus tincidunt, nec commodo." // TODO pull from product description
         
-        self.categoryAttributes = CategoryAttributeStore.instance.attributes(for: category)
     }
 
     override func viewDidLayoutSubviews() {
@@ -100,6 +116,7 @@ class ProductConfigureViewController: UIViewController {
     }
     
     @IBAction func didPressAddToCartButton(_ sender: UIButton) {
+        LocalCartStore.instance.commitToCart()
     }
     
     @IBAction func didPressCancelButton(_ sender: UIButton) {
@@ -108,6 +125,11 @@ class ProductConfigureViewController: UIViewController {
     
     fileprivate func cancelOrdering() {
         self.dismiss(animated: true) {}
+    }
+    
+    fileprivate func updateProductConfiguration(_ option:ProductOption, quantity:Int) {
+        let selectedOption = LocalCartOption(product: option, quantity: quantity)
+        LocalCartStore.instance.updateInProgressItem(selectedOption)
     }
 }
 
@@ -142,6 +164,11 @@ extension ProductConfigureViewController: UITableViewDataSource, UITableViewDele
         switch family.type {
         case .integer:
             controlStyle = .increment
+            if let option = family.options.first {
+                cell.minValue = option.minQuantity
+                cell.maxValue = option.maxQuantity
+                cell.currentValue = option.defaultQuantity
+            }
         case .slider:
             let labels:[String] = family.options.map({ return $0.productName ?? ""})
             controlStyle = .slider
@@ -153,23 +180,29 @@ extension ProductConfigureViewController: UITableViewDataSource, UITableViewDele
             cell.listItems = items
         }
         cell.controlStyle = controlStyle
-        
-//        let option = self.productOptions[indexPath.row]
-//        cell.name = option.productName
-//        cell.maxValue = option.maxQuantity
-//        cell.minValue = option.minQuantity
-//        cell.currentValue = option.defaultQuantity
 
+        // todo
 //            cell.imageURL = attribute.iconImageURL
 
         cell.controlClosure = { (value) in
             print("updated value to: \(value)")
             // todo update value on order item
+            var option:ProductOption!
+            if family.type == .integer {
+                option = family.options.first!
+            } else {
+                option = family.options[value]
+            }
+            self.updateProductConfiguration(option, quantity: value)
         }
         cell.pickListClosure = { (index, name) in
             print("selected list item: \(name) at index: \(index)")
             // todo update value on order item
             // be sure to match index and name in case an item has a nil name
+            let option = family.options[index]
+            if let optionName = option.productName, optionName == name, let quantity = option.defaultQuantity {
+                self.updateProductConfiguration(option, quantity: quantity)
+            }
         }
         return cell
     }

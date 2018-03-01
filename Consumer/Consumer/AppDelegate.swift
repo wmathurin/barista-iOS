@@ -183,7 +183,6 @@ class AppDelegate : UIResponder, UIApplicationDelegate
         QuoteLineGroupStore.instance.syncDown(completion: syncCompletion)
         OpportunityStore.instance.syncDown(completion: syncCompletion)
         
-        
     }
     
     func resetViewState(_ postResetBlock: @escaping () -> ())

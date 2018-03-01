@@ -12,10 +12,4 @@ struct ProductFamily {
     let familyName: String
     let type: ProductionOptionType
     var options: [ProductOption] = []
-    
-//    init(name:String, type: ProductionOptionType) {
-//        self.familyName = name
-//        self.type = type
-//        super.init()
-//    }
 }
