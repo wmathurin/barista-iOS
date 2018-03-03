@@ -150,6 +150,18 @@ class Store<objectType: StoreProtocol> {
         return objectType.from(results)
     }
     
+    func record(forExternalId externalId: String?) -> objectType? {
+        guard let id = externalId else {return nil}
+        let query:SFQuerySpec = SFQuerySpec.newMatch(objectType.objectName, withPath: Record.Field.externalId.rawValue, withMatchKey: id, withOrderPath: objectType.orderPath, with: .descending, withPageSize: 1)
+        var error: NSError? = nil
+        let results: [Any] = store.query(with: query, pageIndex: 0, error: &error)
+        guard error == nil else {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message:"fetch \(objectType.objectName) failed: \(error!.localizedDescription)")
+            return objectType()
+        }
+        return objectType.from(results)
+    }
+    
     func records() -> [objectType] {
         let query:SFQuerySpec = SFQuerySpec.newSmartQuerySpec(queryString, withPageSize: pageSize)!
         var error: NSError? = nil

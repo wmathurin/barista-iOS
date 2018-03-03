@@ -11,3 +11,4 @@ import Foundation
 class CategoryStore: Store<Category> {
     static let instance = CategoryStore()
 }
+

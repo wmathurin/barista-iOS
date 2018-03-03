@@ -46,10 +46,38 @@ class AppDelegate : UIResponder, UIApplicationDelegate
             .postLaunch {  [unowned self] (launchActionList: SFSDKLaunchAction) in
                 let launchActionString = SalesforceSDKManager.launchActionsStringRepresentation(launchActionList)
                 SalesforceSwiftLogger.log(type(of:self), level:.info, message:"Post-launch: launch actions taken: \(launchActionString)")
-                
-                self.beginSyncDown {
-                    self.setupRootViewController()
+                if let currentUserId = SFUserAccountManager.sharedInstance().currentUserIdentity?.userId {
+                    AccountStore.instance.syncDown(completion: { (syncState) in
+                        if let complete = syncState?.isDone(), complete == true {
+                            if let _ = AccountStore.instance.account(currentUserId) {
+                                DispatchQueue.main.async {
+                                    self.beginSyncDown {
+                                        self.setupRootViewController()
+                                    }
+                                }
+                            } else {
+                                guard let user = SFUserAccountManager.sharedInstance().currentUser else {return}
+                                let newAccount = Account()
+                                newAccount.accountNumber = user.accountIdentity.userId
+                                newAccount.name = user.userName
+                                newAccount.ownerId = user.accountIdentity.userId
+                                AccountStore.instance.create(newAccount, completion: { (syncState) in
+                                    if let complete = syncState?.isDone(), complete == true {
+                                        DispatchQueue.main.async {
+                                            self.beginSyncDown {
+                                                self.setupRootViewController()
+                                            }
+                                        }
+                                    }
+                                })
+                            }
+                        }
+                    })
+                    
+                } else {
+                    SFUserAccountManager.sharedInstance().logout()
                 }
+                
                 
             }.postLogout {  [unowned self] in
                 self.handleSdkManagerLogout()
@@ -153,7 +181,7 @@ class AppDelegate : UIResponder, UIApplicationDelegate
         let progressView = SyncProgressViewController()
         self.window?.rootViewController = progressView
         
-        let storeCount = 12
+        let storeCount = 10
         var syncedCount = 0
         let syncCompletion:((SFSyncState?) -> Void) = { (syncState) in
             if let complete = syncState?.isDone(), complete == true {
@@ -174,8 +202,8 @@ class AppDelegate : UIResponder, UIApplicationDelegate
         ProductStore.instance.syncDown(completion: syncCompletion)
         ProductOptionStore.instance.syncDown(completion: syncCompletion)
         ProductCategoryAssociationStore.instance.syncDown(completion: syncCompletion)
-        CategoryAttributeStore.instance.syncDown(completion: syncCompletion)
-        CategoryAttributeValueStore.instance.syncDown(completion: syncCompletion)
+//        CategoryAttributeStore.instance.syncDown(completion: syncCompletion)
+//        CategoryAttributeValueStore.instance.syncDown(completion: syncCompletion)
         OrderStore.instance.syncDown(completion: syncCompletion)
         OrderItemStore.instance.syncDown(completion: syncCompletion)
         QuoteStore.instance.syncDown(completion: syncCompletion)

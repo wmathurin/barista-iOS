@@ -116,7 +116,9 @@ class ProductConfigureViewController: UIViewController {
     }
     
     @IBAction func didPressAddToCartButton(_ sender: UIButton) {
-        LocalCartStore.instance.commitToCart()
+        LocalCartStore.instance.commitToCart { (completedSuccessfully) in
+            // todo handle
+        }
     }
     
     @IBAction func didPressCancelButton(_ sender: UIButton) {

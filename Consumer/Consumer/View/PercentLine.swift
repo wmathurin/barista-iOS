@@ -190,7 +190,7 @@ class PercentLine: UIControl {
     }
     
     private func beginAnimation() {
-        self.animationDuration = max((fabsf((self.finalValue - self.startValue))/30.0), 1.35)
+        self.animationDuration = max((fabsf((self.finalValue - self.startValue))/30.0), 0.15)
         self.currentAnimationTime = 0.0
         self.currentPercentComplete = 0.0
         if let d = self.displayLink {

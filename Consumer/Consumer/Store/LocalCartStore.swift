@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import SalesforceSDKCore
+import SalesforceSwiftSDK
 
 class LocalCartStore {
     static let instance = LocalCartStore()
@@ -63,15 +65,120 @@ class LocalCartStore {
         }
     }
     
-    func commitToCart() {
+    func commitToCart(completion:@escaping (Bool) -> Void) {
         // todo - update with validation from platform
         
+        let user = SFUserAccountManager.sharedInstance().currentUser
+        let identity = SFUserAccountManager.sharedInstance().currentUserIdentity
+        guard let userId = identity?.userId, let account = AccountStore.instance.account(userId), let inProgress = self.inProgressItem else {return}
         // rules
-        // if no current quote, create new opportunity from logged in user
+        // if no current opportunity, create new opportunity from logged in user
         // if no current quote, create new quote
         // create new quote line group for in progress cart item
         // assign quote number to line group
         // create new quote line for each product
         // assign quote line group to each quote line
+        
+        self.getOrCreateNewOpportunity(forAccount: account) { (opportunity) in
+            guard let opty = opportunity else { self.showError("Unable to create or retrieve Opportunity record"); completion(false); return }
+            self.getOrCreateNewQuote(forOpportunity: opty, withAccount: account, completion: { (quote) in
+                guard let newQuote = quote else { self.showError("Unable to create or retriece Quote record"); completion(false); return }
+                self.createNewLineGroup(forQuote: newQuote, completion: { (quoteLineGroup) in
+                    guard let group = quoteLineGroup else { self.showError("Unable to create QuoteLineGroup record"); completion(false); return }
+                    guard let productId = inProgress.product.productId else { self.showError("Product missing product ID"); completion(false); return}
+                    let mainItem = QuoteLineItem(withLineGroup: group, forProduct: productId, quantity: inProgress.quantity, lineNumber: 0)
+                    QuoteLineItemStore.instance.upsertEntries(record: mainItem)
+                    for (index, option) in inProgress.options.enumerated() {
+                        guard let optionID = option.product.id else { self.showError("Option missing product ID"); continue}
+                        let lineItem = QuoteLineItem(withLineGroup: group, forProduct: optionID, quantity: option.quantity, lineNumber: index + 1)
+                        QuoteLineItemStore.instance.upsertEntries(record: lineItem)
+                    }
+                    QuoteLineItemStore.instance.syncUp(completion: { (syncUpState) in
+                        if let complete = syncUpState?.isDone() {
+                            if complete == true {
+                                QuoteLineItemStore.instance.syncDown(completion: { (syncDownState) in
+                                    if let complete = syncUpState?.isDone() {
+                                        if complete == true {
+                                            completion(true)
+                                        } else {
+                                            self.showError("Failed syncing down line items")
+                                            completion(false)
+                                        }
+                                    }
+                                })
+                            } else {
+                                self.showError("Failed syncing up line items")
+                                completion(false)
+                            }
+                        }
+                    })
+                })
+                
+            })
+        }
+        
+    }
+    
+    func submitOrder() {
+        // rules
+        // sync up opportunity
+        // set opportunity id on quote, sync up quote
+        // set quote id on line groups, sync up line groups
+        // set line group id on line items, sync up line items
+    }
+    
+    func showError(_ reason:String) {
+        // todo log to screen/file
+        print("LocalCartStore error: \(reason)")
+    }
+}
+
+extension LocalCartStore {
+    fileprivate func getOrCreateNewOpportunity(forAccount account:Account, completion:@escaping (Opportunity?) -> Void) {
+        let inProgress = OpportunityStore.instance.opportunitiesInProgressForAccount(account)
+        if inProgress.count == 0 {
+            let newOpty = Opportunity()
+            newOpty.accountName = account.accountId
+            newOpty.name = account.name
+            newOpty.stage = .prospecting
+            let optyId = newOpty.externalId
+            OpportunityStore.instance.createEntry(entry: newOpty, completion: { (syncState) in
+                if let complete = syncState?.isDone(), complete == true {
+                    guard let synced = OpportunityStore.instance.record(forExternalId: optyId) else {completion(nil); return}
+                    completion(synced)
+                } else {
+                    completion(nil)
+                }
+            })
+        } else {
+            completion(inProgress.first!)
+        }
+    }
+    
+    fileprivate func getOrCreateNewQuote(forOpportunity opportunity:Opportunity, withAccount account:Account, completion:@escaping (Quote?) -> Void) {
+        // assign opportunity primary quote and sync up
+        if let primary = opportunity.primaryQuote, let quote = QuoteStore.instance.quoteFromId(primary) {
+            completion(quote)
+        } else {
+            let newQuote = Quote()
+            newQuote.primaryQuote = true
+            newQuote.opportunity = opportunity.id
+            newQuote.account = account.accountId
+            newQuote.pricebookId = opportunity.pricebookId
+            let newQuoteId = newQuote.externalId
+            QuoteStore.instance.create(newQuote, completion: { (syncState) in
+                if let complete = syncState?.isDone(), complete == true {
+                    guard let synced = QuoteStore.instance.record(forExternalId: newQuoteId) else { completion(nil); return}
+                    completion(synced)
+                }
+            })
+        }
+    }
+    
+    fileprivate func createNewLineGroup(forQuote quote:Quote, completion:@escaping (QuoteLineGroup?) -> Void) {
+        let newLineGroup = QuoteLineGroup()
+        newLineGroup.account = quote.account
+        newLineGroup.groupName = self.inProgressItem?.product.name
+        newLineGroup.quote = quote.quoteId
     }
 }

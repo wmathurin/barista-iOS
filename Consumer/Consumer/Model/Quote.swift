@@ -23,8 +23,9 @@ class Quote: Record, StoreProtocol {
         case pricebook = "SBQQ__Pricebook__c"
         case status = "SBQQ__Status__c"
         case key = "SBQQ__Key__c"
+        case primaryQuote = "SBQQ__Primary__c"
         
-        static let allFields = [createdById.rawValue, quoteId.rawValue, quoteNumber.rawValue, ownerId.rawValue, account.rawValue, opportunity.rawValue, pricebookId.rawValue, pricebook.rawValue, status.rawValue, key.rawValue]
+        static let allFields = [createdById.rawValue, quoteId.rawValue, quoteNumber.rawValue, ownerId.rawValue, account.rawValue, opportunity.rawValue, pricebookId.rawValue, pricebook.rawValue, status.rawValue, key.rawValue, primaryQuote.rawValue]
     }
     
     var ownerId: String? {
@@ -62,6 +63,10 @@ class Quote: Record, StoreProtocol {
     var key: String? {
         get {return self.data[Field.key.rawValue] as? String}
         set { self.data[Field.key.rawValue] = newValue }
+    }
+    var primaryQuote: Bool? {
+        get {return self.data[Field.primaryQuote.rawValue] as? Bool}
+        set { self.data[Field.primaryQuote.rawValue] = newValue }
     }
     
     override static var indexes: [[String : String]] {

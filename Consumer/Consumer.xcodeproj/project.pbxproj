@@ -25,6 +25,8 @@
 		A43574322045F31700F6C040 /* LocalCartStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43574312045F31700F6C040 /* LocalCartStore.swift */; };
 		A43574342045F49100F6C040 /* LocalCartItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43574332045F49100F6C040 /* LocalCartItem.swift */; };
 		A4357436204780D000F6C040 /* LocalCartOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4357435204780D000F6C040 /* LocalCartOption.swift */; };
+		A43574382048B26E00F6C040 /* AccountStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43574372048B26E00F6C040 /* AccountStore.swift */; };
+		A435743A2048B29C00F6C040 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43574392048B29C00F6C040 /* Account.swift */; };
 		A43F152B202B5B9A002F0022 /* OrderStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43F152A202B5B9A002F0022 /* OrderStore.swift */; };
 		A43F152D202B5BB8002F0022 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43F152C202B5BB8002F0022 /* Order.swift */; };
 		A43F1559202D81E2002F0022 /* OrderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43F1558202D81E2002F0022 /* OrderItem.swift */; };
@@ -113,6 +115,8 @@
 		A43574312045F31700F6C040 /* LocalCartStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalCartStore.swift; sourceTree = "<group>"; };
 		A43574332045F49100F6C040 /* LocalCartItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalCartItem.swift; sourceTree = "<group>"; };
 		A4357435204780D000F6C040 /* LocalCartOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalCartOption.swift; sourceTree = "<group>"; };
+		A43574372048B26E00F6C040 /* AccountStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStore.swift; sourceTree = "<group>"; };
+		A43574392048B29C00F6C040 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		A43F152A202B5B9A002F0022 /* OrderStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderStore.swift; sourceTree = "<group>"; };
 		A43F152C202B5BB8002F0022 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		A43F1558202D81E2002F0022 /* OrderItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderItem.swift; sourceTree = "<group>"; };
@@ -291,6 +295,7 @@
 				A4103A6A203FAD9E00ADF19E /* Opportunity.swift */,
 				A43574332045F49100F6C040 /* LocalCartItem.swift */,
 				A4357435204780D000F6C040 /* LocalCartOption.swift */,
+				A43574392048B29C00F6C040 /* Account.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -338,6 +343,7 @@
 				A4103A68203F862400ADF19E /* QuoteLineGroupStore.swift */,
 				A4103A6C203FADA900ADF19E /* OpportunityStore.swift */,
 				A43574312045F31700F6C040 /* LocalCartStore.swift */,
+				A43574372048B26E00F6C040 /* AccountStore.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -574,6 +580,7 @@
 				A43574322045F31700F6C040 /* LocalCartStore.swift in Sources */,
 				A4357436204780D000F6C040 /* LocalCartOption.swift in Sources */,
 				A43F155B202E588A002F0022 /* OrderItemStore.swift in Sources */,
+				A43574382048B26E00F6C040 /* AccountStore.swift in Sources */,
 				A4103A6B203FAD9E00ADF19E /* Opportunity.swift in Sources */,
 				EEA6EC9C202242E500E04FFD /* UIImageViewExtension.swift in Sources */,
 				A4ED9C282035E56500E52F58 /* SliderControl.swift in Sources */,
@@ -602,6 +609,7 @@
 				A468710D201A514C00096408 /* AppDelegate.swift in Sources */,
 				A435742E204291C700F6C040 /* AnimationHelpers.swift in Sources */,
 				EEA6ECB2202A373900E04FFD /* FeaturedProductTableViewCell.swift in Sources */,
+				A435743A2048B29C00F6C040 /* Account.swift in Sources */,
 				EEA6EC80201F850100E04FFD /* Record.swift in Sources */,
 				A4B8C460202A1392004176A1 /* OrderMainCollectionViewLayout.swift in Sources */,
 				EEA6ECA92028E29D00E04FFD /* AccountViewController.swift in Sources */,

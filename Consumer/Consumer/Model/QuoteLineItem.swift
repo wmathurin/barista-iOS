@@ -26,6 +26,22 @@ class QuoteLineItem: Record, StoreProtocol {
         static let allFields = [createdById.rawValue, description.rawValue, favorite.rawValue, group.rawValue, lineNumber.rawValue, product.rawValue, quantity.rawValue, quote.rawValue, netTotal.rawValue]
     }
     
+    init(withLineGroup lineGroup:QuoteLineGroup, forProduct productId:String, quantity:Int, lineNumber:Int?) {
+        super.init()
+        self.group = lineGroup.id
+        self.lineNumber = lineNumber
+        self.product = productId
+        self.quantity = quantity
+    }
+    
+    required init() {
+        super.init()
+    }
+    
+    required init(data: [Any]) {
+        super.init(data: data)
+    }
+    
     var description: String? {
         get { return self.data[Field.description.rawValue] as? String}
         set { self.data[Field.description.rawValue] = newValue}
