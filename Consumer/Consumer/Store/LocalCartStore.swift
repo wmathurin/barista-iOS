@@ -80,18 +80,37 @@ class LocalCartStore {
         // assign quote line group to each quote line
         
         self.getOrCreateNewOpportunity(forAccount: account) { (opportunity) in
-            guard let opty = opportunity else { self.showError("Unable to create or retrieve Opportunity record"); completion(false); return }
+            guard let opty = opportunity else {
+                self.showError("Unable to create or retrieve Opportunity record")
+                completion(false)
+                return
+            }
             self.getOrCreateNewQuote(forOpportunity: opty, withAccount: account, completion: { (quote) in
-                guard let newQuote = quote else { self.showError("Unable to create or retriece Quote record"); completion(false); return }
+                guard let newQuote = quote else {
+                    self.showError("Unable to create or retriece Quote record")
+                    completion(false)
+                    return
+                }
                 self.createNewLineGroup(forQuote: newQuote, completion: { (quoteLineGroup) in
-                    guard let group = quoteLineGroup else { self.showError("Unable to create QuoteLineGroup record"); completion(false); return }
-                    guard let productId = inProgress.product.productId else { self.showError("Product missing product ID"); completion(false); return}
+                    guard let group = quoteLineGroup else {
+                        self.showError("Unable to create QuoteLineGroup record")
+                        completion(false)
+                        return
+                    }
+                    guard let productId = inProgress.product.productId else {
+                        self.showError("Product missing product ID")
+                        completion(false)
+                        return
+                    }
                     let mainItem = QuoteLineItem(withLineGroup: group, forProduct: productId, quantity: inProgress.quantity, lineNumber: 0)
-                    QuoteLineItemStore.instance.upsertEntries(record: mainItem)
+                    QuoteLineItemStore.instance.upsertNewEntries(entry: mainItem)
                     for (index, option) in inProgress.options.enumerated() {
-                        guard let optionID = option.product.id else { self.showError("Option missing product ID"); continue}
+                        guard let optionID = option.product.id else {
+                            self.showError("Option missing product ID")
+                            continue
+                        }
                         let lineItem = QuoteLineItem(withLineGroup: group, forProduct: optionID, quantity: option.quantity, lineNumber: index + 1)
-                        QuoteLineItemStore.instance.upsertEntries(record: lineItem)
+                        QuoteLineItemStore.instance.upsertNewEntries(entry: lineItem)
                     }
                     QuoteLineItemStore.instance.syncUp(completion: { (syncUpState) in
                         if let complete = syncUpState?.isDone() {
@@ -106,9 +125,6 @@ class LocalCartStore {
                                         }
                                     }
                                 })
-                            } else {
-                                self.showError("Failed syncing up line items")
-                                completion(false)
                             }
                         }
                     })
@@ -141,13 +157,15 @@ extension LocalCartStore {
             newOpty.accountName = account.accountId
             newOpty.name = account.name
             newOpty.stage = .prospecting
+            newOpty.closeDate = Date(timeIntervalSinceNow: 90001)
             let optyId = newOpty.externalId
             OpportunityStore.instance.createEntry(entry: newOpty, completion: { (syncState) in
                 if let complete = syncState?.isDone(), complete == true {
-                    guard let synced = OpportunityStore.instance.record(forExternalId: optyId) else {completion(nil); return}
+                    guard let synced = OpportunityStore.instance.record(forExternalId: optyId) else {
+                        completion(nil)
+                        return
+                    }
                     completion(synced)
-                } else {
-                    completion(nil)
                 }
             })
         } else {
@@ -168,7 +186,13 @@ extension LocalCartStore {
             let newQuoteId = newQuote.externalId
             QuoteStore.instance.create(newQuote, completion: { (syncState) in
                 if let complete = syncState?.isDone(), complete == true {
-                    guard let synced = QuoteStore.instance.record(forExternalId: newQuoteId) else { completion(nil); return}
+                    guard let synced = QuoteStore.instance.record(forExternalId: newQuoteId) else {
+                        completion(nil)
+                        return
+                    }
+                    opportunity.primaryQuote = synced.quoteId
+                    OpportunityStore.instance.upsertEntries(record: opportunity)
+                    OpportunityStore.instance.syncUp()
                     completion(synced)
                 }
             })
@@ -180,5 +204,15 @@ extension LocalCartStore {
         newLineGroup.account = quote.account
         newLineGroup.groupName = self.inProgressItem?.product.name
         newLineGroup.quote = quote.quoteId
+        let lineGroupId = newLineGroup.externalId
+        QuoteLineGroupStore.instance.createEntry(entry: newLineGroup) { (syncState) in
+            if let complete = syncState?.isDone(), complete == true {
+                guard let synced = QuoteLineGroupStore.instance.record(forExternalId: lineGroupId) else {
+                    completion(nil)
+                    return
+                }
+                completion(synced)
+            }
+        }
     }
 }

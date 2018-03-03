@@ -35,8 +35,9 @@ class Opportunity: Record, StoreProtocol {
         case type = "Type"
         case stage = "StageName"
         case pricebook = "Pricebook2Id"
+        case closeDate = "CloseDate"
         
-        static let allFields = [accountName.rawValue, createdBy.rawValue, name.rawValue, orderGroupId.rawValue, ordered.rawValue, primaryQuote.rawValue, type.rawValue, stage.rawValue, pricebook.rawValue]
+        static let allFields = [accountName.rawValue, createdBy.rawValue, name.rawValue, orderGroupId.rawValue, ordered.rawValue, primaryQuote.rawValue, type.rawValue, stage.rawValue, pricebook.rawValue, closeDate.rawValue]
     }
     
     var accountName: String? {
@@ -71,6 +72,23 @@ class Opportunity: Record, StoreProtocol {
         get { return self.data[Field.pricebook.rawValue] as? String}
         set { self.data[Field.pricebook.rawValue] = newValue}
     }
+    var closeDate: Date? {
+        get {
+            guard let date = self.data[Field.closeDate.rawValue] as? String else {return nil}
+            let formatter = DateFormatter()
+            formatter.timeZone = TimeZone(abbreviation: "GMT")
+            formatter.dateFormat = "yyyy-MM-dd"
+            return formatter.date(from: date)
+        }
+        set {
+            if let date = newValue {
+                let formatter = DateFormatter()
+                formatter.timeZone = TimeZone(abbreviation: "GMT")
+                formatter.dateFormat = "yyyy-MM-dd"
+                self.data[Field.closeDate.rawValue] = formatter.string(from: date)
+            }
+        }
+    }
     
     override static var indexes: [[String : String]] {
         return super.indexes + [
@@ -84,7 +102,7 @@ class Opportunity: Record, StoreProtocol {
         return super.readFields + Field.allFields
     }
     override static var createFields: [String] {
-        return super.createFields + [Field.accountName.rawValue, Field.name.rawValue]
+        return super.createFields + Field.allFields //[Field.accountName.rawValue, Field.name.rawValue]
     }
     override static var updateFields: [String] {
         return super.updateFields + Field.allFields

@@ -30,7 +30,8 @@ class QuoteStore: Store<Quote> {
     }
     
     func quoteFromId(_ quoteId:String) -> Quote? {
-        let query: SFQuerySpec = SFQuerySpec.newMatch(Quote.objectName, withPath: Quote.Field.quoteId.rawValue, withMatchKey: quoteId, withOrderPath: Quote.orderPath, with: .descending, withPageSize: 1)
+        let query = SFQuerySpec.newExactQuerySpec(Quote.objectName, withPath: Quote.Field.quoteId.rawValue, withMatchKey: quoteId, withOrderPath: Quote.orderPath, with: .descending, withPageSize: 1)
+//        let query: SFQuerySpec = SFQuerySpec.newMatch(Quote.objectName, withPath: Quote.Field.quoteId.rawValue, withMatchKey: quoteId, withOrderPath: Quote.orderPath, with: .descending, withPageSize: 1)
         var error: NSError? = nil
         let results: [Any] = store.query(with: query, pageIndex: 0, error: &error)
         guard error == nil else {

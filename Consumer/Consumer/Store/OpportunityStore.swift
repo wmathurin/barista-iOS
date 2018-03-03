@@ -27,7 +27,8 @@ class OpportunityStore: Store<Opportunity> {
     
     func opportunitiesForAccount(_ account:Account) -> [Opportunity] {
         guard let accountId = account.accountId else {return []}
-        let query: SFQuerySpec = SFQuerySpec.newMatch(Opportunity.objectName, withPath: Opportunity.Field.accountName.rawValue, withMatchKey: accountId, withOrderPath: Opportunity.orderPath, with: .descending, withPageSize: 10)
+        let query = SFQuerySpec.newExactQuerySpec(Opportunity.objectName, withPath: Opportunity.Field.accountName.rawValue, withMatchKey: accountId, withOrderPath: Opportunity.orderPath, with: .descending, withPageSize: 1)
+//        let query: SFQuerySpec = SFQuerySpec.newMatch(Opportunity.objectName, withPath: Opportunity.Field.accountName.rawValue, withMatchKey: accountId, withOrderPath: Opportunity.orderPath, with: .descending, withPageSize: 10)
         var error: NSError? = nil
         let results: [Any] = store.query(with: query, pageIndex: 0, error: &error)
         guard error == nil else {

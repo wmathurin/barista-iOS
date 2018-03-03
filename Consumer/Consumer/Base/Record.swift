@@ -55,7 +55,7 @@ class Record {
         case attributes = "attributes"
         case objectType = "type"
         
-        fileprivate static let allFields = [id.rawValue, modificationDate.rawValue]
+        fileprivate static let allFields = [id.rawValue, modificationDate.rawValue, externalId.rawValue]
     }
 
     var externalId: String? {

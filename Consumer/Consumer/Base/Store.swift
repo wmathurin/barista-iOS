@@ -72,6 +72,14 @@ class Store<objectType: StoreProtocol> {
         completion?(nil)
     }
     
+    func upsertNewEntries<T:StoreProtocol>(entry: T, completion: SyncCompletion = nil) {
+        var record: T = entry
+        record.locallyCreated = true
+        record.objectType = T.objectName
+        store.upsertEntries([record.data], toSoup: T.objectName)
+        completion?(nil)
+    }
+    
     func deleteEntry<T:StoreProtocol>(entry: T, completion: SyncCompletion = nil) {
         var record: T = entry
         record.locallyDeleted = true
@@ -152,7 +160,7 @@ class Store<objectType: StoreProtocol> {
     
     func record(forExternalId externalId: String?) -> objectType? {
         guard let id = externalId else {return nil}
-        let query:SFQuerySpec = SFQuerySpec.newMatch(objectType.objectName, withPath: Record.Field.externalId.rawValue, withMatchKey: id, withOrderPath: objectType.orderPath, with: .descending, withPageSize: 1)
+        let query = SFQuerySpec.newExactQuerySpec(objectType.objectName, withPath: Record.Field.externalId.rawValue, withMatchKey: id, withOrderPath: objectType.orderPath, with: .descending, withPageSize: 1)
         var error: NSError? = nil
         let results: [Any] = store.query(with: query, pageIndex: 0, error: &error)
         guard error == nil else {
