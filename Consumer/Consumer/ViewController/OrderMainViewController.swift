@@ -21,17 +21,6 @@ class OrderMainViewController: BaseViewController {
     
     let productSegue = "ProductSegue"
     
-    override func loadView()
-    {
-        super.loadView()
-        
-//        CategoryStore.instance.syncDown { (syncState) in
-//            DispatchQueue.main.async(execute: {
-//                self.categoryCollectionView.reloadData()
-//            })
-//        }
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
@@ -75,63 +64,26 @@ class OrderMainViewController: BaseViewController {
         button.alpha = 0.0
         self.cartButton = button
 
-//        ProductStore.instance.syncDown { (syncState) in
-            if let featuredProduct: Product = ProductStore.instance.featuredProduct(), let firstFeaturedProdcutURL = featuredProduct.featuredImageRightURL {
-                DispatchQueue.main.async(execute: {
-                    self.featuredItemImageView.loadImageUsingCache(withUrl: firstFeaturedProdcutURL)
-                    self.featuredItemLabel.text = "FEATURED ITEM:"
-                    self.featuredProductNameLabel.text = featuredProduct.name
-                })
+        if let featuredProduct: Product = ProductStore.instance.featuredProduct(), let firstFeaturedProdcutURL = featuredProduct.featuredImageRightURL {
+            DispatchQueue.main.async(execute: {
+                self.featuredItemImageView.loadImageUsingCache(withUrl: firstFeaturedProdcutURL)
+                self.featuredItemLabel.text = "FEATURED ITEM:"
+                self.featuredProductNameLabel.text = featuredProduct.name
+            })
+        }
+
+        let cartCount = LocalCartStore.instance.cartCount()
+        if  cartCount > 0 {
+            DispatchQueue.main.async {
+                self.cartButton.alpha = 1.0
+                self.cartButton.setTitle("\(cartCount)", for: .normal)
             }
-//        }
-        
-//        ProductCategoryAssociationStore.instance.syncDown { (syncState) in
-//        }
-//
-//        CategoryAttributeStore.instance.syncDown{ (syncState) in
-//        }
-//
-//        CategoryAttributeValueStore.instance.syncDown{ syncState in
-//        }
-        
-//        OrderStore.instance.syncDown(completion: { (orderSyncState) in
-//            if let complete = orderSyncState?.isDone(), complete == true {
-//                OrderItemStore.instance.syncDown(completion: { (itemSyncState) in
-//                    if let itemComplete = itemSyncState?.isDone(), itemComplete == true {
-                        let records = OrderStore.instance.records()
-                        if let current = records.first {
-                            if current.orderStatus() == .pending {
-                                let items = OrderItemStore.instance.items(from: current)
-                                var count:Int = 0
-                                for item in items {
-                                    if let quantity = item.quantity {
-                                        count = count + quantity
-                                    }
-                                }
-                                DispatchQueue.main.async {
-                                    self.cartButton.alpha = 1.0
-                                    self.cartButton.setTitle("\(count)", for: .normal)
-                                }
-                                
-                            }
-                        }
-//                    }
-//                })
-//            }
-//        })
-    
-//        QuoteStore.instance.syncDown { (quoteSyncState) in
-//            if let complete = quoteSyncState?.isDone(), complete == true {
-//                let records  = QuoteStore.instance.records()
-//                print("quote records: \(records)")
-//            }
-//        }
-        
+        }
     }
     
     @objc func didPressCartButton() {
-        guard let order = OrderStore.instance.pendingOrder() else {return}
-        let cart = CartViewController(order: order, orderStore: OrderStore.instance, itemStore:OrderItemStore.instance)
+        let items = LocalCartStore.instance.currentCart()
+        let cart = CartViewController(cart: items, cartStore: LocalCartStore.instance)
         self.navigationController?.pushViewController(cart, animated: true)
     }
 

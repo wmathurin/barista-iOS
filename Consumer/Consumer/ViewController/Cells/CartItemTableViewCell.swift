@@ -12,28 +12,13 @@ class CartItemTableViewCell: UITableViewCell {
     
     fileprivate var itemNameLabel = UILabel()
     fileprivate var descriptionLabel1 = UILabel()
-    fileprivate var descriptionLabel2 = UILabel()
-    fileprivate var descriptionLabel3 = UILabel()
     fileprivate var priceLabel = UILabel()
+    fileprivate var optionsLabels:[UILabel] = []
+    fileprivate var optionContainer = UIStackView()
     
     var itemName:String? {
         didSet {
             self.itemNameLabel.text = itemName
-        }
-    }
-    var description1:String? {
-        didSet {
-            self.descriptionLabel1.text = description1
-        }
-    }
-    var description2:String? {
-        didSet {
-            self.descriptionLabel2.text = description2
-        }
-    }
-    var description3:String? {
-        didSet {
-            self.descriptionLabel3.text = description3
         }
     }
     var price:String? {
@@ -55,47 +40,51 @@ class CartItemTableViewCell: UITableViewCell {
         container.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         
         container.addSubview(self.itemNameLabel)
-        container.addSubview(self.descriptionLabel1)
-        container.addSubview(self.descriptionLabel2)
-        container.addSubview(self.descriptionLabel3)
+        container.addSubview(self.optionContainer)
         container.addSubview(self.priceLabel)
+        
         self.itemNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.descriptionLabel1.translatesAutoresizingMaskIntoConstraints = false
-        self.descriptionLabel2.translatesAutoresizingMaskIntoConstraints = false
-        self.descriptionLabel3.translatesAutoresizingMaskIntoConstraints = false
+        self.optionContainer.translatesAutoresizingMaskIntoConstraints = false
         self.priceLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.optionContainer.alignment = .leading
+        self.optionContainer.distribution = .fillEqually
+        self.optionContainer.axis = .vertical
         
         self.itemNameLabel.font = Theme.appBoldFont(14.0)
         self.itemNameLabel.textColor = Theme.cartItemTextColor
-        self.descriptionLabel1.font = Theme.appMediumFont(12.0)
-        self.descriptionLabel1.textColor = Theme.cartItemTextColor
-        self.descriptionLabel2.font = Theme.appMediumFont(12.0)
-        self.descriptionLabel2.textColor = Theme.cartItemTextColor
-        self.descriptionLabel3.font = Theme.appMediumFont(12.0)
-        self.descriptionLabel3.textColor = Theme.cartItemTextColor
+        
         self.priceLabel.font = Theme.appMediumFont(12.0)
         self.priceLabel.textColor = Theme.cartItemTextColor
         
         self.itemNameLabel.leftAnchor.constraint(equalTo: container.leftAnchor, constant:20).isActive = true
-        self.descriptionLabel1.leftAnchor.constraint(equalTo: self.itemNameLabel.leftAnchor).isActive = true
-        self.descriptionLabel2.leftAnchor.constraint(equalTo: self.itemNameLabel.leftAnchor).isActive = true
-        self.descriptionLabel3.leftAnchor.constraint(equalTo: self.itemNameLabel.leftAnchor).isActive = true
+        self.optionContainer.leftAnchor.constraint(equalTo: self.itemNameLabel.leftAnchor).isActive = true
+        self.optionContainer.rightAnchor.constraint(equalTo: container.rightAnchor, constant:-20).isActive = true
         self.priceLabel.rightAnchor.constraint(equalTo: container.rightAnchor, constant:-20).isActive = true
         
         self.itemNameLabel.topAnchor.constraint(equalTo: container.topAnchor, constant:20).isActive = true
-        self.descriptionLabel1.topAnchor.constraint(equalTo: self.itemNameLabel.bottomAnchor).isActive = true
-        self.descriptionLabel2.topAnchor.constraint(equalTo: self.descriptionLabel1.bottomAnchor).isActive = true
-        self.descriptionLabel3.topAnchor.constraint(equalTo: self.descriptionLabel2.bottomAnchor).isActive = true
-        self.descriptionLabel3.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant:-20).isActive = true
+        self.optionContainer.topAnchor.constraint(equalTo: self.itemNameLabel.bottomAnchor).isActive = true
+        self.optionContainer.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant:-20).isActive = true
         self.priceLabel.firstBaselineAnchor.constraint(equalTo: self.itemNameLabel.firstBaselineAnchor).isActive = true
         
     }
     
+    func addOption(_ optionName:String) {
+        let optionLabel = UILabel()
+        optionLabel.translatesAutoresizingMaskIntoConstraints = false
+        optionLabel.font = Theme.appMediumFont(12.0)
+        optionLabel.textColor = Theme.cartItemTextColor
+        optionLabel.text = optionName
+        
+        self.optionContainer.addArrangedSubview(optionLabel)
+    }
+    
     override func prepareForReuse() {
         self.itemName = ""
-        self.description1 = ""
-        self.description2 = ""
-        self.description3 = ""
+        for label in self.optionsLabels {
+            label.removeFromSuperview()
+        }
+        self.optionsLabels.removeAll()
         self.price = ""
     }
     

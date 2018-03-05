@@ -59,6 +59,17 @@ class ProductOptionStore: Store<ProductOption> {
         return families
     }
     
+    func optionFromOptionalSKU(_ sku:String) -> ProductOption? {
+        let query = SFQuerySpec.newExactQuerySpec(ProductOption.objectName, withPath: ProductOption.Field.optionSKU.rawValue, withMatchKey: sku, withOrderPath: ProductOption.orderPath, with: .descending, withPageSize: 1)
+        var error: NSError? = nil
+        let results: [Any] = store.query(with: query, pageIndex: 0, error: &error)
+        guard error == nil else {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message:"fetch \(ProductOption.objectName) failed: \(error!.localizedDescription)")
+            return nil
+        }
+        return ProductOption.from(results)
+    }
+    
     fileprivate func sortByOrderNumber(_ options:[ProductOption]) -> [ProductOption] {
         let sorted = options.sorted(by: { (first, second) -> Bool in
             guard let firstOrder = first.orderNumber, let secondOrder = second.orderNumber else { return false }

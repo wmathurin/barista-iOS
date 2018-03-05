@@ -59,7 +59,8 @@ class ProductOption: Record, StoreProtocol {
     override static var indexes: [[String : String]] {
         return super.indexes + [
             ["path" : Field.configuredProduct.rawValue, "type" : kSoupIndexTypeString],
-            ["path" : Field.optionName.rawValue, "type" : kSoupIndexTypeString]
+            ["path" : Field.optionName.rawValue, "type" : kSoupIndexTypeString],
+            ["path" : Field.optionSKU.rawValue, "type" : kSoupIndexTypeString]
         ]
     }
     

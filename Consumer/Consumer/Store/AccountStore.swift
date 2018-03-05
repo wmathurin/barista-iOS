@@ -14,6 +14,12 @@ import SmartSync
 class AccountStore: Store<Account> {
     static let instance = AccountStore()
     
+    func myAccount() -> Account? {
+        let identity = SFUserAccountManager.sharedInstance().currentUserIdentity
+        guard let userId = identity?.userId else {return nil}
+        return self.account(userId)
+    }
+    
     func account(_ forUserId:String) -> Account? {
         // todo only sync down users record
         let query = SFQuerySpec.newAllQuerySpec(Account.objectName, withOrderPath: Account.orderPath, with: .descending, withPageSize: 100)

@@ -15,6 +15,48 @@ class LocalCartStore {
     
     fileprivate var inProgressItem:LocalCartItem?
     
+    func cartCount() -> Int {
+        if let account = AccountStore.instance.myAccount(),
+            let opportunity = OpportunityStore.instance.opportunitiesInProgressForAccount(account).first,
+            let primary = opportunity.primaryQuote {
+            let lineGroups = QuoteLineGroupStore.instance.lineGroupsForQuote(primary)
+            return lineGroups.count
+        }
+        return 0
+    }
+    
+    func currentCart() -> [LocalCartItem?] {
+        // will only show commited cart items. In progress items should be ignored
+        var cartItems:[LocalCartItem] = []
+        if let account = AccountStore.instance.myAccount(),
+            let opportunity = OpportunityStore.instance.opportunitiesInProgressForAccount(account).first,
+            let primary = opportunity.primaryQuote {
+            let lineGroups = QuoteLineGroupStore.instance.lineGroupsForQuote(primary)
+            for group in lineGroups {
+                guard let groupId = group.id else { continue }
+                let items = QuoteLineItemStore.instance.lineItemsForGroup(groupId)
+                var primaryItem:LocalCartItem?
+                for (index, item) in items.enumerated() {
+                    guard let quantity = item.quantity,
+                        let productId = item.product else { continue }
+                    if index == 0 {
+                        guard let product = ProductStore.instance.product(from: productId) else { break }
+                        primaryItem = LocalCartItem(product: product, options: [], quantity: quantity)
+                    } else {
+                        if let option = ProductOptionStore.instance.optionFromOptionalSKU(productId) {
+                            let optionItem = LocalCartOption(product: option, quantity: quantity)
+                            primaryItem?.options.append(optionItem)
+                        }
+                    }
+                }
+                if let item = primaryItem {
+                    cartItems.append(item)
+                }
+            }
+        }
+        return cartItems
+    }
+    
     func add(_ item:LocalCartItem) {
         
     }
@@ -68,9 +110,7 @@ class LocalCartStore {
     func commitToCart(completion:@escaping (Bool) -> Void) {
         // todo - update with validation from platform
         
-        let user = SFUserAccountManager.sharedInstance().currentUser
-        let identity = SFUserAccountManager.sharedInstance().currentUserIdentity
-        guard let userId = identity?.userId, let account = AccountStore.instance.account(userId), let inProgress = self.inProgressItem else {return}
+        guard let account = AccountStore.instance.myAccount(), let inProgress = self.inProgressItem else {return}
         // rules
         // if no current opportunity, create new opportunity from logged in user
         // if no current quote, create new quote
@@ -106,14 +146,14 @@ class LocalCartStore {
                         completion(false)
                         return
                     }
-                    let mainItem = QuoteLineItem(withLineGroup: group, forProduct: productId, quantity: inProgress.quantity, lineNumber: 0)
+                    let mainItem = QuoteLineItem(withLineGroup: group, forProduct: productId, quantity: inProgress.quantity, lineNumber: 1)
                     QuoteLineItemStore.instance.upsertNewEntries(entry: mainItem)
                     for (index, option) in inProgress.options.enumerated() {
                         guard let optionID = option.product.optionSKU else {
                             self.showError("Option missing product ID")
                             continue
                         }
-                        let lineItem = QuoteLineItem(withLineGroup: group, forProduct: optionID, quantity: option.quantity, lineNumber: index + 1)
+                        let lineItem = QuoteLineItem(withLineGroup: group, forProduct: optionID, quantity: option.quantity, lineNumber: index + 2)
                         QuoteLineItemStore.instance.upsertNewEntries(entry: lineItem)
                     }
                     QuoteLineItemStore.instance.syncUp(completion: { (syncUpState) in
@@ -122,6 +162,7 @@ class LocalCartStore {
                                 QuoteLineItemStore.instance.syncDown(completion: { (syncDownState) in
                                     if let complete = syncUpState?.isDone() {
                                         if complete == true {
+                                            self.inProgressItem = nil
                                             completion(true)
                                         } else {
                                             self.showError("Failed syncing down line items")
@@ -140,11 +181,7 @@ class LocalCartStore {
     }
     
     func submitOrder() {
-        // rules
-        // sync up opportunity
-        // set opportunity id on quote, sync up quote
-        // set quote id on line groups, sync up line groups
-        // set line group id on line items, sync up line items
+
     }
     
     func showError(_ reason:String) {
