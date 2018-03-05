@@ -43,6 +43,8 @@
 		A4B9A1B6203AB534004D2519 /* ListItemControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B9A1B5203AB534004D2519 /* ListItemControl.swift */; };
 		A4B9A1B8203BC5BB004D2519 /* ProductConfigureStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4B9A1B7203BC5BB004D2519 /* ProductConfigureStoryboard.storyboard */; };
 		A4B9A1BA203CAF6B004D2519 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B9A1B9203CAF6B004D2519 /* BaseViewController.swift */; };
+		A4C16C5E204B831500D01CFF /* Pricebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C16C5D204B831500D01CFF /* Pricebook.swift */; };
+		A4C16C60204B86A500D01CFF /* PricebookStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C16C5F204B86A500D01CFF /* PricebookStore.swift */; };
 		A4ED9C282035E56500E52F58 /* SliderControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4ED9C272035E56500E52F58 /* SliderControl.swift */; };
 		A4ED9C2A2035E57400E52F58 /* IncrementControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4ED9C292035E57400E52F58 /* IncrementControl.swift */; };
 		A4ED9C2C2035E7E600E52F58 /* ProductConfigControlBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4ED9C2B2035E7E600E52F58 /* ProductConfigControlBase.swift */; };
@@ -137,6 +139,8 @@
 		A4B9A1B5203AB534004D2519 /* ListItemControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemControl.swift; sourceTree = "<group>"; };
 		A4B9A1B7203BC5BB004D2519 /* ProductConfigureStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProductConfigureStoryboard.storyboard; sourceTree = "<group>"; };
 		A4B9A1B9203CAF6B004D2519 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		A4C16C5D204B831500D01CFF /* Pricebook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pricebook.swift; sourceTree = "<group>"; };
+		A4C16C5F204B86A500D01CFF /* PricebookStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PricebookStore.swift; sourceTree = "<group>"; };
 		A4ED9C272035E56500E52F58 /* SliderControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderControl.swift; sourceTree = "<group>"; };
 		A4ED9C292035E57400E52F58 /* IncrementControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncrementControl.swift; sourceTree = "<group>"; };
 		A4ED9C2B2035E7E600E52F58 /* ProductConfigControlBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductConfigControlBase.swift; sourceTree = "<group>"; };
@@ -296,6 +300,7 @@
 				A43574332045F49100F6C040 /* LocalCartItem.swift */,
 				A4357435204780D000F6C040 /* LocalCartOption.swift */,
 				A43574392048B29C00F6C040 /* Account.swift */,
+				A4C16C5D204B831500D01CFF /* Pricebook.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -344,6 +349,7 @@
 				A4103A6C203FADA900ADF19E /* OpportunityStore.swift */,
 				A43574312045F31700F6C040 /* LocalCartStore.swift */,
 				A43574372048B26E00F6C040 /* AccountStore.swift */,
+				A4C16C5F204B86A500D01CFF /* PricebookStore.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -594,6 +600,7 @@
 				A43574292042836400F6C040 /* SyncProgressViewController.swift in Sources */,
 				A4B8C43420290CC3004176A1 /* Theme.swift in Sources */,
 				A4103A67203F780F00ADF19E /* QuoteLineGroup.swift in Sources */,
+				A4C16C5E204B831500D01CFF /* Pricebook.swift in Sources */,
 				EEA6EC992022237F00E04FFD /* ProductViewController.swift in Sources */,
 				EEB4A8B52037471200745515 /* UIButtonExtension.swift in Sources */,
 				A435742B2042847300F6C040 /* PercentLine.swift in Sources */,
@@ -613,6 +620,7 @@
 				EEA6EC80201F850100E04FFD /* Record.swift in Sources */,
 				A4B8C460202A1392004176A1 /* OrderMainCollectionViewLayout.swift in Sources */,
 				EEA6ECA92028E29D00E04FFD /* AccountViewController.swift in Sources */,
+				A4C16C60204B86A500D01CFF /* PricebookStore.swift in Sources */,
 				A43F152B202B5B9A002F0022 /* OrderStore.swift in Sources */,
 				EEA6ECBC202B782C00E04FFD /* UIViewExtension.swift in Sources */,
 				EEA6EC9520221FD300E04FFD /* CategoryCollectionViewCell.swift in Sources */,

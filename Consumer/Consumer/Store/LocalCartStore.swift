@@ -78,8 +78,12 @@ class LocalCartStore {
         // assign quote number to line group
         // create new quote line for each product
         // assign quote line group to each quote line
-        
-        self.getOrCreateNewOpportunity(forAccount: account) { (opportunity) in
+        guard let pricebook = PricebookStore.instance.freePricebook() else {
+            self.showError("Could not find pricebook")
+            completion(false)
+            return
+        }
+        self.getOrCreateNewOpportunity(forAccount: account, pricebook: pricebook) { (opportunity) in
             guard let opty = opportunity else {
                 self.showError("Unable to create or retrieve Opportunity record")
                 completion(false)
@@ -105,7 +109,7 @@ class LocalCartStore {
                     let mainItem = QuoteLineItem(withLineGroup: group, forProduct: productId, quantity: inProgress.quantity, lineNumber: 0)
                     QuoteLineItemStore.instance.upsertNewEntries(entry: mainItem)
                     for (index, option) in inProgress.options.enumerated() {
-                        guard let optionID = option.product.id else {
+                        guard let optionID = option.product.optionSKU else {
                             self.showError("Option missing product ID")
                             continue
                         }
@@ -150,7 +154,7 @@ class LocalCartStore {
 }
 
 extension LocalCartStore {
-    fileprivate func getOrCreateNewOpportunity(forAccount account:Account, completion:@escaping (Opportunity?) -> Void) {
+    fileprivate func getOrCreateNewOpportunity(forAccount account:Account, pricebook:Pricebook, completion:@escaping (Opportunity?) -> Void) {
         let inProgress = OpportunityStore.instance.opportunitiesInProgressForAccount(account)
         if inProgress.count == 0 {
             let newOpty = Opportunity()
@@ -158,6 +162,7 @@ extension LocalCartStore {
             newOpty.name = account.name
             newOpty.stage = .prospecting
             newOpty.closeDate = Date(timeIntervalSinceNow: 90001)
+            newOpty.pricebookId = pricebook.pricebookId
             let optyId = newOpty.externalId
             OpportunityStore.instance.createEntry(entry: newOpty, completion: { (syncState) in
                 if let complete = syncState?.isDone(), complete == true {
@@ -183,6 +188,8 @@ extension LocalCartStore {
             newQuote.opportunity = opportunity.id
             newQuote.account = account.accountId
             newQuote.pricebookId = opportunity.pricebookId
+            newQuote.lineItemsGrouped = true
+            newQuote.primaryQuote = true
             let newQuoteId = newQuote.externalId
             QuoteStore.instance.create(newQuote, completion: { (syncState) in
                 if let complete = syncState?.isDone(), complete == true {

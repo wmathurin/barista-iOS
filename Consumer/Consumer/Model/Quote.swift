@@ -24,8 +24,10 @@ class Quote: Record, StoreProtocol {
         case status = "SBQQ__Status__c"
         case key = "SBQQ__Key__c"
         case primaryQuote = "SBQQ__Primary__c"
+        case lineItemsGrouped = "SBQQ__LineItemsGrouped__c"
+        case netAmount = "SBQQ__NetAmount__c"
         
-        static let allFields = [createdById.rawValue, quoteId.rawValue, quoteNumber.rawValue, ownerId.rawValue, account.rawValue, opportunity.rawValue, pricebookId.rawValue, pricebook.rawValue, status.rawValue, key.rawValue, primaryQuote.rawValue]
+        static let allFields = [createdById.rawValue, quoteId.rawValue, quoteNumber.rawValue, ownerId.rawValue, account.rawValue, opportunity.rawValue, pricebookId.rawValue, pricebook.rawValue, status.rawValue, key.rawValue, primaryQuote.rawValue, lineItemsGrouped.rawValue, netAmount.rawValue]
     }
     
     var ownerId: String? {
@@ -68,6 +70,14 @@ class Quote: Record, StoreProtocol {
         get {return self.data[Field.primaryQuote.rawValue] as? Bool}
         set { self.data[Field.primaryQuote.rawValue] = newValue }
     }
+    var lineItemsGrouped: Bool? {
+        get {return self.data[Field.lineItemsGrouped.rawValue] as? Bool}
+        set { self.data[Field.lineItemsGrouped.rawValue] = newValue }
+    }
+    var netAmount: Float? {
+        get {return self.data[Field.netAmount.rawValue] as? Float}
+        set { self.data[Field.netAmount.rawValue] = newValue }
+    }
     
     override static var indexes: [[String : String]] {
         return super.indexes + [
@@ -84,7 +94,7 @@ class Quote: Record, StoreProtocol {
         return super.readFields + Field.allFields
     }
     override static var createFields: [String] {
-        return super.createFields + [Field.ownerId.rawValue, Field.account.rawValue, Field.opportunity.rawValue, Field.pricebookId.rawValue, Field.status.rawValue]
+        return super.createFields + [Field.ownerId.rawValue, Field.account.rawValue, Field.opportunity.rawValue, Field.pricebookId.rawValue, Field.status.rawValue, Field.primaryQuote.rawValue, Field.lineItemsGrouped.rawValue]
     }
     override static var updateFields: [String] {
         return super.updateFields + Field.allFields

@@ -32,6 +32,7 @@ class QuoteLineItem: Record, StoreProtocol {
         self.lineNumber = lineNumber
         self.product = productId
         self.quantity = quantity
+        self.quote = lineGroup.quote
     }
     
     required init() {

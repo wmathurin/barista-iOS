@@ -181,7 +181,7 @@ class AppDelegate : UIResponder, UIApplicationDelegate
         let progressView = SyncProgressViewController()
         self.window?.rootViewController = progressView
         
-        let storeCount = 10
+        let storeCount = 11
         var syncedCount = 0
         let syncCompletion:((SFSyncState?) -> Void) = { (syncState) in
             if let complete = syncState?.isDone(), complete == true {
@@ -202,14 +202,13 @@ class AppDelegate : UIResponder, UIApplicationDelegate
         ProductStore.instance.syncDown(completion: syncCompletion)
         ProductOptionStore.instance.syncDown(completion: syncCompletion)
         ProductCategoryAssociationStore.instance.syncDown(completion: syncCompletion)
-//        CategoryAttributeStore.instance.syncDown(completion: syncCompletion)
-//        CategoryAttributeValueStore.instance.syncDown(completion: syncCompletion)
         OrderStore.instance.syncDown(completion: syncCompletion)
         OrderItemStore.instance.syncDown(completion: syncCompletion)
         QuoteStore.instance.syncDown(completion: syncCompletion)
         QuoteLineItemStore.instance.syncDown(completion: syncCompletion)
         QuoteLineGroupStore.instance.syncDown(completion: syncCompletion)
         OpportunityStore.instance.syncDown(completion: syncCompletion)
+        PricebookStore.instance.syncDown(completion: syncCompletion)
         
     }
     
