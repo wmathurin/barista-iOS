@@ -39,6 +39,11 @@ class OrderMainViewController: BaseViewController {
         featuredItemImageView.mask(offset: 50, direction: .convex, side: .bottom)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.updateCartButton()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.featuredItemLabel.font = Theme.appBoldFont(14.0)
@@ -72,12 +77,12 @@ class OrderMainViewController: BaseViewController {
                 self.featuredProductNameLabel.text = featuredProduct.name
             })
         }
-
+    }
+    
+    func updateCartButton() {
         let cartCount = LocalCartStore.instance.cartCount()
-        if  cartCount > 0 {
-            self.cartButton.alpha = 1.0
-            self.cartButton.setTitle("\(cartCount)", for: .normal)
-        }
+        self.cartButton.alpha = CGFloat(cartCount)
+        self.cartButton.setTitle("\(cartCount)", for: .normal)
     }
     
     @objc func didPressCartButton() {
