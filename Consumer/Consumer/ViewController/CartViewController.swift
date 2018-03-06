@@ -115,8 +115,8 @@ extension CartViewController: UITableViewDataSource {
         // todo add business logic to handle size cost changes to main item
         // add option prices
         for option in item.options {
-            guard let name = option.product.productDescription else { continue }
-            if option.quantity > 1 {
+            guard let name = option.product.productDescription, let type = option.product.optionType else { continue }
+            if type == .integer {
                 cell.addOption("(\(option.quantity)) \(name)")
             } else {
                 cell.addOption(name)
