@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Common
 
 class CategoryCollectionViewCell: UICollectionViewCell {
     @IBOutlet private weak var categoryLabel: UILabel!

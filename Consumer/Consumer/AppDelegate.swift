@@ -13,6 +13,7 @@ import SalesforceSwiftSDK
 import SmartSync
 import Fabric
 import Crashlytics
+import Common
 
 // Fill these in when creating a new Connected Application on Force.com
 let RemoteAccessConsumerKey = "3MVG9GiqKapCZBwEZT176nS34X_t4BefRDodjdlqSKs1UNqpdQDnCnajD6T5jTxqm0R6_4uEYz7q9TSrm5Ymn";

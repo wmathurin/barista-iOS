@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Common
 
 enum ProductConfigureCellControlType {
     case unknown
