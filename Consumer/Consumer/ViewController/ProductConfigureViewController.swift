@@ -30,8 +30,7 @@ class ProductConfigureViewController: UIViewController {
             }
         }
     }
-//    fileprivate var selectedOptions: [ProductOption] = []
-//    fileprivate var selectedProducts: [LocalCartOption] = []
+    var dismissCompletion: (() -> Void)?
     
     fileprivate static let curveMaskHeight:CGFloat = 50.0
     fileprivate var gradientView = GradientView()
@@ -109,24 +108,38 @@ class ProductConfigureViewController: UIViewController {
     }
     
     @IBAction func didPressCloseButton(_ sender: UIButton) {
-        self.cancelOrdering()
+        self.close()
     }
     
     @IBAction func didPressFavoriteButton(_ sender: UIButton) {
     }
     
     @IBAction func didPressAddToCartButton(_ sender: UIButton) {
+        let activity = ActivityIndicatorView(frame: .zero)
+        activity.showIn(self.view)
+        activity.startAnimating()
         LocalCartStore.instance.commitToCart { (completedSuccessfully) in
-            // todo handle
+            DispatchQueue.main.async {
+                if completedSuccessfully {
+                    self.close()
+                } else {
+                    let alert = UIAlertController(title: "Error", message: "Could not add items to cart, please verify your selections and try again.", preferredStyle: .alert)
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
         }
     }
     
     @IBAction func didPressCancelButton(_ sender: UIButton) {
-        self.cancelOrdering()
+        self.close()
     }
     
-    fileprivate func cancelOrdering() {
-        self.dismiss(animated: true) {}
+    fileprivate func close() {
+        self.dismiss(animated: true) {
+            if let c = self.dismissCompletion {
+                c()
+            }
+        }
     }
     
     fileprivate func updateProductConfiguration(_ option:ProductOption, quantity:Int) {

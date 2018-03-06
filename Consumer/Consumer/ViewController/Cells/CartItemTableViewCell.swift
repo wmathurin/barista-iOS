@@ -75,7 +75,7 @@ class CartItemTableViewCell: UITableViewCell {
         optionLabel.font = Theme.appMediumFont(12.0)
         optionLabel.textColor = Theme.cartItemTextColor
         optionLabel.text = optionName
-        
+        self.optionsLabels.append(optionLabel)
         self.optionContainer.addArrangedSubview(optionLabel)
     }
     

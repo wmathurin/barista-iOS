@@ -45,6 +45,7 @@ class CartViewController: BaseViewController {
         payButton.titleLabel?.textColor = UIColor.white
         payButton.titleLabel?.font = Theme.appBoldFont(15.0)
         payButton.backgroundColor = Theme.appAccentColor01
+        payButton.addTarget(self, action: #selector(didPressCheckout), for: .touchUpInside)
         self.view.addSubview(payButton)
         
         self.tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
@@ -56,6 +57,24 @@ class CartViewController: BaseViewController {
         payButton.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
         payButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         payButton.heightAnchor.constraint(equalToConstant: 48.0).isActive = true
+    }
+    
+    @objc func didPressCheckout() {
+        self.cartStore.submitOrder { (completed) in
+            DispatchQueue.main.async {
+                var alert:UIAlertController!
+                if completed == true {
+                    alert = UIAlertController(title: "Submitted", message: "Your order has been succesfully placed. Thank You.", preferredStyle: .alert)
+                } else {
+                    alert = UIAlertController(title: "Error", message: "There was a problem submitting your order, please try again. Thank You.", preferredStyle: .alert)
+                }
+                let ok = UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+                    self.navigationController?.popViewController(animated: true)
+                })
+                alert.addAction(ok)
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {

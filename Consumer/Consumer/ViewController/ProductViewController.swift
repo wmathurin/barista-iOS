@@ -34,8 +34,38 @@ class ProductViewController: UIViewController {
         self.productTableView.separatorInset = UIEdgeInsets.zero
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.updateCartButton()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    func updateCartButton() {
+        let cartCount = LocalCartStore.instance.cartCount()
+        if  cartCount > 0 {
+            let button = UIButton(type: .custom)
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.setBackgroundImage(UIImage(named: "cart_selected"), for: .normal)
+            button.addTarget(self, action: #selector(didPressCartButton), for: .touchUpInside)
+            button.titleLabel?.font = Theme.cartButtonFont
+            button.setTitleColor(UIColor.white, for: .normal)
+            button.setTitle("\(cartCount)", for: .normal)
+            
+            let barButton = UIBarButtonItem(customView: button)
+            self.navigationItem.rightBarButtonItem = barButton
+        } else {
+            self.navigationItem.rightBarButtonItem = nil
+        }
+    }
+    
+    @objc func didPressCartButton() {
+        let items = LocalCartStore.instance.currentCart()
+        let cart = CartViewController(cart: items, cartStore: LocalCartStore.instance)
+        self.navigationController?.pushViewController(cart, animated: true)
     }
 
     // MARK: - Navigation
@@ -45,6 +75,9 @@ class ProductViewController: UIViewController {
             destination.product = product
             if let families = ProductOptionStore.instance.families(product) {
                 destination.productFamilies = families
+            }
+            destination.dismissCompletion = {
+                self.updateCartButton()
             }
         }
     }

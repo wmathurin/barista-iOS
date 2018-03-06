@@ -91,13 +91,21 @@ class Store<objectType: StoreProtocol> {
         record.locallyCreated = true
         syncEntry(entry: record, completion: completion)
     }
+    
+    func updateEntry<T:StoreProtocol>(entry: T, completion: SyncCompletion = nil) {
+        var record: T = entry
+        record.locallyUpdated = true
+        syncEntry(entry: record, completion: completion)
+    }
 
     func syncEntry<T:StoreProtocol>(entry: T, completion: SyncCompletion = nil) {
         var record: T = entry
         record.objectType = T.objectName
         store.upsertEntries([record.data], toSoup: T.objectName)
         syncUp() { syncState in
-            self.syncDown(completion: completion)
+            if let _ = syncState?.isDone() {
+                self.syncDown(completion: completion)
+            }
         }
     }
 

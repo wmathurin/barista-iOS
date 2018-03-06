@@ -125,7 +125,7 @@ class SliderControl: ProductConfigControlBase {
         let delta = initial.x - touchPoint.x
         var total = self.thumbXConstraint.constant - delta
         if total > self.frame.size.width {
-            total = self.frame.size.width
+            total = self.frame.size.width - 1.0 // keeps from overflowing
         } else if total < 0.0 {
             total = 0.0
         }

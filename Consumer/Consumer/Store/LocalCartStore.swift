@@ -57,10 +57,6 @@ class LocalCartStore {
         return cartItems
     }
     
-    func add(_ item:LocalCartItem) {
-        
-    }
-    
     func remove(_ item:LocalCartItem) {
         
     }
@@ -88,6 +84,7 @@ class LocalCartStore {
                     print("updating quantity for: \(self.inProgressItem!.options[index].product.productName) to: \(withOption.quantity)")
                     self.inProgressItem!.options[index].quantity = withOption.quantity
                 } else {
+                    print("removing quantity for: \(self.inProgressItem!.options[index].product.productName)")
                     self.inProgressItem!.options.remove(at: index)
                 }
             case .slider:
@@ -109,7 +106,6 @@ class LocalCartStore {
     
     func commitToCart(completion:@escaping (Bool) -> Void) {
         // todo - update with validation from platform
-        
         guard let account = AccountStore.instance.myAccount(), let inProgress = self.inProgressItem else {return}
         // rules
         // if no current opportunity, create new opportunity from logged in user
@@ -180,8 +176,32 @@ class LocalCartStore {
         
     }
     
-    func submitOrder() {
-
+    func submitOrder(completion:@escaping (Bool) -> Void) {
+        if let account = AccountStore.instance.myAccount(),
+            let opportunity = OpportunityStore.instance.opportunitiesInProgressForAccount(account).first,
+            let primary = opportunity.primaryQuote,
+            let quote = QuoteStore.instance.quoteFromId(primary) {
+            quote.status = .presented
+            opportunity.stage = .negotiationReview
+            QuoteStore.instance.updateEntry(entry: quote, completion: { (quoteSync) in
+                guard let quoteState = quoteSync else { return }
+                if quoteState.isDone() {
+                    OpportunityStore.instance.updateEntry(entry: opportunity, completion: { (optSync) in
+                        guard let optyState = quoteSync else { return }
+                        if optyState.isDone() {
+                            completion(true)
+                        } else if optyState.hasFailed() {
+                            self.showError("Failed syncing opportunity update")
+                            completion(false)
+                        }
+                    })
+                } else if quoteState.hasFailed() {
+                    self.showError("Failed syncing quote update")
+                    completion(false)
+                }
+            })
+            
+        }
     }
     
     func showError(_ reason:String) {

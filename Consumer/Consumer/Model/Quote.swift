@@ -9,6 +9,15 @@
 import Foundation
 import SmartStore
 
+enum QuoteStage: String {
+    case draft = "Draft"
+    case inReview = "In Review"
+    case approved = "Approved"
+    case denied = "Denied"
+    case presented = "Presented"
+    case accepted = "Accepted"
+}
+
 class Quote: Record, StoreProtocol {
     static let objectName: String = "SBQQ__Quote__c"
     
@@ -42,9 +51,9 @@ class Quote: Record, StoreProtocol {
         get {return self.data[Field.quoteId.rawValue] as? String}
         set { self.data[Field.quoteId.rawValue] = newValue }
     }
-    var status: String? {
-        get {return self.data[Field.status.rawValue] as? String}
-        set { self.data[Field.status.rawValue] = newValue }
+    var status: QuoteStage? {
+        get {return QuoteStage(rawValue: (self.data[Field.status.rawValue] as? String)!)}
+        set { self.data[Field.status.rawValue] = newValue?.rawValue }
     }
     var pricebookId: String? {
         get {return self.data[Field.pricebookId.rawValue] as? String}

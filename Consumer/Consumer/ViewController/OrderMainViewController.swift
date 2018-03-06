@@ -74,10 +74,8 @@ class OrderMainViewController: BaseViewController {
 
         let cartCount = LocalCartStore.instance.cartCount()
         if  cartCount > 0 {
-            DispatchQueue.main.async {
-                self.cartButton.alpha = 1.0
-                self.cartButton.setTitle("\(cartCount)", for: .normal)
-            }
+            self.cartButton.alpha = 1.0
+            self.cartButton.setTitle("\(cartCount)", for: .normal)
         }
     }
     

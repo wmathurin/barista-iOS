@@ -36,8 +36,9 @@ class Opportunity: Record, StoreProtocol {
         case stage = "StageName"
         case pricebook = "Pricebook2Id"
         case closeDate = "CloseDate"
+        case createdDate = "CreatedDate"
         
-        static let allFields = [accountName.rawValue, createdBy.rawValue, name.rawValue, orderGroupId.rawValue, ordered.rawValue, primaryQuote.rawValue, type.rawValue, stage.rawValue, pricebook.rawValue, closeDate.rawValue]
+        static let allFields = [accountName.rawValue, createdBy.rawValue, name.rawValue, orderGroupId.rawValue, ordered.rawValue, primaryQuote.rawValue, type.rawValue, stage.rawValue, pricebook.rawValue, closeDate.rawValue, createdDate.rawValue]
     }
     
     var accountName: String? {
@@ -94,7 +95,9 @@ class Opportunity: Record, StoreProtocol {
         return super.indexes + [
             ["path" : Field.accountName.rawValue, "type" : kSoupIndexTypeString],
             ["path" : Field.name.rawValue, "type" : kSoupIndexTypeString],
-            ["path" : Field.primaryQuote.rawValue, "type" : kSoupIndexTypeString]
+            ["path" : Field.primaryQuote.rawValue, "type" : kSoupIndexTypeString],
+            ["path" : Field.closeDate.rawValue, "type" : kSoupIndexTypeString],
+            ["path" : Field.createdDate.rawValue, "type" : kSoupIndexTypeString]
         ]
     }
     
@@ -102,11 +105,11 @@ class Opportunity: Record, StoreProtocol {
         return super.readFields + Field.allFields
     }
     override static var createFields: [String] {
-        return super.createFields + Field.allFields //[Field.accountName.rawValue, Field.name.rawValue]
+        return super.createFields + [Field.accountName.rawValue, Field.name.rawValue, Field.orderGroupId.rawValue, Field.ordered.rawValue, Field.primaryQuote.rawValue, Field.type.rawValue, Field.stage.rawValue, Field.pricebook.rawValue, Field.closeDate.rawValue]
     }
     override static var updateFields: [String] {
-        return super.updateFields + Field.allFields
+        return super.updateFields + [Field.name.rawValue, Field.orderGroupId.rawValue, Field.ordered.rawValue, Field.primaryQuote.rawValue, Field.type.rawValue, Field.stage.rawValue, Field.pricebook.rawValue, Field.closeDate.rawValue]
     }
     
-    static var orderPath: String = Field.accountName.rawValue
+    static var orderPath: String = Field.closeDate.rawValue
 }
