@@ -9,6 +9,7 @@
 import UIKit
 import CoreGraphics
 import SalesforceSDKCore
+import Common
 
 class OrderMainViewController: BaseViewController {
     
@@ -88,7 +89,7 @@ class OrderMainViewController: BaseViewController {
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationViewController: ProductViewController = segue.destination as? ProductViewController,
-            let category: Category = sender as? Category {
+            let category: ProductCategory = sender as? ProductCategory {
             destinationViewController.category = category
         }
     }

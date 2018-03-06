@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Common
+
 protocol CellSelectedProtocol {
     func selected(attribute: CategoryAttribute)
 }

@@ -24,6 +24,16 @@ target 'Consumer' do
   barista_pods
 end
 
+target 'Common' do
+  project 'Common/Common.xcodeproj'
+  barista_pods
+end
+
+target 'Provider' do
+  project 'Provider/Provider.xcodeproj'
+#  barista_pods
+end
+
 # Fix for xcode9/fmdb/sqlcipher/cocoapod issue - see https://discuss.zetetic.net/t/ios-11-xcode-issue-implicit-declaration-of-function-sqlite3-key-is-invalid-in-c99/2198/27
 post_install do | installer |
   print "SQLCipher: link Pods/Headers/sqlite3.h"

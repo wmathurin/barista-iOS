@@ -8,6 +8,7 @@
 
 import UIKit
 import SmartStore
+import Common
 
 class AccountViewController: UIViewController {
 

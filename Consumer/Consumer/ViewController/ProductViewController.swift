@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Common
 
 class ProductViewController: UIViewController {
 
@@ -16,7 +17,7 @@ class ProductViewController: UIViewController {
     
     var products: [Product?] = []
     
-    var category: Category? = nil {
+    var category: ProductCategory? = nil {
         didSet {
             self.products = ProductStore.instance.records(for: self.category)
         }
