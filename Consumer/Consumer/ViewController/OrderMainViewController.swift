@@ -77,6 +77,9 @@ class OrderMainViewController: BaseViewController {
                 self.featuredProductNameLabel.text = featuredProduct.name
             })
         }
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapFeaturedItem))
+        self.featuredItemImageView.addGestureRecognizer(tap)
     }
     
     func updateCartButton() {
@@ -89,6 +92,23 @@ class OrderMainViewController: BaseViewController {
         let items = LocalCartStore.instance.currentCart()
         let cart = CartViewController(cart: items, cartStore: LocalCartStore.instance)
         self.navigationController?.pushViewController(cart, animated: true)
+    }
+    
+    @objc func didTapFeaturedItem() {
+        guard let featured = ProductStore.instance.featuredProduct() else { return }
+        let storyboard = UIStoryboard(name: "ProductConfigureStoryboard", bundle: nil)
+        if let configVC = storyboard.instantiateInitialViewController() as? ProductConfigureViewController {
+            configVC.product = featured
+            if let families = ProductOptionStore.instance.families(featured) {
+                configVC.productFamilies = families
+            }
+            configVC.dismissCompletion = {
+                self.updateCartButton()
+            }
+            configVC.modalTransitionStyle = .coverVertical
+            configVC.modalPresentationStyle = .overCurrentContext
+            self.tabBarController?.present(configVC, animated: true, completion: nil)
+        }
     }
 
     // MARK: - Navigation

@@ -90,11 +90,8 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="250" id="jea-yz-ha9"/>
                                 </constraints>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="uBh-4r-mPH" appends="YES" id="9Sj-lN-hlG"/>
-                                </connections>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="92P-te-fEZ">
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="92P-te-fEZ">
                                 <rect key="frame" x="32" y="72" width="135.5" height="46"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8o0-ch-ZZ3">
@@ -111,6 +108,9 @@
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" notEnabled="YES"/>
+                                </accessibility>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="iQ3-9Z-eOd" secondAttribute="trailing" id="2rT-Oz-Ber"/>
                                     <constraint firstAttribute="bottom" secondItem="8o0-ch-ZZ3" secondAttribute="bottom" id="4IT-TI-hIi"/>
@@ -149,11 +149,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="suI-xF-REf" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="uBh-4r-mPH">
-                    <connections>
-                        <segue destination="ogV-Mb-bDj" kind="presentation" modalPresentationStyle="overFullScreen" id="TVA-Mc-tOS"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="60" y="200.14992503748127"/>
         </scene>
@@ -164,14 +159,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tv7-Gj-Kh7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="674" y="50"/>
-        </scene>
-        <!--ProductConfigureStoryboard-->
-        <scene sceneID="Uk1-gd-jZk">
-            <objects>
-                <viewControllerPlaceholder storyboardName="ProductConfigureStoryboard" id="ogV-Mb-bDj" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="DS9-Nj-7FK" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="776" y="346"/>
         </scene>
     </scenes>
     <resources>
