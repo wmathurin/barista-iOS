@@ -11,9 +11,26 @@ import UIKit
 class ProductConfigureViewController: UIViewController {
 
     var orderItem: OrderItem?
-    var product: Product?
-    var category: Category?
-    var categoryAttributes: [CategoryAttribute?] = []
+    var product: Product? {
+        didSet {
+            guard let p = product else {return}
+            let item = LocalCartItem(product: p, options: [], quantity: 1)
+            LocalCartStore.instance.beginConfiguring(item)
+        }
+    }
+    var productFamilies: [ProductFamily] = [] {
+        didSet {
+            for family in productFamilies {
+                for option in family.options {
+                    if let selected = option.selected, selected == true, let quantity = option.defaultQuantity {
+                        let defaultOption = LocalCartOption(product: option, quantity: quantity)
+                        LocalCartStore.instance.updateInProgressItem(defaultOption)
+                    }
+                }
+            }
+        }
+    }
+    var dismissCompletion: (() -> Void)?
     
     fileprivate static let curveMaskHeight:CGFloat = 50.0
     fileprivate var gradientView = GradientView()
@@ -83,7 +100,6 @@ class ProductConfigureViewController: UIViewController {
         self.productPriceLabel.text = "Free" // TODO pull from pricebook
         self.productDescriptionLabel.text = "Description lorem ipsum dolor sit amet, consectur adispicing elit. Aliquam convallis tortor vel risus tincidunt, nec commodo." // TODO pull from product description
         
-        self.categoryAttributes = CategoryAttributeStore.instance.attributes(for: category)
     }
 
     override func viewDidLayoutSubviews() {
@@ -92,27 +108,49 @@ class ProductConfigureViewController: UIViewController {
     }
     
     @IBAction func didPressCloseButton(_ sender: UIButton) {
-        self.cancelOrdering()
+        self.close()
     }
     
     @IBAction func didPressFavoriteButton(_ sender: UIButton) {
     }
     
     @IBAction func didPressAddToCartButton(_ sender: UIButton) {
+        let activity = ActivityIndicatorView(frame: .zero)
+        activity.showIn(self.view)
+        activity.startAnimating()
+        LocalCartStore.instance.commitToCart { (completedSuccessfully) in
+            DispatchQueue.main.async {
+                if completedSuccessfully {
+                    self.close()
+                } else {
+                    let alert = UIAlertController(title: "Error", message: "Could not add items to cart, please verify your selections and try again.", preferredStyle: .alert)
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+        }
     }
     
     @IBAction func didPressCancelButton(_ sender: UIButton) {
-        self.cancelOrdering()
+        self.close()
     }
     
-    fileprivate func cancelOrdering() {
-        self.dismiss(animated: true) {}
+    fileprivate func close() {
+        self.dismiss(animated: true) {
+            if let c = self.dismissCompletion {
+                c()
+            }
+        }
+    }
+    
+    fileprivate func updateProductConfiguration(_ option:ProductOption, quantity:Int) {
+        let selectedOption = LocalCartOption(product: option, quantity: quantity)
+        LocalCartStore.instance.updateInProgressItem(selectedOption)
     }
 }
 
 extension ProductConfigureViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.categoryAttributes.count
+        return self.productFamilies.count
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -132,40 +170,55 @@ extension ProductConfigureViewController: UITableViewDataSource, UITableViewDele
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
+        let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as! ProductConfigureTableViewCell
         var controlStyle: ProductConfigureCellControlType = .unknown
-        var maxValue: Int = 0
-        if let attribute: CategoryAttribute = self.categoryAttributes[indexPath.row], let attributeType = attribute.attributeType {
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as! ProductConfigureTableViewCell
-            cell.name = attribute.name
-            cell.imageURL = attribute.iconImageURL
-            
-            switch attributeType {
-            case .slider:
-                controlStyle = .slider
-                maxValue = 2
-            case .integer:
-                controlStyle = .increment
-                maxValue = 3
-            case .picklist, .multiselect:
-                controlStyle = .list
-                let values = CategoryAttributeValueStore.instance.attributes(for: attribute)
-                let names = values.map({ return $0.name ?? "" })
-                cell.listItems = names
+        
+        let family = self.productFamilies[indexPath.row]
+        cell.name = family.familyName
+        
+        switch family.type {
+        case .integer:
+            controlStyle = .increment
+            if let option = family.options.first {
+                cell.minValue = option.minQuantity
+                cell.maxValue = option.maxQuantity
+                cell.currentValue = option.defaultQuantity
             }
-            
-            
-            cell.controlStyle = (controlStyle, maxValue)
-            cell.controlClosure = { (value) in
-                print("updated value to: \(value)")
-                // todo update value on order item
-            }
-            cell.pickListClosure = { (index, name) in
-                print("selected list item: \(name) at index: \(index)")
-                // todo update value on order item
-            }
-            return cell
+        case .slider:
+            let labels:[String] = family.options.map({ return $0.productName ?? ""})
+            controlStyle = .slider
+            cell.sliderLabels = labels
+            cell.maxValue = labels.count
+        case .picklist, .multiselect:
+            let items:[String] = family.options.map({ return $0.productName ?? ""})
+            controlStyle = .list
+            cell.listItems = items
         }
-        return UITableViewCell()
+        cell.controlStyle = controlStyle
+
+        // todo
+//            cell.imageURL = attribute.iconImageURL
+
+        cell.controlClosure = { (value) in
+            print("updated value to: \(value)")
+            // todo update value on order item
+            var option:ProductOption!
+            if family.type == .integer {
+                option = family.options.first!
+            } else {
+                option = family.options[value]
+            }
+            self.updateProductConfiguration(option, quantity: value)
+        }
+        cell.pickListClosure = { (index, name) in
+            print("selected list item: \(name) at index: \(index)")
+            // todo update value on order item
+            // be sure to match index and name in case an item has a nil name
+            let option = family.options[index]
+            if let optionName = option.productName, optionName == name, let quantity = option.defaultQuantity {
+                self.updateProductConfiguration(option, quantity: quantity)
+            }
+        }
+        return cell
     }
 }

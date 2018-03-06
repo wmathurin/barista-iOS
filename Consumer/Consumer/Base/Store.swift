@@ -72,6 +72,14 @@ class Store<objectType: StoreProtocol> {
         completion?(nil)
     }
     
+    func upsertNewEntries<T:StoreProtocol>(entry: T, completion: SyncCompletion = nil) {
+        var record: T = entry
+        record.locallyCreated = true
+        record.objectType = T.objectName
+        store.upsertEntries([record.data], toSoup: T.objectName)
+        completion?(nil)
+    }
+    
     func deleteEntry<T:StoreProtocol>(entry: T, completion: SyncCompletion = nil) {
         var record: T = entry
         record.locallyDeleted = true
@@ -83,13 +91,21 @@ class Store<objectType: StoreProtocol> {
         record.locallyCreated = true
         syncEntry(entry: record, completion: completion)
     }
+    
+    func updateEntry<T:StoreProtocol>(entry: T, completion: SyncCompletion = nil) {
+        var record: T = entry
+        record.locallyUpdated = true
+        syncEntry(entry: record, completion: completion)
+    }
 
     func syncEntry<T:StoreProtocol>(entry: T, completion: SyncCompletion = nil) {
         var record: T = entry
         record.objectType = T.objectName
         store.upsertEntries([record.data], toSoup: T.objectName)
         syncUp() { syncState in
-            self.syncDown(completion: completion)
+            if let _ = syncState?.isDone() {
+                self.syncDown(completion: completion)
+            }
         }
     }
 
@@ -143,6 +159,18 @@ class Store<objectType: StoreProtocol> {
         let query:SFQuerySpec = SFQuerySpec.newSmartQuerySpec(queryString, withPageSize: 1)!
         var error: NSError? = nil
         let results: [Any] = store.query(with: query, pageIndex: UInt(index), error: &error)
+        guard error == nil else {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message:"fetch \(objectType.objectName) failed: \(error!.localizedDescription)")
+            return objectType()
+        }
+        return objectType.from(results)
+    }
+    
+    func record(forExternalId externalId: String?) -> objectType? {
+        guard let id = externalId else {return nil}
+        let query = SFQuerySpec.newExactQuerySpec(objectType.objectName, withPath: Record.Field.externalId.rawValue, withMatchKey: id, withOrderPath: objectType.orderPath, with: .descending, withPageSize: 1)
+        var error: NSError? = nil
+        let results: [Any] = store.query(with: query, pageIndex: 0, error: &error)
         guard error == nil else {
             SalesforceSwiftLogger.log(type(of:self), level:.error, message:"fetch \(objectType.objectName) failed: \(error!.localizedDescription)")
             return objectType()

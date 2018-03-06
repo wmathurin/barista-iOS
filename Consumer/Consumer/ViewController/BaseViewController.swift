@@ -14,6 +14,7 @@ class BaseViewController: UIViewController {
         super.viewDidLoad()
         self.navigationController?.navigationBar.backIndicatorImage = UIImage(named: "back01")?.withRenderingMode(.alwaysOriginal)
         self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "back01")?.withRenderingMode(.alwaysOriginal)
+        self.navigationController?.navigationBar.topItem?.title = ""
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         // Do any additional setup after loading the view.
     }

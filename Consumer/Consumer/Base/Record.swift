@@ -35,12 +35,15 @@ class Record {
         self.data = (data as! [Dictionary]).first!
     }
 
-    required init() { }
+    required init() {
+        self.externalId = UUID().uuidString
+    }
     
     var data: Dictionary = Dictionary<String,Any>()
 
     enum Field: String {
         case id = "Id"
+        case externalId = "MobileExternalId__c"
         case soupEntryId = "_soupEntryId"
         case soupLastModifiedDate = "_soupLastModifiedDate"
         case soupCreatedDate = "_soupCreatedDate"
@@ -52,9 +55,13 @@ class Record {
         case attributes = "attributes"
         case objectType = "type"
         
-        fileprivate static let allFields = [id.rawValue, modificationDate.rawValue]
+        fileprivate static let allFields = [id.rawValue, modificationDate.rawValue, externalId.rawValue]
     }
 
+    var externalId: String? {
+        get { return self.data[Field.externalId.rawValue] as? String }
+        set { data[Field.externalId.rawValue] = newValue }
+    }
     private(set) lazy var soupEntryId: Int? = self.data[Field.soupEntryId.rawValue] as? Int
     private(set) lazy var id: String? = self.data[Field.id.rawValue] as? String
     var objectType: String? {
@@ -97,6 +104,7 @@ class Record {
     class var indexes: [[String:String]] {
          return [["path" : Field.id.rawValue, "type" : kSoupIndexTypeString],
                  ["path" : Field.modificationDate.rawValue, "type" : kSoupIndexTypeInteger],
+                 ["path" : Field.externalId.rawValue, "type" : kSoupIndexTypeString],
                  ["path" : Field.soupEntryId.rawValue, "type" : kSoupIndexTypeString],
                  ["path" : Field.local.rawValue, "type" : kSoupIndexTypeInteger],
                  ["path" : Field.locallyCreated.rawValue, "type" : kSoupIndexTypeInteger],

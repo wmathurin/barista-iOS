@@ -36,6 +36,13 @@ class IncrementControl: ProductConfigControlBase {
             self.valueLabel.font = labelFont
         }
     }
+    override var currentValue: Int {
+        didSet {
+            self.valueLabel.text = "\(self.currentValue)"
+            self.updateControlLayout()
+        }
+    }
+    
     fileprivate var container = UIView()
     fileprivate var plusButton = UIImageView()
     fileprivate var minusButton = UIImageView()

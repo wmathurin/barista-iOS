@@ -24,4 +24,24 @@ class OpportunityStore: Store<Opportunity> {
         }
         return Opportunity.from(results)
     }
+    
+    func opportunitiesForAccount(_ account:Account) -> [Opportunity] {
+        guard let accountId = account.accountId else {return []}
+        let query = SFQuerySpec.newExactQuerySpec(Opportunity.objectName, withPath: Opportunity.Field.accountName.rawValue, withMatchKey: accountId, withOrderPath: Opportunity.orderPath, with: .descending, withPageSize: 100)
+        var error: NSError? = nil
+        let results: [Any] = store.query(with: query, pageIndex: 0, error: &error)
+        guard error == nil else {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message:"fetch \(Opportunity.objectName) failed: \(error!.localizedDescription)")
+            return []
+        }
+        return Opportunity.from(results)
+    }
+    
+    func opportunitiesInProgressForAccount(_ account:Account) -> [Opportunity] {
+        let accountOpportunities = self.opportunitiesForAccount(account)
+        let inProgress = accountOpportunities.filter { (opportunity) -> Bool in
+            return opportunity.stage == .prospecting
+        }
+        return inProgress
+    }
 }

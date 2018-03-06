@@ -9,6 +9,19 @@
 import Foundation
 import SmartStore
 
+enum OpportunityStage: String {
+    case prospecting = "Prospecting"
+    case qualification = "Qualification"
+    case needsAnalysis = "Needs Analysis"
+    case valueProposition = "Value Proposition"
+    case idDecisionMakes = "Id. Decision Makers"
+    case perceptionAnalysis = "Perception Analysis"
+    case proposalPriceQuote = "Proposal/Price Quote"
+    case negotiationReview = "Negotiation/Review"
+    case closedWon = "Closed Won"
+    case closedLost = "Closed Lost"
+}
+
 class Opportunity: Record, StoreProtocol {
     static let objectName: String = "Opportunity"
     
@@ -20,8 +33,12 @@ class Opportunity: Record, StoreProtocol {
         case ordered = "SBQQ__Ordered__c"
         case primaryQuote = "SBQQ__PrimaryQuote__c"
         case type = "Type"
+        case stage = "StageName"
+        case pricebook = "Pricebook2Id"
+        case closeDate = "CloseDate"
+        case createdDate = "CreatedDate"
         
-        static let allFields = [accountName.rawValue, createdBy.rawValue, name.rawValue, orderGroupId.rawValue, ordered.rawValue, primaryQuote.rawValue, type.rawValue]
+        static let allFields = [accountName.rawValue, createdBy.rawValue, name.rawValue, orderGroupId.rawValue, ordered.rawValue, primaryQuote.rawValue, type.rawValue, stage.rawValue, pricebook.rawValue, closeDate.rawValue, createdDate.rawValue]
     }
     
     var accountName: String? {
@@ -48,12 +65,39 @@ class Opportunity: Record, StoreProtocol {
         get { return self.data[Field.type.rawValue] as? String}
         set { self.data[Field.type.rawValue] = newValue}
     }
+    var stage: OpportunityStage? {
+        get { return OpportunityStage(rawValue: (self.data[Field.stage.rawValue] as? String)!)}
+        set { self.data[Field.stage.rawValue] = newValue?.rawValue}
+    }
+    var pricebookId: String? {
+        get { return self.data[Field.pricebook.rawValue] as? String}
+        set { self.data[Field.pricebook.rawValue] = newValue}
+    }
+    var closeDate: Date? {
+        get {
+            guard let date = self.data[Field.closeDate.rawValue] as? String else {return nil}
+            let formatter = DateFormatter()
+            formatter.timeZone = TimeZone(abbreviation: "GMT")
+            formatter.dateFormat = "yyyy-MM-dd"
+            return formatter.date(from: date)
+        }
+        set {
+            if let date = newValue {
+                let formatter = DateFormatter()
+                formatter.timeZone = TimeZone(abbreviation: "GMT")
+                formatter.dateFormat = "yyyy-MM-dd"
+                self.data[Field.closeDate.rawValue] = formatter.string(from: date)
+            }
+        }
+    }
     
     override static var indexes: [[String : String]] {
         return super.indexes + [
             ["path" : Field.accountName.rawValue, "type" : kSoupIndexTypeString],
             ["path" : Field.name.rawValue, "type" : kSoupIndexTypeString],
-            ["path" : Field.primaryQuote.rawValue, "type" : kSoupIndexTypeString]
+            ["path" : Field.primaryQuote.rawValue, "type" : kSoupIndexTypeString],
+            ["path" : Field.closeDate.rawValue, "type" : kSoupIndexTypeString],
+            ["path" : Field.createdDate.rawValue, "type" : kSoupIndexTypeString]
         ]
     }
     
@@ -61,11 +105,11 @@ class Opportunity: Record, StoreProtocol {
         return super.readFields + Field.allFields
     }
     override static var createFields: [String] {
-        return super.createFields + [Field.accountName.rawValue, Field.name.rawValue]
+        return super.createFields + [Field.accountName.rawValue, Field.name.rawValue, Field.orderGroupId.rawValue, Field.ordered.rawValue, Field.primaryQuote.rawValue, Field.type.rawValue, Field.stage.rawValue, Field.pricebook.rawValue, Field.closeDate.rawValue]
     }
     override static var updateFields: [String] {
-        return super.updateFields + Field.allFields
+        return super.updateFields + [Field.name.rawValue, Field.orderGroupId.rawValue, Field.ordered.rawValue, Field.primaryQuote.rawValue, Field.type.rawValue, Field.stage.rawValue, Field.pricebook.rawValue, Field.closeDate.rawValue]
     }
     
-    static var orderPath: String = Field.accountName.rawValue
+    static var orderPath: String = Field.closeDate.rawValue
 }

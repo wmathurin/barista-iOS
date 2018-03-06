@@ -17,13 +17,30 @@ class QuoteLineItem: Record, StoreProtocol {
         case description = "SBQQ__Description__c"
         case favorite = "SBQQ__Favorite__c"
         case group = "SBQQ__Group__c"
-        case lineNumber = "Name"
+        case lineNumber = "SBQQ__Number__c"
         case product = "SBQQ__Product__c"
         case quantity = "SBQQ__Quantity__c"
         case quote = "SBQQ__Quote__c"
         case netTotal = "SBQQ__NetTotal__c"
         
         static let allFields = [createdById.rawValue, description.rawValue, favorite.rawValue, group.rawValue, lineNumber.rawValue, product.rawValue, quantity.rawValue, quote.rawValue, netTotal.rawValue]
+    }
+    
+    init(withLineGroup lineGroup:QuoteLineGroup, forProduct productId:String, quantity:Int, lineNumber:Int?) {
+        super.init()
+        self.group = lineGroup.id
+        self.lineNumber = lineNumber
+        self.product = productId
+        self.quantity = quantity
+        self.quote = lineGroup.quote
+    }
+    
+    required init() {
+        super.init()
+    }
+    
+    required init(data: [Any]) {
+        super.init(data: data)
     }
     
     var description: String? {
@@ -67,7 +84,7 @@ class QuoteLineItem: Record, StoreProtocol {
         return super.readFields + Field.allFields
     }
     override static var createFields: [String] {
-        return super.createFields + [Field.description.rawValue, Field.favorite.rawValue, Field.group.rawValue, Field.product.rawValue, Field.quantity.rawValue, Field.quote.rawValue]
+        return super.createFields + Field.allFields //[Field.description.rawValue, Field.favorite.rawValue, Field.group.rawValue, Field.product.rawValue, Field.quantity.rawValue, Field.quote.rawValue]
     }
     override static var updateFields: [String] {
         return super.updateFields + Field.allFields

@@ -104,7 +104,7 @@ class AccountViewController: UIViewController {
             quote.ownerId = firstOwnerId
             quote.account = firstAccount
             quote.pricebookId = firstPricebook
-            quote.status = "Draft"
+            quote.status = .draft
             
             QuoteStore.instance.create(quote, completion: { (syncState) in
                 print("syncState: \(syncState)")

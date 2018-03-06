@@ -11,19 +11,14 @@ import UIKit
 class CartViewController: BaseViewController {
     
     fileprivate var tableView = UITableView(frame: .zero, style: .plain)
-    fileprivate var order:Order
-    fileprivate var orderStore:OrderStore
-    fileprivate var itemStore:OrderItemStore
-    fileprivate var orderItems:[OrderItem]
+    fileprivate var cartItems:[LocalCartItem?]
+    fileprivate var cartStore:LocalCartStore
     
-    init(order:Order, orderStore:OrderStore, itemStore:OrderItemStore) {
-        self.order = order
-        self.orderStore = orderStore
-        self.itemStore = itemStore
-        self.orderItems = itemStore.items(from: order)
+    init(cart:[LocalCartItem?], cartStore:LocalCartStore) {
+        self.cartItems = cart
+        self.cartStore = cartStore
         super.init(nibName: nil, bundle: nil)
     }
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -50,6 +45,7 @@ class CartViewController: BaseViewController {
         payButton.titleLabel?.textColor = UIColor.white
         payButton.titleLabel?.font = Theme.appBoldFont(15.0)
         payButton.backgroundColor = Theme.appAccentColor01
+        payButton.addTarget(self, action: #selector(didPressCheckout), for: .touchUpInside)
         self.view.addSubview(payButton)
         
         self.tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
@@ -61,6 +57,24 @@ class CartViewController: BaseViewController {
         payButton.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
         payButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         payButton.heightAnchor.constraint(equalToConstant: 48.0).isActive = true
+    }
+    
+    @objc func didPressCheckout() {
+        self.cartStore.submitOrder { (completed) in
+            DispatchQueue.main.async {
+                var alert:UIAlertController!
+                if completed == true {
+                    alert = UIAlertController(title: "Submitted", message: "Your order has been succesfully placed. Thank You.", preferredStyle: .alert)
+                } else {
+                    alert = UIAlertController(title: "Error", message: "There was a problem submitting your order, please try again. Thank You.", preferredStyle: .alert)
+                }
+                let ok = UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+                    self.navigationController?.popViewController(animated: true)
+                })
+                alert.addAction(ok)
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -88,17 +102,25 @@ extension CartViewController: UITableViewDelegate {
 
 extension CartViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.orderItems.count
+        return self.cartItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell") as! CartItemTableViewCell
-        let item = self.orderItems[indexPath.row]
-        guard let productId = item.productId else {return cell}
+        guard let item = self.cartItems[indexPath.row], let productId = item.product.productId else {return cell}
         let product = ProductStore.instance.product(from: productId)
         cell.itemName = product?.name
-        cell.description1 = "Description 1"
-        cell.description2 = "Description 2"
+        
+        // todo add business logic to handle size cost changes to main item
+        // add option prices
+        for option in item.options {
+            guard let name = option.product.productDescription else { continue }
+            if option.quantity > 1 {
+                cell.addOption("(\(option.quantity)) \(name)")
+            } else {
+                cell.addOption(name)
+            }
+        }
         cell.price = "FREE"
         return cell
     }
