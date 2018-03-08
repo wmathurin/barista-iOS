@@ -140,7 +140,7 @@ public class Store<objectType: StoreProtocol> {
                             SalesforceSwiftLogger.log(type(of:self), level:.error, message:"syncUp \(objectType.objectName) failed")
                         }
                         else {
-                            SalesforceSwiftLogger.log(type(of:self), level:.debug, message:"syncUp \(objectType.objectName) done")
+//                            SalesforceSwiftLogger.log(type(of:self), level:.debug, message:"syncUp \(objectType.objectName) done")
                         }
                     }
                     completion?(syncState)
@@ -149,7 +149,7 @@ public class Store<objectType: StoreProtocol> {
         }
         
         DispatchQueue.main.async(execute: {
-            let options: SFSyncOptions = SFSyncOptions.newSyncOptions(forSyncUp: objectType.readFields, mergeMode: .leaveIfChanged)
+            let options: SFSyncOptions = SFSyncOptions.newSyncOptions(forSyncUp: objectType.readFields, mergeMode: .overwrite)
             let target = SFSyncUpTarget.init(createFieldlist: objectType.createFields, updateFieldlist: objectType.updateFields)
             self.smartSync.syncUp(with: target, options: options, soupName: objectType.objectName, update: updateBlock)
         })

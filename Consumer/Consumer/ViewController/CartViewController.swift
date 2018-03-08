@@ -61,6 +61,9 @@ class CartViewController: BaseViewController {
     }
     
     @objc func didPressCheckout() {
+        let activity = ActivityIndicatorView(frame: .zero)
+        activity.showIn(self.view)
+        activity.startAnimating()
         self.cartStore.submitOrder { (completed) in
             DispatchQueue.main.async {
                 var alert:UIAlertController!
