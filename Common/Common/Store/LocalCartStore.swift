@@ -9,6 +9,7 @@
 import Foundation
 import SalesforceSDKCore
 import SalesforceSwiftSDK
+import SmartSync
 
 public class LocalCartStore {
     public static let instance = LocalCartStore()
@@ -152,11 +153,14 @@ public class LocalCartStore {
                         let lineItem = QuoteLineItem(withLineGroup: group, forProduct: optionID, quantity: option.quantity, lineNumber: index + 2)
                         QuoteLineItemStore.instance.upsertNewEntries(entry: lineItem)
                     }
+                    NSLog("syncing up quote lines")
                     QuoteLineItemStore.instance.syncUp(completion: { (syncUpState) in
                         if let complete = syncUpState?.isDone() {
+                            NSLog("syncing up quote lines - completed")
                             if complete == true {
                                 QuoteLineItemStore.instance.syncDown(completion: { (syncDownState) in
                                     if let complete = syncUpState?.isDone() {
+                                        NSLog("syncing down quote lines - completed")
                                         if complete == true {
                                             self.inProgressItem = nil
                                             completion(true)
@@ -177,30 +181,48 @@ public class LocalCartStore {
     }
     
     public func submitOrder(completion:@escaping (Bool) -> Void) {
+        NSLog("submitOrder")
         if let account = AccountStore.instance.myAccount(),
             let opportunity = OpportunityStore.instance.opportunitiesInProgressForAccount(account).first,
             let primary = opportunity.primaryQuote,
             let quote = QuoteStore.instance.quoteFromId(primary) {
             quote.status = .presented
             opportunity.stage = .negotiationReview
-            QuoteStore.instance.updateEntry(entry: quote, completion: { (quoteSync) in
-                guard let quoteState = quoteSync else { return }
-                if quoteState.isDone() {
-                    OpportunityStore.instance.updateEntry(entry: opportunity, completion: { (optSync) in
-                        guard let optyState = quoteSync else { return }
-                        if optyState.isDone() {
-                            completion(true)
-                        } else if optyState.hasFailed() {
-                            self.showError("Failed syncing opportunity update")
+            
+//            let storeCount = 2
+//            var syncedCount = 0
+//            let syncCompletion:((SFSyncState?) -> Void) = { (syncState) in
+//                if let complete = syncState?.isDone(), complete == true {
+//                    syncedCount = syncedCount + 1
+//                }
+//
+//                if syncedCount == storeCount {
+            NSLog("submitOrder - update quote entry")
+                    QuoteStore.instance.updateEntry(entry: quote, completion: { (quoteSync) in
+                        guard let quoteState = quoteSync else { return }
+                        if quoteState.isDone() {
+                            NSLog("submitOrder - quote sync completed")
+                            OpportunityStore.instance.updateEntry(entry: opportunity, completion: { (optSync) in
+                                guard let optyState = optSync else { return }
+                                if optyState.isDone() {
+                                    NSLog("submitOrder - opportunity sync completed")
+                                    completion(true)
+                                } else if optyState.hasFailed() {
+                                    self.showError("Failed syncing opportunity update")
+                                    completion(false)
+                                }
+                            })
+                        } else if quoteState.hasFailed() {
+                            self.showError("Failed syncing quote update")
                             completion(false)
                         }
                     })
-                } else if quoteState.hasFailed() {
-                    self.showError("Failed syncing quote update")
-                    completion(false)
-                }
-            })
-            
+//                }
+//            }
+//
+//            NSLog("submitOrder - syncing down")
+//            OpportunityStore.instance.syncDown(completion: syncCompletion)
+//            QuoteStore.instance.syncDown(completion: syncCompletion)
         }
     }
     
@@ -212,6 +234,7 @@ public class LocalCartStore {
 
 extension LocalCartStore {
     fileprivate func getOrCreateNewOpportunity(forAccount account:Account, pricebook:Pricebook, completion:@escaping (Opportunity?) -> Void) {
+        NSLog("getOrCreateNewOpportunity")
         let inProgress = OpportunityStore.instance.opportunitiesInProgressForAccount(account)
         if inProgress.count == 0 {
             let newOpty = Opportunity()
@@ -221,8 +244,10 @@ extension LocalCartStore {
             newOpty.closeDate = Date(timeIntervalSinceNow: 90001)
             newOpty.pricebookId = pricebook.pricebookId
             let optyId = newOpty.externalId
+            NSLog("creating new opportunity \(account.name)")
             OpportunityStore.instance.createEntry(entry: newOpty, completion: { (syncState) in
                 if let complete = syncState?.isDone(), complete == true {
+                    NSLog("create new opportunity - sync completed")
                     guard let synced = OpportunityStore.instance.record(forExternalId: optyId) else {
                         completion(nil)
                         return
@@ -231,13 +256,16 @@ extension LocalCartStore {
                 }
             })
         } else {
+            NSLog("returning existing opportunity")
             completion(inProgress.first!)
         }
     }
     
     fileprivate func getOrCreateNewQuote(forOpportunity opportunity:Opportunity, withAccount account:Account, completion:@escaping (Quote?) -> Void) {
+        NSLog("getOrCreateNewQuote")
         // assign opportunity primary quote and sync up
         if let primary = opportunity.primaryQuote, let quote = QuoteStore.instance.quoteFromId(primary) {
+            NSLog("returning exisitng quote")
             completion(quote)
         } else {
             let newQuote = Quote()
@@ -248,8 +276,10 @@ extension LocalCartStore {
             newQuote.lineItemsGrouped = true
             newQuote.primaryQuote = true
             let newQuoteId = newQuote.externalId
+            NSLog("creating new quote")
             QuoteStore.instance.create(newQuote, completion: { (syncState) in
                 if let complete = syncState?.isDone(), complete == true {
+                    NSLog("create new quote - sync completed")
                     guard let synced = QuoteStore.instance.record(forExternalId: newQuoteId) else {
                         completion(nil)
                         return
@@ -264,13 +294,16 @@ extension LocalCartStore {
     }
     
     fileprivate func createNewLineGroup(forQuote quote:Quote, completion:@escaping (QuoteLineGroup?) -> Void) {
+        NSLog("createNewLineGroup")
         let newLineGroup = QuoteLineGroup()
         newLineGroup.account = quote.account
         newLineGroup.groupName = self.inProgressItem?.product.name
         newLineGroup.quote = quote.quoteId
         let lineGroupId = newLineGroup.externalId
+        NSLog("creating new line group")
         QuoteLineGroupStore.instance.createEntry(entry: newLineGroup) { (syncState) in
             if let complete = syncState?.isDone(), complete == true {
+                NSLog("create new line group - sync completed")
                 guard let synced = QuoteLineGroupStore.instance.record(forExternalId: lineGroupId) else {
                     completion(nil)
                     return

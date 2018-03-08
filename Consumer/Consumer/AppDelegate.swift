@@ -82,7 +82,8 @@ class AppDelegate : UIResponder, UIApplicationDelegate
                     SFUserAccountManager.sharedInstance().logout()
                 }
                 
-                
+                SalesforceSwiftLogger.setLogLevel(.error)
+                SFSDKLogger.setLogLevel(.error)
             }.postLogout {  [unowned self] in
                 self.handleSdkManagerLogout()
             }.switchUser{ [unowned self] (fromUser: SFUserAccount?, toUser: SFUserAccount?) -> () in
@@ -199,7 +200,6 @@ class AppDelegate : UIResponder, UIApplicationDelegate
                     completion()
                 }
             }
-            
         }
         
         CategoryStore.instance.syncDown(completion: syncCompletion)
@@ -213,7 +213,6 @@ class AppDelegate : UIResponder, UIApplicationDelegate
         QuoteLineGroupStore.instance.syncDown(completion: syncCompletion)
         OpportunityStore.instance.syncDown(completion: syncCompletion)
         PricebookStore.instance.syncDown(completion: syncCompletion)
-        
     }
     
     func resetViewState(_ postResetBlock: @escaping () -> ())
