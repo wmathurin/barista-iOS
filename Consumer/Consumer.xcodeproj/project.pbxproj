@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		586B897C24BAAF7812576C33 /* Pods_Consumer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 404B08755157B08E53A42453 /* Pods_Consumer.framework */; };
+		A406EAB920570DBB00E0A850 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A406EAB820570DBB00E0A850 /* StringExtension.swift */; };
 		A43574292042836400F6C040 /* SyncProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43574282042836400F6C040 /* SyncProgressViewController.swift */; };
 		A435742B2042847300F6C040 /* PercentLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A435742A2042847300F6C040 /* PercentLine.swift */; };
 		A435742E204291C700F6C040 /* AnimationHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A435742D204291C700F6C040 /* AnimationHelpers.swift */; };
@@ -82,6 +83,7 @@
 		2B0262060C853D6DF04654D7 /* Pods-Consumer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Consumer.release.xcconfig"; path = "../Pods/Target Support Files/Pods-Consumer/Pods-Consumer.release.xcconfig"; sourceTree = "<group>"; };
 		404B08755157B08E53A42453 /* Pods_Consumer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Consumer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BD3A2E44F8D6A6A1571065C /* Pods-Consumer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Consumer.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-Consumer/Pods-Consumer.debug.xcconfig"; sourceTree = "<group>"; };
+		A406EAB820570DBB00E0A850 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		A43574282042836400F6C040 /* SyncProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncProgressViewController.swift; sourceTree = "<group>"; };
 		A435742A2042847300F6C040 /* PercentLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentLine.swift; sourceTree = "<group>"; };
 		A435742D204291C700F6C040 /* AnimationHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationHelpers.swift; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 				EEA6ECBB202B782C00E04FFD /* UIViewExtension.swift */,
 				EEB4A8B42037471200745515 /* UIButtonExtension.swift */,
 				EEB4A8B620374BCA00745515 /* ImageCache.swift */,
+				A406EAB820570DBB00E0A850 /* StringExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -476,6 +479,7 @@
 				EEB4A8B52037471200745515 /* UIButtonExtension.swift in Sources */,
 				A435742B2042847300F6C040 /* PercentLine.swift in Sources */,
 				A468710F201A514C00096408 /* InitialViewController.swift in Sources */,
+				A406EAB920570DBB00E0A850 /* StringExtension.swift in Sources */,
 				EEA6ECAB2028F06F00E04FFD /* ProductTableViewCell.swift in Sources */,
 				A468710D201A514C00096408 /* AppDelegate.swift in Sources */,
 				A435742E204291C700F6C040 /* AnimationHelpers.swift in Sources */,
