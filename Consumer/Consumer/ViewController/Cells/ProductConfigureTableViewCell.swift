@@ -151,12 +151,12 @@ class ProductConfigureTableViewCell: UITableViewCell {
         self.cellImageView.centerXAnchor.constraint(equalTo: self.contentView.leftAnchor, constant:30.0).isActive = true
         self.cellImageView.centerYAnchor.constraint(equalTo: self.contentView.topAnchor, constant:34.0).isActive = true
         
-        self.cellTitleLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant:60.0).isActive = true
+        self.cellTitleLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant:70.0).isActive = true
         self.cellTitleLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
         self.cellTitleLabel.heightAnchor.constraint(equalToConstant: 68.0).isActive = true
         
         self.listContentView.topAnchor.constraint(equalTo: self.cellTitleLabel.bottomAnchor).isActive = true
-        self.listContentView.leftAnchor.constraint(equalTo: self.cellTitleLabel.leftAnchor, constant:10.0).isActive = true
+        self.listContentView.leftAnchor.constraint(equalTo: self.cellTitleLabel.leftAnchor, constant:0.0).isActive = true
 
         self.listContentView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
         self.listContentHeightConstraint = self.listContentView.heightAnchor.constraint(equalToConstant: 0.0)
@@ -190,7 +190,7 @@ class ProductConfigureTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         var transform = CGAffineTransform.identity
         if self.listItems.count > 0 && self.listContentHeightConstraint.constant == 0.0 && selected == true {
-            self.listContentHeightConstraint.constant = CGFloat((self.listItems.count * 30) + 10)
+            self.listContentHeightConstraint.constant = CGFloat((self.listItems.count * 42) + 10)
             transform = transform.rotated(by: .pi)
         } else {
             self.listContentHeightConstraint.constant = 0.0

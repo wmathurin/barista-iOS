@@ -25,8 +25,10 @@ class ImageCache {
         }
         
         // check cached image
-        if let cachedImage = imageCache.object(forKey: urlString! as NSString) as? UIImage {
-            return cachedImage
+        
+        if let cachedImage = imageCache.object(forKey: urlString! as NSString) {
+            let image = UIImage(cgImage: cachedImage as! CGImage, scale: CGFloat(imageScale), orientation: UIImageOrientation.up)
+            return image
         }
         
         URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
@@ -34,9 +36,10 @@ class ImageCache {
                 SalesforceSwiftLogger.log(type(of:self) as! AnyClass, level:.error, message: "\(String(describing: url)) failed to download")
                 return
             }
-            if let image = UIImage(data: data!) {
-                imageCache.setObject(image, forKey: urlString! as NSString)
-                completion?(image)
+            if let image = UIImage(data: data!), let cgImage = image.cgImage {
+                imageCache.setObject(cgImage, forKey: urlString! as NSString)
+                let scaled = UIImage(cgImage: cgImage, scale: CGFloat(imageScale), orientation: UIImageOrientation.up)
+                completion?(scaled)
                 
             }
         }).resume()

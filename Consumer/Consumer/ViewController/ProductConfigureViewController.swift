@@ -36,6 +36,7 @@ class ProductConfigureViewController: UIViewController {
     fileprivate static let curveMaskHeight:CGFloat = 50.0
     fileprivate var gradientView = GradientView()
     @IBOutlet weak var productImageView: UIImageView!
+    fileprivate var productSubImageView = UIImageView()
     @IBOutlet weak var productConfigureContainerView: UIView!
     @IBOutlet weak var productNameLabel: UILabel!
     @IBOutlet weak var productPriceLabel: UILabel!
@@ -84,9 +85,19 @@ class ProductConfigureViewController: UIViewController {
         self.cancelButton.setTitleColor(Theme.cartCancelButtonTextColor, for: .normal)
         
         self.productImageView.clipsToBounds = true
-        self.productImageView.loadImageUsingCache(withUrl: self.product?.iconImageURL)
-        self.productImageView.layer.borderColor = UIColor.white.cgColor
-        self.productImageView.layer.borderWidth = 3
+        self.productImageView.image = UIImage(named: "detailBg")
+        self.productImageView.layer.borderColor = Theme.productConfigTopBgGradColor.cgColor
+        self.productImageView.layer.borderWidth = 4.0
+        
+        self.productSubImageView.translatesAutoresizingMaskIntoConstraints = false
+        self.productSubImageView.contentMode = .scaleAspectFit
+        self.productImageView.addSubview(self.productSubImageView)
+        self.productSubImageView.loadImageUsingCache(withUrl: self.product?.iconImageURL)
+        
+        self.productSubImageView.leftAnchor.constraint(equalTo: self.productImageView.leftAnchor, constant: 12.0).isActive = true
+        self.productSubImageView.rightAnchor.constraint(equalTo: self.productImageView.rightAnchor, constant: -12.0).isActive = true
+        self.productSubImageView.topAnchor.constraint(equalTo: self.productImageView.topAnchor, constant: 12.0).isActive = true
+        self.productSubImageView.bottomAnchor.constraint(equalTo: self.productImageView.bottomAnchor, constant: -12.0).isActive = true
         
         self.gradientView.leftAnchor.constraint(equalTo: self.productConfigureContainerView.leftAnchor).isActive = true
         self.gradientView.rightAnchor.constraint(equalTo: self.productConfigureContainerView.rightAnchor).isActive = true
@@ -99,7 +110,7 @@ class ProductConfigureViewController: UIViewController {
         
         self.productNameLabel.text = self.product?.name
         self.productPriceLabel.text = "Free" // TODO pull from pricebook
-        self.productDescriptionLabel.text = "Description lorem ipsum dolor sit amet, consectur adispicing elit. Aliquam convallis tortor vel risus tincidunt, nec commodo." // TODO pull from product description
+        self.productDescriptionLabel.text = self.product?.productDescription
         
     }
 
@@ -176,6 +187,17 @@ extension ProductConfigureViewController: UITableViewDataSource, UITableViewDele
         
         let family = self.productFamilies[indexPath.row]
         cell.name = family.familyName
+        
+        // todo - create object in platform to hold
+        var iconName = "https://s3-us-west-2.amazonaws.com/sf-ios-barista-dev/productfamilies/"
+        let familyName:String? = family.familyName.lowercased()
+            .replacingOccurrences(of: " ", with: "")
+            .stringByAddingPercentEncodingForURL()
+        if let name = familyName {
+            iconName.append(name)
+            iconName.append(".png")
+            cell.imageURL = iconName
+        }
         
         switch family.type {
         case .integer:

@@ -17,7 +17,7 @@ import Common
 
 // Fill these in when creating a new Connected Application on Force.com
 //let RemoteAccessConsumerKey = "3MVG9GiqKapCZBwEZT176nS34X_t4BefRDodjdlqSKs1UNqpdQDnCnajD6T5jTxqm0R6_4uEYz7q9TSrm5Ymn";
-let RemoteAccessConsumerKey = "3MVG9FG3dvS828gLhY0UxDI4pRM9tD6dJn2psaANBvasPB.saBsj9J.TKCf759Y8r78kregM_Ng_nzbltFZRi"
+let RemoteAccessConsumerKey = "3MVG9er.T8KbeePTyjpxAuJmo24kAKkzDbNG_hExqwflR.NeNm_EmJJf8Xx7OdEvtnCdcMKQ0rLAM7STHmOis"
 let OAuthRedirectURI        = "com.salesforce.barista.Consumer://oauth2/success";
 
 
@@ -82,8 +82,8 @@ class AppDelegate : UIResponder, UIApplicationDelegate
                     SFUserAccountManager.sharedInstance().logout()
                 }
                 
-                SalesforceSwiftLogger.setLogLevel(.error)
-                SFSDKLogger.setLogLevel(.error)
+//                SalesforceSwiftLogger.setLogLevel(.error)
+//                SFSDKLogger.setLogLevel(.error)
             }.postLogout {  [unowned self] in
                 self.handleSdkManagerLogout()
             }.switchUser{ [unowned self] (fromUser: SFUserAccount?, toUser: SFUserAccount?) -> () in
