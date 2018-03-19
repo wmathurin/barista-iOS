@@ -39,4 +39,15 @@ public class QuoteStore: Store<Quote> {
         }
         return Quote.from(results)
     }
+    
+    public func quotesFromOpportunityId(_ opportunityId:String) -> [Quote] {
+        let query = SFQuerySpec.newExactQuerySpec(Quote.objectName, withPath: Quote.Field.opportunity.rawValue, withMatchKey: opportunityId, withOrderPath: Quote.orderPath, with: .descending, withPageSize: 1)
+        var error: NSError? = nil
+        let results: [Any] = store.query(with: query, pageIndex: 0, error: &error)
+        guard error == nil else {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message:"fetch \(Quote.objectName) failed: \(error!.localizedDescription)")
+            return []
+        }
+        return Quote.from(results)
+    }
 }

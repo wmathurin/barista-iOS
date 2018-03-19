@@ -124,6 +124,23 @@ class ProductConfigureViewController: UIViewController {
     }
     
     @IBAction func didPressFavoriteButton(_ sender: UIButton) {
+        guard let product = self.product else { return }
+        self.favoriteButton.alpha = 0.0
+        let activity = UIActivityIndicatorView(activityIndicatorStyle: .white)
+        activity.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(activity)
+        activity.centerXAnchor.constraint(equalTo: self.favoriteButton.centerXAnchor).isActive = true
+        activity.centerYAnchor.constraint(equalTo: self.favoriteButton.centerYAnchor).isActive = true
+        activity.startAnimating()
+        FavoritesStore.instance.addNewFavorite(product) { (syncState) in
+            if let complete = syncState?.isDone(), complete == true {
+                DispatchQueue.main.async {
+                    activity.stopAnimating()
+                    activity.removeFromSuperview()
+                    self.favoriteButton.alpha = 1.0
+                }
+            }
+        }
     }
     
     @IBAction func didPressAddToCartButton(_ sender: UIButton) {

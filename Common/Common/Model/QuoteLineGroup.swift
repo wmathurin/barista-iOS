@@ -60,7 +60,7 @@ public class QuoteLineGroup: Record, StoreProtocol {
         return super.createFields + [Field.account.rawValue, Field.groupName.rawValue, Field.quote.rawValue]
     }
     public override static var updateFields: [String] {
-        return super.updateFields + Field.allFields
+        return super.updateFields + [Field.groupName.rawValue, Field.number.rawValue, Field.netTotal.rawValue]
     }
     
     public static var orderPath: String = Field.quote.rawValue

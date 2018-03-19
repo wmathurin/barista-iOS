@@ -12,6 +12,8 @@ import Common
 class FeaturedViewController: UIViewController {
 
     @IBOutlet weak var featuredProductTableView: UITableView!
+    fileprivate var refreshControl = UIRefreshControl()
+    fileprivate var gradientView = GradientView()
 
     var featuredProducts: [Product?] = [] {
         didSet {
@@ -21,19 +23,48 @@ class FeaturedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        featuredProductTableView.tableFooterView = UIView()
-        featuredProducts = ProductStore.instance.featuredProducts()
+        let gradientLayer = self.gradientView.layer as! CAGradientLayer
+        gradientLayer.colors = [Theme.productConfigTopBgGradColor.cgColor, Theme.productConfigBottomBgGradColor.cgColor]
+        self.view.insertSubview(self.gradientView, at: 0)
+        
+        self.gradientView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+        self.gradientView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        self.gradientView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        self.gradientView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        
+        self.featuredProductTableView.tableFooterView = UIView()
+        self.featuredProducts = ProductStore.instance.featuredProducts()
+        self.featuredProductTableView.backgroundColor = UIColor.clear
+        
+        self.refreshControl.tintColor = UIColor.white
+        self.refreshControl.addTarget(self, action: #selector(updateFeaturedProducts), for: .valueChanged)
+        self.featuredProductTableView.refreshControl = self.refreshControl
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = true
+        UIApplication.shared.statusBarStyle = .lightContent
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.isNavigationBarHidden = false
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @objc func updateFeaturedProducts() {
+        ProductStore.instance.syncDown { (syncState) in
+            NSLog("syncing down")
+            if let complete = syncState?.isDone(), complete == true {
+                NSLog("syncing completed")
+                DispatchQueue.main.async {
+                    self.refreshControl.endRefreshing()
+                    self.featuredProducts = ProductStore.instance.featuredProducts()
+                    self.featuredProductTableView.reloadData()
+                }
+            }
+        }
     }
-    */
 
 }
 
@@ -52,6 +83,7 @@ extension FeaturedViewController: UITableViewDataSource, UITableViewDelegate {
         if let product: Product = featuredProducts[indexPath.row] {
             cell.name = product.name
             cell.imageURL = indexPath.row % 2 == 0 ? product.featuredImageRightURL : product.featuredImageLeftURL
+            cell.nameLabel.textAlignment = indexPath.row % 2 == 0 ? .left : .right
         }
         
         return cell

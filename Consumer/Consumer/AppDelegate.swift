@@ -82,8 +82,8 @@ class AppDelegate : UIResponder, UIApplicationDelegate
                     SFUserAccountManager.sharedInstance().logout()
                 }
                 
-//                SalesforceSwiftLogger.setLogLevel(.error)
-//                SFSDKLogger.setLogLevel(.error)
+                SalesforceSwiftLogger.setLogLevel(.error)
+                SFSDKLogger.setLogLevel(.error)
             }.postLogout {  [unowned self] in
                 self.handleSdkManagerLogout()
             }.switchUser{ [unowned self] (fromUser: SFUserAccount?, toUser: SFUserAccount?) -> () in
@@ -186,7 +186,7 @@ class AppDelegate : UIResponder, UIApplicationDelegate
         let progressView = SyncProgressViewController()
         self.window?.rootViewController = progressView
         
-        let storeCount = 11
+        let storeCount = 12
         var syncedCount = 0
         let syncCompletion:((SFSyncState?) -> Void) = { (syncState) in
             if let complete = syncState?.isDone(), complete == true {
@@ -213,6 +213,7 @@ class AppDelegate : UIResponder, UIApplicationDelegate
         QuoteLineGroupStore.instance.syncDown(completion: syncCompletion)
         OpportunityStore.instance.syncDown(completion: syncCompletion)
         PricebookStore.instance.syncDown(completion: syncCompletion)
+        FavoritesStore.instance.syncDown(completion: syncCompletion)
     }
     
     func resetViewState(_ postResetBlock: @escaping () -> ())

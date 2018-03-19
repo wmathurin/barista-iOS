@@ -31,7 +31,6 @@ class OrderMainViewController: BaseViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.isNavigationBarHidden = false
-        UIApplication.shared.statusBarStyle = .default
     }
     
     override func viewDidLayoutSubviews() {
