@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A406EAE5205F761F00E0A850 /* FavoritesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A406EAE4205F761F00E0A850 /* FavoritesStore.swift */; };
+		A406EAE7205F763A00E0A850 /* UserFavorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = A406EAE6205F763A00E0A850 /* UserFavorite.swift */; };
 		A44358A2204F0E7200742823 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45F04B1204EF3F100074F13 /* Record.swift */; };
 		A44358A3204F0E8800742823 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45F04B2204EF3F100074F13 /* Store.swift */; };
 		A44358A4204F0E8E00742823 /* CategoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45F04A1204EF3D700074F13 /* CategoryStore.swift */; };
@@ -58,6 +60,8 @@
 
 /* Begin PBXFileReference section */
 		661B2FE672BE3D118953E48E /* Pods_Common.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Common.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A406EAE4205F761F00E0A850 /* FavoritesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesStore.swift; sourceTree = "<group>"; };
+		A406EAE6205F763A00E0A850 /* UserFavorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFavorite.swift; sourceTree = "<group>"; };
 		A45F046C204EF32A00074F13 /* Common.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Common.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A45F046F204EF32A00074F13 /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		A45F0470204EF32A00074F13 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -192,6 +196,7 @@
 				A45F049D204EF3B100074F13 /* LocalCartOption.swift */,
 				A45F049E204EF3B100074F13 /* Account.swift */,
 				A45F049F204EF3B100074F13 /* Pricebook.swift */,
+				A406EAE6205F763A00E0A850 /* UserFavorite.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -212,6 +217,7 @@
 				A45F04AD204EF3D700074F13 /* LocalCartStore.swift */,
 				A45F04AE204EF3D700074F13 /* AccountStore.swift */,
 				A45F04AF204EF3D700074F13 /* PricebookStore.swift */,
+				A406EAE4205F761F00E0A850 /* FavoritesStore.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -384,7 +390,9 @@
 				A44358B8204F0EC900742823 /* Theme.swift in Sources */,
 				A44358AE204F0EAE00742823 /* LocalCartStore.swift in Sources */,
 				A44358AF204F0EB000742823 /* AccountStore.swift in Sources */,
+				A406EAE7205F763A00E0A850 /* UserFavorite.swift in Sources */,
 				A44358B0204F0EB200742823 /* PricebookStore.swift in Sources */,
+				A406EAE5205F761F00E0A850 /* FavoritesStore.swift in Sources */,
 				A44358A6204F0E9400742823 /* ProductStore.swift in Sources */,
 				A44358B2204F0EB700742823 /* ProductCategoryAssociation.swift in Sources */,
 				A44358B4204F0EBB00742823 /* CategoryAttribute.swift in Sources */,

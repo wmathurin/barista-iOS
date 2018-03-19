@@ -13,7 +13,7 @@
         <!--Favorites-->
         <scene sceneID="S9H-LJ-2Xf">
             <objects>
-                <viewController title="Favorites" id="b06-b3-aba" sceneMemberID="viewController">
+                <viewController title="Favorites" id="b06-b3-aba" customClass="FavoritesViewController" customModule="Consumer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jfF-vC-Jog">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

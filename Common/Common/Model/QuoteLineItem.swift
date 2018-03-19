@@ -28,7 +28,7 @@ public class QuoteLineItem: Record, StoreProtocol {
     
     public init(withLineGroup lineGroup:QuoteLineGroup, forProduct productId:String, quantity:Int, lineNumber:Int?) {
         super.init()
-        self.group = lineGroup.id
+        self.group = lineGroup.externalId
         self.lineNumber = lineNumber
         self.product = productId
         self.quantity = quantity

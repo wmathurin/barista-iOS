@@ -20,6 +20,7 @@ public protocol StoreProtocol {
     var locallyUpdated: Bool {get set}
     var locallyDeleted: Bool {get set}
     var soupEntryId: Int? {get}
+    var externalId: String? {get set}
     static var indexes: [[String:String]] {get}
     static var orderPath: String {get}
     static var readFields: [String] {get}

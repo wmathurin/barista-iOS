@@ -33,7 +33,6 @@ public class Store<objectType: StoreProtocol> {
     
     public final var store: SFSmartStore {
         
-        
         let store = SFSmartStore.sharedStore(withName: kDefaultSmartStoreName) as! SFSmartStore
         SFSyncState.setupSyncsSoupIfNeeded(store)
         if (!store.soupExists(objectType.objectName)) {
@@ -74,6 +73,7 @@ public class Store<objectType: StoreProtocol> {
     
     public func upsertNewEntries<T:StoreProtocol>(entry: T, completion: SyncCompletion = nil) {
         var record: T = entry
+        record.local = true
         record.locallyCreated = true
         record.objectType = T.objectName
         store.upsertEntries([record.data], toSoup: T.objectName)
@@ -88,12 +88,21 @@ public class Store<objectType: StoreProtocol> {
 
     public func createEntry<T:StoreProtocol>(entry: T, completion: SyncCompletion = nil) {
         var record: T = entry
+        record.local = true
         record.locallyCreated = true
         syncEntry(entry: record, completion: completion)
     }
     
+    public func locallyUpdateEntry<T:StoreProtocol>(entry: T) {
+        var record: T = entry
+        record.local = true
+        record.locallyUpdated = true
+        self.upsertEntries(record: record)
+    }
+    
     public func updateEntry<T:StoreProtocol>(entry: T, completion: SyncCompletion = nil) {
         var record: T = entry
+        record.local = true
         record.locallyUpdated = true
         syncEntry(entry: record, completion: completion)
     }
@@ -153,6 +162,29 @@ public class Store<objectType: StoreProtocol> {
             let target = SFSyncUpTarget.init(createFieldlist: objectType.createFields, updateFieldlist: objectType.updateFields)
             self.smartSync.syncUp(with: target, options: options, soupName: objectType.objectName, update: updateBlock)
         })
+    }
+    
+    public func syncUpDownResolvingChildren<P:StoreProtocol, C:StoreProtocol>(parent:P, child: C, completion: SyncCompletion = nil) {
+        let parentExternalId = parent.externalId
+        self.syncUp { (upState) in
+            if let upComplete = upState?.isDone(), upComplete == true {
+                self.syncDown(completion: { (downState) in
+                    if let downComplete = downState?.isDone(), downComplete == true {
+                        if let synced = self.record(forExternalId: parentExternalId) {
+                            
+                        }
+                    }
+                })
+            }
+        }
+    }
+    
+    public func syncUpDown(completion: SyncCompletion) {
+        self.syncUp { (upState) in
+            if let upComplete = upState?.isDone(), upComplete == true {
+                self.syncDown(completion: completion)
+            }
+        }
     }
  
     public func record(index: Int) -> objectType {
