@@ -27,9 +27,7 @@ class AppDelegate : UIResponder, UIApplicationDelegate
 {
     var window: UIWindow?
     
-    override
-    init()
-    {
+    override init() {
         super.init()
         
         SalesforceSwiftSDKManager.initSDK()

@@ -51,4 +51,17 @@ public class OrderStore: Store<Order> {
         let pending = records.filter({$0.orderStatus() == .pending})
         return pending.last
     }
+    
+    public func incompleteOrders() -> [Order] {
+        let query: SFQuerySpec = SFQuerySpec.newAllQuerySpec(Order.objectName, withOrderPath: Order.orderPath, with: .descending, withPageSize: 100)
+        var error: NSError? = nil
+        let results: [Any] = store.query(with: query, pageIndex: 0, error: &error)
+        guard error == nil else {
+            SalesforceSwiftLogger.log(type(of:self), level:.error, message:"fetch \(Order.objectName) failed: \(error!.localizedDescription)")
+            return []
+        }
+        let records:[Order] = Order.from(results)
+        let incomplete = records.filter({$0.orderStatus() == .submitted})
+        return incomplete
+    }
 }

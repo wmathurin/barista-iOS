@@ -14,9 +14,9 @@ import SmartSync
 public class LocalCartStore {
     public static let instance = LocalCartStore()
     
-    fileprivate var inProgressItem:LocalCartItem?
-    fileprivate var itemQueue:[LocalCartItem] = []
-    fileprivate var syncingItem:LocalCartItem?
+    fileprivate var inProgressItem:LocalProductItem?
+    fileprivate var itemQueue:[LocalProductItem] = []
+    fileprivate var syncingItem:LocalProductItem?
     
     public func cartCount() -> Int {
         if let account = AccountStore.instance.myAccount(),
@@ -28,9 +28,9 @@ public class LocalCartStore {
         return 0
     }
     
-    public func currentCart() -> [LocalCartItem?] {
+    public func currentCart() -> [LocalProductItem?] {
         // will only show commited cart items. In progress items should be ignored
-        var cartItems:[LocalCartItem] = []
+        var cartItems:[LocalProductItem] = []
         if let account = AccountStore.instance.myAccount(),
             let opportunity = OpportunityStore.instance.opportunitiesInProgressForAccount(account).first,
             let primary = opportunity.primaryQuote {
@@ -38,16 +38,16 @@ public class LocalCartStore {
             for group in lineGroups {
                 guard let groupId = group.id else { continue }
                 let items = QuoteLineItemStore.instance.lineItemsForGroup(groupId)
-                var primaryItem:LocalCartItem?
+                var primaryItem:LocalProductItem?
                 for (index, item) in items.enumerated() {
                     guard let quantity = item.quantity,
                         let productId = item.product else { continue }
                     if index == 0 {
                         guard let product = ProductStore.instance.product(from: productId) else { break }
-                        primaryItem = LocalCartItem(product: product, options: [], quantity: quantity)
+                        primaryItem = LocalProductItem(product: product, options: [], quantity: quantity)
                     } else {
                         if let option = ProductOptionStore.instance.optionFromOptionalSKU(productId) {
-                            let optionItem = LocalCartOption(product: option, quantity: quantity)
+                            let optionItem = LocalProductOption(product: option, quantity: quantity)
                             primaryItem?.options.append(optionItem)
                         }
                     }
@@ -60,15 +60,15 @@ public class LocalCartStore {
         return cartItems
     }
     
-    public func remove(_ item:LocalCartItem) {
+    public func remove(_ item:LocalProductItem) {
         
     }
     
-    public func beginConfiguring(_ item:LocalCartItem) {
+    public func beginConfiguring(_ item:LocalProductItem) {
         self.inProgressItem = item
     }
     
-    public func updateInProgressItem(_ withOption:LocalCartOption) {
+    public func updateInProgressItem(_ withOption:LocalProductOption) {
         // todo - update with rules from platform
         
         //rules
@@ -107,7 +107,7 @@ public class LocalCartStore {
         }
     }
     
-    public func addItemToQueue(_ item:LocalCartItem, completion:@escaping (Bool) -> Void) {
+    public func addItemToQueue(_ item:LocalProductItem, completion:@escaping (Bool) -> Void) {
         self.itemQueue.append(item)
         self.checkQueue(completion: completion)
     }
@@ -127,11 +127,11 @@ public class LocalCartStore {
         }
     }
     
-    func removeItemFromQueue(_ item:LocalCartItem) {
+    func removeItemFromQueue(_ item:LocalProductItem) {
         
     }
     
-    func beginSync(_ item:LocalCartItem, completion:@escaping (Bool) -> Void) {
+    func beginSync(_ item:LocalProductItem, completion:@escaping (Bool) -> Void) {
         
     }
     

@@ -44,4 +44,10 @@ public class OpportunityStore: Store<Opportunity> {
         }
         return inProgress
     }
+    
+    public func opportunitiesInReview() -> [Opportunity] {
+        let allRecords = self.records()
+        let inReview = allRecords.filter({$0.stage == .negotiationReview})
+        return inReview
+    }
 }

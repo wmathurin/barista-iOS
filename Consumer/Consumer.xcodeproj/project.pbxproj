@@ -43,7 +43,6 @@
 		EEA6EC9520221FD300E04FFD /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA6EC9420221FD300E04FFD /* CategoryCollectionViewCell.swift */; };
 		EEA6EC972022236500E04FFD /* ProductStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEA6EC962022236500E04FFD /* ProductStoryboard.storyboard */; };
 		EEA6EC992022237F00E04FFD /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA6EC982022237F00E04FFD /* ProductViewController.swift */; };
-		EEA6EC9C202242E500E04FFD /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA6EC9B202242E500E04FFD /* UIImageViewExtension.swift */; };
 		EEA6EC9F2024FB9D00E04FFD /* FavoritesStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEA6EC9E2024FB9D00E04FFD /* FavoritesStoryboard.storyboard */; };
 		EEA6ECA12024FBFC00E04FFD /* FeaturedStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEA6ECA02024FBFC00E04FFD /* FeaturedStoryboard.storyboard */; };
 		EEA6ECA32024FC0600E04FFD /* AccountStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEA6ECA22024FC0600E04FFD /* AccountStoryboard.storyboard */; };
@@ -55,7 +54,6 @@
 		EEA6ECBC202B782C00E04FFD /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA6ECBB202B782C00E04FFD /* UIViewExtension.swift */; };
 		EEA6ECC0202BA36100E04FFD /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA6ECBF202BA36100E04FFD /* BaseTableViewCell.swift */; };
 		EEB4A8B52037471200745515 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB4A8B42037471200745515 /* UIButtonExtension.swift */; };
-		EEB4A8B720374BCA00745515 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB4A8B620374BCA00745515 /* ImageCache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,7 +122,6 @@
 		EEA6EC9420221FD300E04FFD /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		EEA6EC962022236500E04FFD /* ProductStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProductStoryboard.storyboard; sourceTree = "<group>"; };
 		EEA6EC982022237F00E04FFD /* ProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = "<group>"; };
-		EEA6EC9B202242E500E04FFD /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		EEA6EC9E2024FB9D00E04FFD /* FavoritesStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FavoritesStoryboard.storyboard; sourceTree = "<group>"; };
 		EEA6ECA02024FBFC00E04FFD /* FeaturedStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FeaturedStoryboard.storyboard; sourceTree = "<group>"; };
 		EEA6ECA22024FC0600E04FFD /* AccountStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AccountStoryboard.storyboard; sourceTree = "<group>"; };
@@ -136,7 +133,6 @@
 		EEA6ECBB202B782C00E04FFD /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		EEA6ECBF202BA36100E04FFD /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		EEB4A8B42037471200745515 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
-		EEB4A8B620374BCA00745515 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,10 +276,8 @@
 		EEA6EC9A202242BF00E04FFD /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				EEA6EC9B202242E500E04FFD /* UIImageViewExtension.swift */,
 				EEA6ECBB202B782C00E04FFD /* UIViewExtension.swift */,
 				EEB4A8B42037471200745515 /* UIButtonExtension.swift */,
-				EEB4A8B620374BCA00745515 /* ImageCache.swift */,
 				A406EAB820570DBB00E0A850 /* StringExtension.swift */,
 			);
 			path = Extension;
@@ -469,7 +463,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A4B5E0B720341B4200C62C69 /* GradientView.swift in Sources */,
-				EEB4A8B720374BCA00745515 /* ImageCache.swift in Sources */,
 				A4ED9C2C2035E7E600E52F58 /* ProductConfigControlBase.swift in Sources */,
 				A4B9A1BA203CAF6B004D2519 /* BaseViewController.swift in Sources */,
 				A4B9A1B6203AB534004D2519 /* ListItemControl.swift in Sources */,
@@ -479,7 +472,6 @@
 				A406EAE9205F7F9600E0A850 /* FavoritesViewController.swift in Sources */,
 				A4FA2DC520324A4300DCCC72 /* CartHeaderView.swift in Sources */,
 				A4FA2DC12031764E00DCCC72 /* CartViewController.swift in Sources */,
-				EEA6EC9C202242E500E04FFD /* UIImageViewExtension.swift in Sources */,
 				A4ED9C282035E56500E52F58 /* SliderControl.swift in Sources */,
 				A4FA2DF12033736500DCCC72 /* CartFooterView.swift in Sources */,
 				A4ED9C2A2035E57400E52F58 /* IncrementControl.swift in Sources */,

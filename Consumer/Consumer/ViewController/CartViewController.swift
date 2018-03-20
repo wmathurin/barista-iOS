@@ -12,10 +12,10 @@ import Common
 class CartViewController: BaseViewController {
     
     fileprivate var tableView = UITableView(frame: .zero, style: .plain)
-    fileprivate var cartItems:[LocalCartItem?]
+    fileprivate var cartItems:[LocalProductItem?]
     fileprivate var cartStore:LocalCartStore
     
-    init(cart:[LocalCartItem?], cartStore:LocalCartStore) {
+    init(cart:[LocalProductItem?], cartStore:LocalCartStore) {
         self.cartItems = cart
         self.cartStore = cartStore
         super.init(nibName: nil, bundle: nil)

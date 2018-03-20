@@ -15,7 +15,7 @@ class ProductConfigureViewController: UIViewController {
     var product: Product? {
         didSet {
             guard let p = product else {return}
-            let item = LocalCartItem(product: p, options: [], quantity: 1)
+            let item = LocalProductItem(product: p, options: [], quantity: 1)
             LocalCartStore.instance.beginConfiguring(item)
         }
     }
@@ -24,7 +24,7 @@ class ProductConfigureViewController: UIViewController {
             for family in productFamilies {
                 for option in family.options {
                     if let selected = option.selected, selected == true, let quantity = option.defaultQuantity {
-                        let defaultOption = LocalCartOption(product: option, quantity: quantity)
+                        let defaultOption = LocalProductOption(product: option, quantity: quantity)
                         LocalCartStore.instance.updateInProgressItem(defaultOption)
                     }
                 }
@@ -172,7 +172,7 @@ class ProductConfigureViewController: UIViewController {
     }
     
     fileprivate func updateProductConfiguration(_ option:ProductOption, quantity:Int) {
-        let selectedOption = LocalCartOption(product: option, quantity: quantity)
+        let selectedOption = LocalProductOption(product: option, quantity: quantity)
         LocalCartStore.instance.updateInProgressItem(selectedOption)
     }
 }
