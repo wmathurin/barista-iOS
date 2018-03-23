@@ -36,8 +36,7 @@ public class LocalCartStore {
             let primary = opportunity.primaryQuote {
             let lineGroups = QuoteLineGroupStore.instance.lineGroupsForQuote(primary)
             for group in lineGroups {
-                // doesn't work for offline items with missing sf id
-                guard let groupId = group.id else { continue }
+                guard let groupId = group.id ?? group.externalId else { continue }
                 let items = QuoteLineItemStore.instance.lineItemsForGroup(groupId)
                 var primaryItem:LocalProductItem?
                 for (index, item) in items.enumerated() {
@@ -108,33 +107,33 @@ public class LocalCartStore {
         }
     }
     
-    public func addItemToQueue(_ item:LocalProductItem, completion:@escaping (Bool) -> Void) {
-        self.itemQueue.append(item)
-        self.checkQueue(completion: completion)
-    }
+//    public func addItemToQueue(_ item:LocalProductItem, completion:@escaping (Bool) -> Void) {
+//        self.itemQueue.append(item)
+//        self.checkQueue(completion: completion)
+//    }
     
-    func checkQueue(completion:@escaping (Bool) -> Void) {
-        if self.syncingItem == nil, let first = self.itemQueue.first {
-            self.syncingItem = first
-            let syncCompletion:((Bool) -> Void) = { completed in
-                DispatchQueue.main.async {
-                    completion(completed)
-                    self.removeItemFromQueue(first)
-                    self.checkQueue(completion: completion)
-                }
-            }
-            self.beginSync(first, completion: syncCompletion)
-            completion(true)
-        }
-    }
+//    func checkQueue(completion:@escaping (Bool) -> Void) {
+//        if self.syncingItem == nil, let first = self.itemQueue.first {
+//            self.syncingItem = first
+//            let syncCompletion:((Bool) -> Void) = { completed in
+//                DispatchQueue.main.async {
+//                    completion(completed)
+//                    self.removeItemFromQueue(first)
+//                    self.checkQueue(completion: completion)
+//                }
+//            }
+//            self.beginSync(first, completion: syncCompletion)
+//            completion(true)
+//        }
+//    }
     
-    func removeItemFromQueue(_ item:LocalProductItem) {
-        
-    }
-    
-    func beginSync(_ item:LocalProductItem, completion:@escaping (Bool) -> Void) {
-        
-    }
+//    func removeItemFromQueue(_ item:LocalProductItem) {
+//
+//    }
+//
+//    func beginSync(_ item:LocalProductItem, completion:@escaping (Bool) -> Void) {
+//
+//    }
     
     public func commitToCart(completion:@escaping (Bool) -> Void) {
         // todo - update with validation from platform
@@ -189,24 +188,6 @@ public class LocalCartStore {
                     self.beginCartSyncUp(quote: newQuote, completion: { (completed) in
                         NSLog("cart sync up completed")
                     })
-//                    QuoteLineItemStore.instance.syncUp(completion: { (syncUpState) in
-//                        if let complete = syncUpState?.isDone() {
-//                            NSLog("syncing up quote lines - completed")
-//                            if complete == true {
-//                                QuoteLineItemStore.instance.syncDown(completion: { (syncDownState) in
-//                                    if let complete = syncUpState?.isDone() {
-//                                        NSLog("syncing down quote lines - completed")
-//                                        if complete == true {
-//                                            completion(true)
-//                                        } else {
-//                                            self.showError("Failed syncing down line items")
-//                                            completion(false)
-//                                        }
-//                                    }
-//                                })
-//                            }
-//                        }
-//                    })
                 })
                 
             })
@@ -252,26 +233,27 @@ public class LocalCartStore {
             let quote = QuoteStore.instance.quoteFromId(primary) {
             quote.status = .presented
             opportunity.stage = .negotiationReview
-            
-            NSLog("submitOrder - update quote entry")
-            QuoteStore.instance.updateEntry(entry: quote, completion: { (quoteSync) in
-                guard let quoteState = quoteSync else { return }
-                if quoteState.isDone() {
-                    NSLog("submitOrder - quote sync completed")
-                    OpportunityStore.instance.updateEntry(entry: opportunity, completion: { (optSync) in
-                        guard let optyState = optSync else { return }
-                        if optyState.isDone() {
-                            NSLog("submitOrder - opportunity sync completed")
-                            completion(true)
-                        } else if optyState.hasFailed() {
-                            self.showError("Failed syncing opportunity update")
-                            completion(false)
-                        }
-                    })
-                } else if quoteState.hasFailed() {
-                    self.showError("Failed syncing quote update")
-                    completion(false)
-                }
+            self.beginCartSyncUp(quote: quote, completion: { (completed) in
+                NSLog("submitOrder - update quote entry")
+                QuoteStore.instance.updateEntry(entry: quote, completion: { (quoteSync) in
+                    guard let quoteState = quoteSync else { return }
+                    if quoteState.isDone() {
+                        NSLog("submitOrder - quote sync completed")
+                        OpportunityStore.instance.updateEntry(entry: opportunity, completion: { (optSync) in
+                            guard let optyState = optSync else { return }
+                            if optyState.isDone() {
+                                NSLog("submitOrder - opportunity sync completed")
+                                completion(true)
+                            } else if optyState.hasFailed() {
+                                self.showError("Failed syncing opportunity update")
+                                completion(false)
+                            }
+                        })
+                    } else if quoteState.hasFailed() {
+                        self.showError("Failed syncing quote update")
+                        completion(false)
+                    }
+                })
             })
         }
     }
@@ -356,15 +338,5 @@ extension LocalCartStore {
         NSLog("creating new line group")
         QuoteLineGroupStore.instance.upsertNewEntries(entry: newLineGroup)
         completion(newLineGroup)
-//        QuoteLineGroupStore.instance.createEntry(entry: newLineGroup) { (syncState) in
-//            if let complete = syncState?.isDone(), complete == true {
-//                NSLog("create new line group - sync completed")
-//                guard let synced = QuoteLineGroupStore.instance.record(forExternalId: lineGroupId) else {
-//                    completion(nil)
-//                    return
-//                }
-//                completion(synced)
-//            }
-//        }
     }
 }
