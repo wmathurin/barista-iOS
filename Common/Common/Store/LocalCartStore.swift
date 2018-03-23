@@ -36,6 +36,7 @@ public class LocalCartStore {
             let primary = opportunity.primaryQuote {
             let lineGroups = QuoteLineGroupStore.instance.lineGroupsForQuote(primary)
             for group in lineGroups {
+                // doesn't work for offline items with missing sf id
                 guard let groupId = group.id else { continue }
                 let items = QuoteLineItemStore.instance.lineItemsForGroup(groupId)
                 var primaryItem:LocalProductItem?

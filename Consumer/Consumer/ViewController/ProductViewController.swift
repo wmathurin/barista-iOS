@@ -107,5 +107,6 @@ extension ProductViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: productSelectedSegueName, sender: products[indexPath.row])
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
