@@ -8,12 +8,12 @@
 
 import Foundation
 
-public struct LocalCartItem {
+public struct LocalProductItem {
     public let product:Product
-    public var options:[LocalCartOption]
+    public var options:[LocalProductOption]
     public var quantity:Int
     
-    public init(product:Product, options:[LocalCartOption], quantity:Int) {
+    public init(product:Product, options:[LocalProductOption], quantity:Int) {
         self.product = product
         self.options = options
         self.quantity = quantity

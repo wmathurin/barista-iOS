@@ -90,6 +90,15 @@ public class Opportunity: Record, StoreProtocol {
             }
         }
     }
+    public var createdDate: Date? {
+        get {
+            guard let date = self.data[Field.createdDate.rawValue] as? String else {return nil}
+            let formatter = DateFormatter()
+            formatter.timeZone = TimeZone(abbreviation: "GMT")
+            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+            return formatter.date(from: date)
+        }
+    }
     
     public override static var indexes: [[String : String]] {
         return super.indexes + [
@@ -105,11 +114,11 @@ public class Opportunity: Record, StoreProtocol {
         return super.readFields + Field.allFields
     }
     public override static var createFields: [String] {
-        return super.createFields + [Field.accountName.rawValue, Field.name.rawValue, Field.orderGroupId.rawValue, Field.ordered.rawValue, Field.primaryQuote.rawValue, Field.type.rawValue, Field.stage.rawValue, Field.pricebook.rawValue, Field.closeDate.rawValue]
+        return super.createFields + Field.allFields // [Field.accountName.rawValue, Field.name.rawValue, Field.orderGroupId.rawValue, Field.ordered.rawValue, Field.primaryQuote.rawValue, Field.type.rawValue, Field.stage.rawValue, Field.pricebook.rawValue, Field.closeDate.rawValue]
     }
     public override static var updateFields: [String] {
         return super.updateFields + [Field.name.rawValue, Field.orderGroupId.rawValue, Field.ordered.rawValue, Field.primaryQuote.rawValue, Field.type.rawValue, Field.stage.rawValue, Field.pricebook.rawValue, Field.closeDate.rawValue]
     }
     
-    public static var orderPath: String = Field.closeDate.rawValue
+    public static var orderPath: String = Field.createdDate.rawValue
 }

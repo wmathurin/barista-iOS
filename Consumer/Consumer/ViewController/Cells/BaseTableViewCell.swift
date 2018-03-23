@@ -9,10 +9,6 @@
 import UIKit
 import Common
 
-protocol CellSelectedProtocol {
-    func selected(attribute: CategoryAttribute)
-}
-
 class BaseTableViewCell: UITableViewCell {
 
     @IBOutlet weak var iconImageView: UIImageView!

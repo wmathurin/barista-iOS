@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct LocalCartOption {
+public struct LocalProductOption {
     public let product:ProductOption
     public var quantity:Int
     

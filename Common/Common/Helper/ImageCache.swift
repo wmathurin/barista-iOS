@@ -6,11 +6,10 @@
 //  Copyright © 2018 Salesforce. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import SalesforceSwiftSDK
 
-class ImageCache {
+public class ImageCache {
     
     static public func fetchImageUsingCache(withUrl urlString : String?, completion: ((UIImage?) -> ())? = nil) -> UIImage? {
         guard urlString != nil else {

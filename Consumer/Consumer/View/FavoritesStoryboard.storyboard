@@ -17,19 +17,7 @@
                     <view key="view" contentMode="scaleToFill" id="jfF-vC-Jog">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Favorites" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wcm-JX-wKU">
-                                <rect key="frame" x="153" y="323" width="69" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="wcm-JX-wKU" firstAttribute="centerY" secondItem="jfF-vC-Jog" secondAttribute="centerY" id="29z-nv-2nj"/>
-                            <constraint firstItem="wcm-JX-wKU" firstAttribute="centerX" secondItem="jfF-vC-Jog" secondAttribute="centerX" id="PuG-T2-LUn"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="AaY-kq-ydT"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Favorites" image="favoritesIcon" id="ZTS-1o-GcQ"/>

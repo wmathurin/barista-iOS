@@ -31,7 +31,7 @@ end
 
 target 'Provider' do
   project 'Provider/Provider.xcodeproj'
-#  barista_pods
+  barista_pods
 end
 
 # Fix for xcode9/fmdb/sqlcipher/cocoapod issue - see https://discuss.zetetic.net/t/ios-11-xcode-issue-implicit-declaration-of-function-sqlite3-key-is-invalid-in-c99/2198/27
