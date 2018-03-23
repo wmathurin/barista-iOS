@@ -54,7 +54,7 @@ class ViewController: UIViewController {
         self.view.addSubview(self.tableView)
         
         self.refreshControl.tintColor = UIColor.gray
-        self.refreshControl.addTarget(self, action: #selector(runSync), for: .valueChanged)
+        self.refreshControl.addTarget(self, action: #selector(runRefresh), for: .valueChanged)
         self.tableView.refreshControl = self.refreshControl
         
         self.completeButton.translatesAutoresizingMaskIntoConstraints = false
@@ -72,7 +72,8 @@ class ViewController: UIViewController {
         
         self.completeButton.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         self.completeButton.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-        self.completeButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        // hiding button for now
+        self.completeButton.topAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         self.completeButton.heightAnchor.constraint(equalToConstant: 80.0).isActive = true
     }
 
@@ -117,10 +118,16 @@ class ViewController: UIViewController {
         }
     }
     
-    @objc func runSync() {
+    @objc func runRefresh() {
+        self.runSync { () in
+            self.refreshControl.endRefreshing()
+        }
+    }
+    
+    func runSync(completion:@escaping () -> Void) {
         LocalOrderStore.instance.syncUpDownOrders {
             self.updateData()
-            self.refreshControl.endRefreshing()
+            completion()
         }
     }
 }
@@ -190,6 +197,9 @@ extension ViewController: UITableViewDataSource {
             //
             handler(true)
             self.updateData()
+            self.runSync(completion: {
+                //
+            })
         }
         completeAction.backgroundColor = Theme.appAccentColor01
         let config = UISwipeActionsConfiguration(actions: [completeAction])
