@@ -11,7 +11,9 @@ import Common
 
 class ViewController: UIViewController {
     
+    fileprivate let completeButton = UIButton(type: .custom)
     fileprivate var tableView = UITableView(frame: .zero, style: .plain)
+    fileprivate var refreshControl = UIRefreshControl()
     fileprivate var orders:[LocalOrder] = []
     
     override func viewDidLoad() {
@@ -19,9 +21,26 @@ class ViewController: UIViewController {
         
         self.view.backgroundColor = UIColor.white
         
-        let safe = self.view.safeAreaLayoutGuide
-        
         self.orders = LocalOrderStore.instance.currentOrders()
+        
+        let fauxNavBar = UIView()
+        fauxNavBar.translatesAutoresizingMaskIntoConstraints = false
+        fauxNavBar.backgroundColor = UIColor(displayP3Red: 246.0/255.0, green: 244.0/255.0, blue: 243.0/255.0, alpha: 1.0)
+        self.view.addSubview(fauxNavBar)
+        
+        fauxNavBar.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+        fauxNavBar.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        fauxNavBar.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        fauxNavBar.heightAnchor.constraint(equalToConstant: 80.0).isActive = true
+        
+        let navLabel = UILabel()
+        navLabel.translatesAutoresizingMaskIntoConstraints = false
+        navLabel.text = "Process Order"
+        navLabel.font = Theme.appMediumFont(24.0)
+        navLabel.textColor = UIColor(displayP3Red: 28.0/255.0, green: 15.0/255.0, blue: 11.0/255.0, alpha: 1.0)
+        fauxNavBar.addSubview(navLabel)
+        navLabel.centerXAnchor.constraint(equalTo: fauxNavBar.centerXAnchor).isActive = true
+        navLabel.bottomAnchor.constraint(equalTo: fauxNavBar.bottomAnchor, constant:-12.0).isActive = true
         
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
         self.tableView.backgroundColor = UIColor.clear
@@ -34,24 +53,27 @@ class ViewController: UIViewController {
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.view.addSubview(self.tableView)
         
-        let completeButton = UIButton(type: .custom)
-        completeButton.translatesAutoresizingMaskIntoConstraints = false
-        completeButton.setTitle("COMPLETE TOP ORDER", for: .normal)
-        completeButton.titleLabel?.textColor = UIColor.white
-        completeButton.titleLabel?.font = Theme.appBoldFont(15.0)
-        completeButton.backgroundColor = Theme.appAccentColor01
-        completeButton.addTarget(self, action: #selector(didPressCompleteTopOrder), for: .touchUpInside)
-        self.view.addSubview(completeButton)
+        self.refreshControl.tintColor = UIColor.gray
+        self.refreshControl.addTarget(self, action: #selector(runSync), for: .valueChanged)
+        self.tableView.refreshControl = self.refreshControl
+        
+        self.completeButton.translatesAutoresizingMaskIntoConstraints = false
+        self.completeButton.setTitle("COMPLETE TOP ORDER", for: .normal)
+        self.completeButton.titleLabel?.textColor = UIColor.white
+        self.completeButton.titleLabel?.font = Theme.appBoldFont(24.0)
+        self.completeButton.backgroundColor = Theme.appAccentColor01
+        self.completeButton.addTarget(self, action: #selector(didPressCompleteTopOrder), for: .touchUpInside)
+        self.view.addSubview(self.completeButton)
         
         self.tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         self.tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-        self.tableView.topAnchor.constraint(equalTo: safe.topAnchor).isActive = true
-        self.tableView.bottomAnchor.constraint(equalTo: completeButton.topAnchor).isActive = true
+        self.tableView.topAnchor.constraint(equalTo: fauxNavBar.bottomAnchor).isActive = true
+        self.tableView.bottomAnchor.constraint(equalTo: self.completeButton.topAnchor).isActive = true
         
-        completeButton.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-        completeButton.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-        completeButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        completeButton.heightAnchor.constraint(equalToConstant: 48.0).isActive = true
+        self.completeButton.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+        self.completeButton.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        self.completeButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        self.completeButton.heightAnchor.constraint(equalToConstant: 80.0).isActive = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -60,13 +82,68 @@ class ViewController: UIViewController {
     }
 
     @objc func didPressCompleteTopOrder() {
+        if let order = self.orders.first {
+            let activity = UIActivityIndicatorView(activityIndicatorStyle: .white)
+            activity.translatesAutoresizingMaskIntoConstraints = false
+            self.view.addSubview(activity)
+            activity.centerXAnchor.constraint(equalTo: self.completeButton.centerXAnchor).isActive = true
+            activity.centerYAnchor.constraint(equalTo: self.completeButton.centerYAnchor).isActive = true
+            activity.startAnimating()
+            self.completeButton.isUserInteractionEnabled = false
+            self.completeButton.setTitle("", for: .normal)
+            LocalOrderStore.instance.completeOrder(order, completion: { (completed) in
+                LocalOrderStore.instance.syncDownOrders(completion: {
+                    self.updateData()
+                })
+                DispatchQueue.main.async {
+                    activity.stopAnimating()
+                    activity.removeFromSuperview()
+                    self.completeButton.isUserInteractionEnabled = true
+                    self.completeButton.setTitle("COMPLETE TOP ORDER", for: .normal)
+                    
+                }
+            })
+        }
+    }
     
+    func completeLocally(order:LocalOrder) {
+        LocalOrderStore.instance.locallyCompleteOrder(order)
+    }
+    
+    func updateData() {
+        self.orders = LocalOrderStore.instance.currentOrders()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    @objc func runSync() {
+        LocalOrderStore.instance.syncUpDownOrders {
+            self.updateData()
+            self.refreshControl.endRefreshing()
+        }
     }
 }
 
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 100.0
+        return 1.0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footer = UIView()
+        footer.backgroundColor = UIColor(white: 0.5, alpha: 0.3)
+        return footer
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = UIView()
+        header.backgroundColor = UIColor(white: 0.5, alpha: 0.3)
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 1.0
     }
 }
 
@@ -77,11 +154,46 @@ extension ViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell") as! OrderTableViewCell
+        cell.selectionStyle = .none
         let order = self.orders[indexPath.row]
+        let opty = order.opportunity
+        
+        if let accountId = opty.accountName,
+            let account = AccountStore.instance.account(forAccountId: accountId),
+            let ownerId = account.ownerId,
+            let user = UserStore.instance.user(ownerId) {
+            let firstName = user.firstName
+            cell.customerName = firstName
+            if let photoUrl = user.appPhoto {
+                cell.profilePhoto = photoUrl
+            }
+        }
+        let time = opty.createdDate
+        if let waiting = time?.timeIntervalSinceNow {
+            let waitingString =  "\(UInt(floor(fabs(waiting)/60.0)))min"
+            
+            cell.timeWaiting = waitingString
+        }
         for item in order.orderItems {
             cell.add(product: item.product, options: item.options)
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let completeAction = UIContextualAction(style: .normal, title: "  COMPLETE  ") { (action, view, handler) in
+            let order = self.orders[indexPath.row]
+            self.completeLocally(order: order)
+            // Necessary due to limiations of swipe actions
+            self.orders.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .left)
+            //
+            handler(true)
+            self.updateData()
+        }
+        completeAction.backgroundColor = Theme.appAccentColor01
+        let config = UISwipeActionsConfiguration(actions: [completeAction])
+        return config
     }
 }
 

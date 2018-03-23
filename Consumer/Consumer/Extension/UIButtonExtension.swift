@@ -6,8 +6,8 @@
 //  Copyright © 2018 Salesforce. All rights reserved.
 //
 
-import Foundation
 import UIKit
+import Common
 
 extension UIButton {
     func loadBackgroundImageUsingCache(withUrl urlString: String, for controlState: UIControlState) {

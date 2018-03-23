@@ -160,7 +160,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func beginSyncDown(completion:@escaping () -> Void) {
-        LocalOrderStore.instance.beginSyncDown(completion: completion)
+        LocalOrderStore.instance.fullSyncDown(completion: completion)
     }
     
     func resetViewState(_ postResetBlock: @escaping () -> ()) {
