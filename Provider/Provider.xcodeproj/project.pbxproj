@@ -233,7 +233,7 @@
 				TargetAttributes = {
 					A45F03C5204EEFB500074F13 = {
 						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					A45F03D9204EEFB600074F13 = {
 						CreatedOnToolsVersion = 9.2;
@@ -483,11 +483,15 @@
 			baseConfigurationReference = BD71F32A174087F54F6F7947 /* Pods-Provider.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 5DFJC8MD3A;
 				INFOPLIST_FILE = Provider/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.salesforce.barista.Provider;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "f8447adf-ec7f-407c-a516-c2030a4c5bf5";
+				PROVISIONING_PROFILE_SPECIFIER = MM_Distribution;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -498,11 +502,15 @@
 			baseConfigurationReference = 23593A5F67BAB14F3CF6C2A5 /* Pods-Provider.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 5DFJC8MD3A;
 				INFOPLIST_FILE = Provider/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.salesforce.barista.Provider;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "f8447adf-ec7f-407c-a516-c2030a4c5bf5";
+				PROVISIONING_PROFILE_SPECIFIER = MM_Distribution;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};

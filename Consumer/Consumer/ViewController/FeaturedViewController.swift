@@ -88,4 +88,23 @@ extension FeaturedViewController: UITableViewDataSource, UITableViewDelegate {
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        guard let product = self.featuredProducts[indexPath.row] else { return }
+        let storyboard = UIStoryboard(name: "ProductConfigureStoryboard", bundle: nil)
+        if let configVC = storyboard.instantiateInitialViewController() as? ProductConfigureViewController {
+            configVC.product = product
+            if let families = ProductOptionStore.instance.families(product) {
+                configVC.productFamilies = families
+            }
+            configVC.dismissCompletion = {
+                
+            }
+            configVC.modalTransitionStyle = .coverVertical
+            configVC.modalPresentationStyle = .overCurrentContext
+            self.tabBarController?.present(configVC, animated: true, completion: nil)
+        }
+    }
 }
