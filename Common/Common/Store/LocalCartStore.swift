@@ -107,34 +107,6 @@ public class LocalCartStore {
         }
     }
     
-//    public func addItemToQueue(_ item:LocalProductItem, completion:@escaping (Bool) -> Void) {
-//        self.itemQueue.append(item)
-//        self.checkQueue(completion: completion)
-//    }
-    
-//    func checkQueue(completion:@escaping (Bool) -> Void) {
-//        if self.syncingItem == nil, let first = self.itemQueue.first {
-//            self.syncingItem = first
-//            let syncCompletion:((Bool) -> Void) = { completed in
-//                DispatchQueue.main.async {
-//                    completion(completed)
-//                    self.removeItemFromQueue(first)
-//                    self.checkQueue(completion: completion)
-//                }
-//            }
-//            self.beginSync(first, completion: syncCompletion)
-//            completion(true)
-//        }
-//    }
-    
-//    func removeItemFromQueue(_ item:LocalProductItem) {
-//
-//    }
-//
-//    func beginSync(_ item:LocalProductItem, completion:@escaping (Bool) -> Void) {
-//
-//    }
-    
     public func commitToCart(completion:@escaping (Bool) -> Void) {
         // todo - update with validation from platform
         guard let account = AccountStore.instance.myAccount(), let item = self.inProgressItem else {return}

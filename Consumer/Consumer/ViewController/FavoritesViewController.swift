@@ -105,15 +105,6 @@ extension FavoritesViewController: UITableViewDataSource {
         let product = ProductStore.instance.product(from: productId)
         cell.itemName = product?.name
 
-//        for option in item.options {
-//            guard let name = option.product.productDescription, let type = option.product.optionType else { continue }
-//            if type == .integer {
-//                cell.addOption("(\(option.quantity)) \(name)")
-//            } else {
-//                cell.addOption(name)
-//            }
-//        }
-//        cell.price = "FREE"
         return cell
     }
 }

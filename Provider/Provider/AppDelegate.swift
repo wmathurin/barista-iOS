@@ -14,8 +14,14 @@ import Fabric
 import Crashlytics
 import Common
 
+// Primary
+// SFDCOAuthLoginHost - app-data-4945-dev-ed.cs62.my.salesforce.com
 let RemoteAccessConsumerKey = "3MVG9er.T8KbeePTyjpxAuJmo2z4W_0qU75YSBGndHmK_XGtNql0S3MMSOyGY.Apu1xKLOuGQpT0occX1dgOQ"
 let OAuthRedirectURI        = "com.salesforce.barista.Provider://oauth2/success";
+
+// Backup
+// SFDCOAuthLoginHost - innovation-saas-8421-dev-ed.cs54.my.salesforce.com
+//let RemoteAccessConsumerKey = "3MVG9XmM8CUVepGaQs_Zw_6A0W73CMRjybtIuqOlXJ6m7yb9FSRjbrLnj388H9rOXzRJG6hbPY0KyXKi_orlr"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

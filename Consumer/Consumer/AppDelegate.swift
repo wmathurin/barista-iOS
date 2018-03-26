@@ -16,10 +16,14 @@ import Crashlytics
 import Common
 
 // Fill these in when creating a new Connected Application on Force.com
-//let RemoteAccessConsumerKey = "3MVG9GiqKapCZBwEZT176nS34X_t4BefRDodjdlqSKs1UNqpdQDnCnajD6T5jTxqm0R6_4uEYz7q9TSrm5Ymn";
+// Primary
+// SFDCOAuthLoginHost - app-data-4945-dev-ed.cs62.my.salesforce.com
 let RemoteAccessConsumerKey = "3MVG9er.T8KbeePTyjpxAuJmo24kAKkzDbNG_hExqwflR.NeNm_EmJJf8Xx7OdEvtnCdcMKQ0rLAM7STHmOis"
 let OAuthRedirectURI        = "com.salesforce.barista.Consumer://oauth2/success";
 
+// Backup
+// SFDCOAuthLoginHost - innovation-saas-8421-dev-ed.cs54.my.salesforce.com
+//let RemoteAccessConsumerKey = "3MVG9XmM8CUVepGaQs_Zw_6A0W73CMRjybtIurEoszHDXQg0I5rhxU2Ph1JaFesaFPFhRo3OhFXVzsT_dyTwc"
 
 
 @UIApplicationMain

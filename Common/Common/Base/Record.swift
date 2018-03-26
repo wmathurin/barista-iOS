@@ -153,9 +153,7 @@ public extension StoreProtocol {
                 return T.from(resultsDictionary)
             } else {
                 return T()
-            }
-//            return T.from($0 as! Dictionary<String, Any>)
-            
+            }            
         }
     }
     

@@ -236,9 +236,6 @@ extension ProductConfigureViewController: UITableViewDataSource, UITableViewDele
         }
         cell.controlStyle = controlStyle
 
-        // todo
-//            cell.imageURL = attribute.iconImageURL
-
         cell.controlClosure = { (value) in
             print("updated value to: \(value)")
             // todo update value on order item
